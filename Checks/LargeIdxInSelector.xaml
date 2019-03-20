@@ -95,21 +95,21 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The idx attribute is used to distinguish elements with the same selector based on their order in the interface hierarchy. This order can change if the elements on the screen change, so the value for the idx attribute should be kept to a low value to avoid the selection of wrong elements. This checks receives a threshold for the value of the idx attribute. &#xD;&#xA;For more about selectors, refer to https://studio.uipath.com/docs/ui-automation#section-selectors&#xA;&#xA;The steps to find large idx values are as follows:&#xA;1 - Get nodes that have the Selector attribute, which in turn contains the idx attribute&#xD;&#xA;3 - Verify whether the idx attribute value is greater than the specified threshold" DisplayName="Check for large idx attribute value in selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The idx attribute is used to distinguish elements with the same selector based on their order in the interface hierarchy. This order can change if the elements on the screen change, so the value for the idx attribute should be kept to a low value to avoid the selection of wrong elements. This checks receives a threshold for the value of the idx attribute. &#xA;For more about selectors, refer to https://studio.uipath.com/docs/ui-automation#section-selectors&#xA;&#xA;The steps to find large idx values are as follows:&#xA;1 - Get nodes that have the Selector attribute, which in turn contains the idx attribute&#xA;3 - Verify whether the idx attribute value is greater than the specified threshold" DisplayName="Check for large idx attribute value in selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
-      <Variable x:TypeArguments="ui:GenericValue" Name="IdxValueThreshold" />
+      <Variable x:TypeArguments="x:String" Name="IdxValueThreshold" />
     </Sequence.Variables>
     <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
-        <OutArgument x:TypeArguments="ui:GenericValue">[IdxValueThreshold]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[IdxValueThreshold]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="ui:GenericValue">[in_CheckArgument]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_CheckArgument]</InArgument>
       </Assign.Value>
     </Assign>
     <Assign sap2010:Annotation.AnnotationText="Retrieves nodes whose Selector attribute contains the string &quot;idx&quot;." sap2010:WorkflowViewState.IdRef="Assign_1">
@@ -182,7 +182,7 @@
                 </Assign>
               </If.Then>
             </If>
-            <If Condition="[CInt(IdxValue) &gt; IdxValueThreshold]" DisplayName="If the idx value is greater than the specified threshold" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[CInt(IdxValue) &gt; CInt(IdxValueThreshold)]" DisplayName="If the idx value is greater than the specified threshold" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_WorkflowFilename, InternalPath, NodeWithIdx.LocalName, in_Issue, in_Suggestion}]" DataTable="[io_dt_Issues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
               </If.Then>
@@ -191,7 +191,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d01DOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xMYXJnZUlkeEluU2VsZWN0b3IueGFtbCdmA8MBDgIBAWsFcg4CATBzBXoOAgEsewXBARICAQJwN3BJAgEzbThtSwIBMXgweE8CAS91MXVCAgEte5sBe+sBAgErgQELvgEWAgEDiAENjQElAgEljgENlQEWAgEhlgENlgGqAgIBG5cBDawBEgIBEa0BDbgBEgIBCrkBDb0BEgIBBIsBUosBYAIBKYoBUooBXwIBJ4gBwgKIAd8CAgEmkwE4kwFiAgEkkAE5kAFDAgEilgG4AZYBxAECAR+WAZEClgGnAgIBHZYBzQGWAeYBAgEclwHqAZcBjwICARKZARGgARoCARejARGqARoCAROtAZYCrQHMAgIBC68BEbYBGgIBDLkBG7kBRAIBBbsBEbsBiAICAQaeATyeAV4CARqbAT2bAUcCARioATyoAT0CARalAT2lAUcCARS0AT60AWECAQ+xAT+xAUwCAQ27AZ4BuwGuAQIBCLsBPLsBkwECAQc=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1dDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTGFyZ2VJZHhJblNlbGVjdG9yLnhhbWwnZgPDAQ4CAQFrBXIOAgEycwV6DgIBLnsFwQESAgECcDBwQgIBNW0xbUQCATN4MHhPAgExdTF1QgIBL3ubAXvrAQIBLYEBC74BFgIBA4gBDY0BJQIBJ44BDZUBFgIBI5YBDZYBqgICAR2XAQ2sARICAROtAQ24ARICAQy5AQ29ARICAQSLAVKLAWACASuKAVKKAV8CASmIAcICiAHfAgIBKJMBOJMBYgIBJpABOZABQwIBJJYBuAGWAcQBAgEhlgGRApYBpwICAR+WAc0BlgHmAQIBHpcB6gGXAY8CAgEUmQERoAEaAgEZowERqgEaAgEVrQGWAq0BzAICAQ2vARG2ARoCAQ65ARu5AUoCAQW7ARG7AYgCAgEIngE8ngFeAgEcmwE9mwFHAgEaqAE8qAE9AgEYpQE9pQFHAgEWtAE+tAFhAgERsQE/sQFMAgEPuwGeAbsBrgECAQq7ATy7AZMBAgEJ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

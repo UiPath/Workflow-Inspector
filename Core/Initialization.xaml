@@ -11,11 +11,11 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_dt_ProjectChecklist" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="out_ReportTemplateFilename" Type="OutArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowChecklist" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="out_dt_Issues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="out_ProjectPath" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Data about project checks: issue name, check filename, argument and suggestion" Name="out_dt_ProjectChecklist" Type="OutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of the report template file" Name="out_ReportTemplateFilename" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Data about workflow checks: issue name, check filename, argument and suggestion" Name="out_dt_WorkflowChecklist" Type="OutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Datatable that will be used to store the found issues" Name="out_dt_Issues" Type="OutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="out_ProjectPath" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -77,7 +77,7 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Prompts the user for the project folder, builds the issues table and initializes the check tables based on the selected checklist file." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <ui:SelectFolder DisplayName="Select Folder" sap2010:WorkflowViewState.IdRef="SelectFolder_2" SelectedFolder="[out_ProjectPath]" />
     <ui:BuildDataTable DataTable="[out_dt_Issues]" DisplayName="Build issues DataTable" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Workflow_x0020_File&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Internal_x0020_Path&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Activity_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Issue&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Suggestion&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Initialize Checklist" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Core\InitializeChecklist.xaml">
@@ -87,22 +87,23 @@
         <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[out_ReportTemplateFilename]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0dDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENvcmVcSW5pdGlhbGl6YXRpb24ueGFtbApQA1sOAgEBUQVRiAECAQ1SBVKADQIBClMFWR0CAQJRclGFAQIBDlIiUjMCAQtVV1VxAgEIV1RXcAIBBlOxAVPQAQIBBVZWVm8CAQM=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWwKUANbDgIBAVEFUYgBAgENUgVSgA0CAQpTBVkdAgECUXJRhQECAQ5SIlIzAgELVVdVcQIBCFdUV3ACAQZTsQFT0AECAQVWVlZvAgED</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="SelectFolder_2" sap:VirtualizedContainerService.HintSize="314,22" />
       <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,371.333333333333">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,433.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="376,451.333333333333" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="376,513.333333333333" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

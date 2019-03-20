@@ -64,7 +64,7 @@
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_5">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xD;&#xA;&#xD;&#xA;The architecture is composed by three main components:&#xD;&#xA;-Initialization: Reads configuration files and initializes the issues table&#xD;&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xD;&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xD;&#xA;&#xD;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_5">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
       <Variable x:TypeArguments="x:String" Name="ProjectPath" />
@@ -104,7 +104,7 @@
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>dzhDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXE1haW4ueGFtbBhDA2wOAgEBSwVTHQIBG1QFYxACAQpkBWodAgECUEtQVgIBJU5UTmwCASNRSVFWAgEhTVVNagIBH0urAUvFAQIBHk9WT2wCARxVB1sfAgETXAdiHwIBC2ZJZlQCAQhoR2hUAgEGZ1JnagIBBGSnAWS8AQIBA1lOWVkCARlXVVdqAgEXWElYVgIBFVWtAVXGAQIBFF9OX1kCARFgVmBsAgEPXkleVgIBDVyuAVzIAQIBDA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYQwNsDgIBAUsFUx0CARtUBWMQAgEKZAVqHQIBAlBLUFYCASVOVE5sAgEjUUlRVgIBIU1VTWoCAR9LqwFLxQECAR5PVk9sAgEcVQdbHwIBE1wHYh8CAQtmSWZUAgEIaEdoVAIBBmdSZ2oCAQRkpwFkvAECAQNZTllZAgEZV1VXagIBF1hJWFYCARVVrQFVxgECARRfTl9ZAgERYFZgbAIBD15JXlYCAQ1crgFcyAECAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -120,14 +120,15 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="336,86.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="358,714.666666666667">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="358,960">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,794.666666666667" />
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,1080" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

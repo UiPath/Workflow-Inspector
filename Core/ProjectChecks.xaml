@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_dt_ProjectChecklist" Type="InArgument(sd:DataTable)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Data about project checks: issue name, check filename, argument and suggestion" Name="in_dt_ProjectChecklist" Type="InArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Datatable that will be used to store the found issues" Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -75,7 +75,7 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Performs the project-wide checks using the specified project." DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_dt_ProjectChecklist]" DisplayName="For Each Project Check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
@@ -94,7 +94,7 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <sads:DebugSymbol.Symbol>d0ZDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENvcmVcUHJvamVjdENoZWNrcy54YW1sCk4DYg4CAQFPBWAVAgECTzZPUAIBDFULXSMCAQNZTFlmAgELWFJYYAIBCVdPV2kCAQhbTVtdAgEGVc4DVeoDAgEFWkdaYQIBBA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbApOA2IOAgEBTwVgFQIBAk82T1ACAQxVC10jAgEDWUxZZgIBC1hSWGACAQlXT1dpAgEIW01bXQIBBlXOA1XqAwIBBVpHWmECAQQ=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -113,14 +113,15 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="366.666666666667,475.333333333333">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="366.666666666667,504">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="406.666666666667,555.333333333333" />
+      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="406.666666666667,584" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

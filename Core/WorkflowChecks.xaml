@@ -12,9 +12,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
-    <x:Property Name="in_dt_WorkflowChecklist" Type="InArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Datatable that will be used to store the found issues" Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Data about workflow checks: issue name, check filename, argument and suggestion" Name="in_dt_WorkflowChecklist" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -80,8 +80,8 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="Sequence_8">
-    <ParallelForEach x:TypeArguments="x:String" DisplayName="Parallel For Each" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+  <Sequence sap2010:Annotation.AnnotationText="Performs the workflow checks using the defined checklist." DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="Sequence_8">
+    <ParallelForEach x:TypeArguments="x:String" DisplayName="Parallel For Each" sap2010:WorkflowViewState.IdRef="ParallelForEach`1_2" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
       <ActivityAction x:TypeArguments="x:String">
         <ActivityAction.Argument>
           <DelegateInArgument x:TypeArguments="x:String" Name="WorkflowFilename" />
@@ -126,9 +126,8 @@
           </ui:ForEachRow>
         </Sequence>
       </ActivityAction>
-      <sap2010:WorkflowViewState.IdRef>ParallelForEach`1_2</sap2010:WorkflowViewState.IdRef>
     </ParallelForEach>
-    <sads:DebugSymbol.Symbol>d0dDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENvcmVcV29ya2Zsb3dDaGVja3MueGFtbBtTA4QBDgIBAVQFggEXAgECVFhUrwECASZZCX8UAgEDXwtfqwECASFgC2YjAgEZZwt+GwIBBF9jX3cCASRfJF84AgEiY1FjWgIBH2RiZHQCAR1iTmJgAgEbYLYBYM0BAgEaZzxnVwIBF20RexwCAQVuE274AQIBFW8TeisCAQZulQFu9QECARZ1VHVvAgEUd1p3bAIBEnRadGgCARBxV3FgAgEOc1dzcgIBDXJocnoCAQt4VXhlAgEJb9cDb/QDAgEIdk92agIBBw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwbUwODAQ4CAQFUBYEBFwIBAlSOAVTlAQIBJlkJfxQCAQNfC1+rAQIBIWALZiMCARlnC34bAgEEX2NfdwIBJF8kXzgCASJjUWNaAgEfZGJkdAIBHWJOYmACARtgtgFgzQECARpnPGdXAgEXbRF7HAIBBW4TbvgBAgEVbxN6KwIBBm6VAW71AQIBFnVUdW8CARR3WndsAgESdFp0aAIBEHFXcWACAQ5zV3NyAgENcmhyegIBC3hVeGUCAQlv1wNv9AMCAQh2T3ZqAgEH</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -159,14 +158,15 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ParallelForEach`1_2" sap:VirtualizedContainerService.HintSize="284,212.666666666667" />
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="306,336.666666666667">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="306,382">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="346,416.666666666667" />
+      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="346,462" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

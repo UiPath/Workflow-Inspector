@@ -118,7 +118,7 @@
         <InArgument x:TypeArguments="sx:XmlNode">[in_XMLTree.DocumentElement.SelectSingleNode(XPathExpression, in_NamespaceManager)]</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[TopLevelActivity.Attributes(&quot;Annotation.AnnotationText&quot;) Is Nothing]" sap2010:WorkflowViewState.IdRef="If_3">
+    <If Condition="[TopLevelActivity.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
         <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
           <Assign sap2010:Annotation.AnnotationText="The top level activity does not have an internal path, since it is the first activity in the workflow." sap2010:WorkflowViewState.IdRef="Assign_3">
@@ -133,7 +133,7 @@
         </Sequence>
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xNaXNzaW5nV29ya2Zsb3dBbm5vdGF0aW9uLnhhbWwQYwOJAQ4CAQFpBXAOAgEUcQV4DgIBDXkFhwEKAgECbjBuyAECARdrMWtCAgEVdjJ2hQECARBzM3NFAgEOeRN5ZAIBA3sJhQEUAgEEfAuDARQCAQmEAQuEAYcCAgEFgQE2gQE3AgEMfjd+RQIBCoQBnQGEAa0BAgEHhAE2hAGSAQIBBg==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1dvcmtmbG93QW5ub3RhdGlvbi54YW1sEGMDiQEOAgEBaQVwDgIBFHEFeA4CAQ15BYcBCgIBAm4wbsgBAgEXazFrQgIBFXYydoUBAgEQczNzRQIBDnkTeWwCAQN7CYUBFAIBBHwLgwEUAgEJhAELhAGHAgIBBYEBNoEBNwIBDH43fkUCAQqEAZ0BhAGtAQIBB4QBNoQBkgECAQY=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

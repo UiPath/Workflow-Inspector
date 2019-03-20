@@ -99,7 +99,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute.&#xA;&#xA;Note that there is no need to specify a prefix for the attribute, since namespace declarations do not apply to attributes: https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms950779(v=msdn.10)#namespaces-and-attributes" sap2010:WorkflowViewState.IdRef="Assign_12">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." sap2010:WorkflowViewState.IdRef="Assign_12">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -155,11 +155,11 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xNaXNzaW5nU2NyZWVuc2hvdC54YW1sG2IDnwEOAgEBZgVtDgIBIW4FnQESAgECazBrSwIBJGgxaEICASJutAFuhAICASB0C5oBFgIBA3oNgQEWAgEcggENggGkAgIBGIMBDY4BEgIBEY8BDZQBJQIBC5UBDZkBEgIBBH84f3YCAR98OXxOAgEdggE9ggFRAgEaggGGAYIBkQICARmDAZgCgwHVAgIBEoUBEYwBGgIBE5IBUpIBYAIBD5EBUpEBZgIBDY8BwgKPAd8CAgEMlQEblQEzAgEFlwERlwGPAgIBB4oBPooBaAIBFocBP4cBUwIBFJcBpQGXAbUBAgEJlwE8lwGaAQIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1NjcmVlbnNob3QueGFtbBtiA58BDgIBAWYFbQ4CASFuBZ0BEgIBAmswa0sCASRoMWhCAgEibrQBboQCAgEgdAuaARYCAQN6DYEBFgIBHIIBDYIBpAICARiDAQ2OARICARGPAQ2UASUCAQuVAQ2ZARICAQR/OH92AgEffDl8TgIBHYIBPYIBUQIBGoIBhgGCAZECAgEZgwGYAoMB1QICARKFARGMARoCAROSAVKSAWACAQ+RAVKRAWYCAQ2PAcICjwHfAgIBDJUBG5UBMwIBBZcBEZcBjwICAQeKAT6KAWgCARaHAT+HAVMCARSXAaUBlwG1AQIBCZcBPJcBmgECAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="502.666666666667,257.333333333333">
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="502.666666666667,107.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -197,7 +197,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502.666666666667,1216" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524.666666666667,1782.66666666667">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524.666666666667,1632.66666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -205,7 +205,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564.666666666667,1862.66666666667" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564.666666666667,1712.66666666667" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

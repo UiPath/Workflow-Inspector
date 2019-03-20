@@ -99,7 +99,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Elements that represent activities are included in the default namespace of the XAML file, and the namespace manager provides access to these elements through the prefix 'xaml'.&#xD;&#xA;&#xD;&#xA;However, there is no need to specify a prefix for the attribute, since namespace declarations do not apply to attributes.&#xD;&#xA;&#xD;&#xA;For more information, refer to https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms950779(v%3dmsdn.10)" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -134,11 +134,17 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d0hDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xDaGVja1RlbXBsYXRlLnhhbWwQYgOKAQ4CAQFmBW8OAgERcAWIARICAQJsC2w6AgEUaDFoQgIBEnCGAnDWAgIBEHYLhQEWAgEDeg1/JQIBCoABDYQBEgIBBH1SfWACAQ58UnxYAgEMesICet8CAgELgAF3gAF+AgEFggERggGBAgIBBoIBlwGCAacBAgEIggE8ggGMAQIBBw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ2hlY2tUZW1wbGF0ZS54YW1sEGIDigEOAgEBZgVvDgIBEXAFiAESAgECbAtsOgIBFGgxaEICARJwhgJw1gICARB2C4UBFgIBA3oNfyUCAQqAAQ2EARICAQR9Un1gAgEOfFJ8WAIBDHrCAnrfAgIBC4ABd4ABfgIBBYIBEYIBgQICAQaCAZcBggGnAQIBCIIBPIIBjAECAQc=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502.666666666667,62" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502.666666666667,324">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="464,132">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -170,7 +176,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524.666666666667,1044">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524.666666666667,1306">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -178,7 +184,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564.666666666667,1124" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564.666666666667,1386" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

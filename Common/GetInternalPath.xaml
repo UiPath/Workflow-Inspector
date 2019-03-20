@@ -10,8 +10,8 @@
  xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_ActivityNode" Type="InArgument(sx:XmlNode)" />
-    <x:Property Name="out_InternalPath" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Activity whose path is to be retrieved" Name="in_ActivityNode" Type="InArgument(sx:XmlNode)" />
+    <x:Property sap2010:Annotation.AnnotationText="Path from the root activity to the activity passed as parameter" Name="out_InternalPath" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -69,10 +69,9 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Get internal path" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="Retrieves the path from the root activity in the workflow to the activity that is passed as parameter.&#xD;&#xA;This is useful to localize the issue in workflows that have a large number of activities." DisplayName="Get internal path" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Default="[New List(Of String)]" Name="InternalPath" />
     </Sequence.Variables>
@@ -108,7 +107,7 @@
         <InArgument x:TypeArguments="x:String">[String.Join(" &gt; ", InternalPath.AsEnumerable.Reverse())]</InArgument>
       </Assign.Value>
     </Assign>
-    <sads:DebugSymbol.Symbol>d0pDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENvbW1vblxHZXRJbnRlcm5hbFBhdGgueGFtbBVLA3AOAgEBTT5NVQIBAk8FZg0CAQdnBW4OAgEDUAdlEgIBCU9AT3sCAQhsMGxsAgEGaTFpQwIBBFEJXA4CAQ9dCWQSAgEKUZkBUbICAgEQUw1aEgIBEWI2YlICAQ1fN19IAgELUxtTXQIBElURVdMBAgEXWBFY+wECARNVSFVYAgEZVbMBVdABAgEYWEhYWAIBFVi7AVj4AQIBFA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwVSgNvDgIBAUw+TFUCAQJOBWUNAgEHZgVtDgIBA08HZBICAQlOQE57AgEIazBrbAIBBmgxaEMCAQRQCVsOAgEPXAljEgIBClCZAVCyAgIBEFINWRICARFhNmFSAgENXjdeSAIBC1IbUl0CARJUEVTTAQIBF1cRV/sBAgETVEhUWAIBGVSzAVTQAQIBGFdIV1gCARVXuwFX+AECARQ=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -134,14 +133,15 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="638.666666666667,786.666666666667" />
       <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="638.666666666667,62" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="660.666666666667,1012.66666666667">
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="660.666666666667,1058">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="700.666666666667,1092.66666666667" />
+      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="700.666666666667,1138" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
