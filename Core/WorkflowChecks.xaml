@@ -100,7 +100,7 @@
               <OutArgument x:TypeArguments="sx:XmlNamespaceManager" x:Key="out_NamespaceManager">[NamespaceManager]</OutArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_dt_WorkflowChecklist]" DisplayName="For Each Workflow Check" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+          <ui:ForEachRow DataTable="[in_dt_WorkflowChecklist]" DisplayName="For Each Workflow Check" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
             <ui:ForEachRow.Body>
               <ActivityAction x:TypeArguments="sd:DataRow">
                 <ActivityAction.Argument>

@@ -76,7 +76,7 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Performs the project-wide checks using the specified project." DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_dt_ProjectChecklist]" DisplayName="For Each Project Check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+    <ui:ForEachRow DataTable="[in_dt_ProjectChecklist]" DisplayName="For Each Project Check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
