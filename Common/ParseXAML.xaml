@@ -120,7 +120,7 @@
         <InArgument x:TypeArguments="x:String">http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation</InArgument>
       </InvokeMethod>
     </Sequence>
-    <ui:ForEach x:TypeArguments="sx:XmlAttribute" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Add other namespaces defined in the workflow file." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
+    <ui:ForEach x:TypeArguments="sx:XmlAttribute" sap2010:Annotation.AnnotationText="Add other namespaces defined in the workflow file." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlAttribute">
           <ActivityAction.Argument>

@@ -82,7 +82,7 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Performs the workflow checks using the defined checklist." DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="Sequence_8">
-    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+    <ui:ForEach x:TypeArguments="x:String" DisplayName="For Each" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
@@ -102,7 +102,7 @@
                 <OutArgument x:TypeArguments="sx:XmlNamespaceManager" x:Key="out_NamespaceManager">[NamespaceManager]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_dt_WorkflowChecklist]" DisplayName="For Each Workflow Check" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow DataTable="[in_dt_WorkflowChecklist]" DisplayName="For Each Workflow Check" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
