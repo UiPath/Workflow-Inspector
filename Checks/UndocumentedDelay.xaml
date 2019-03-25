@@ -93,6 +93,7 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Delay may affect overall robot process response performance, and therefore the usage should be limited to minimum. For more about synchronization, refer to https://studio.uipath.com/docs/ui-automation#section-ui-synchronization&#xA;&#xA;The steps to find undocumented delays are as follows:&#xA;1 - Retrieve Delay nodes or nodes having the attributes DelayMS or DelayBefore&#xA;2 - Check whether such nodes also have the attribute Annotation.AnnotationText" DisplayName="Check for undocumented delay" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -117,7 +118,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="InternalPath" />
             </Sequence.Variables>
-            <If Condition="[NodeWithDelay.Attributes(&quot;Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If the delay does not have a corresponding annotation" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[NodeWithDelay.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If the delay does not have a corresponding annotation" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
@@ -134,7 +135,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xVbmRvY3VtZW50ZWREZWxheS54YW1sEWIDigEOAgEBZgVtDgIBEm4FiAESAgECazBreAIBFWgxaEICARNumwFu6wECARF0C4UBFgIBA3gNhAESAgEEeBt4aQIBBXoRggEcAgEGexOAASsCAQuBAROBAYwCAgEHflh+ZgIBD31YfWcCAQ17yAJ75QICAQyBAaIBgQGyAQIBCYEBPoEBlwECAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkRGVsYXkueGFtbBFjA4sBDgIBAWcFbg4CARJvBYkBEgIBAmwwbHgCARVpMWlCAgETb5sBb+sBAgERdQuGARYCAQN5DYUBEgIBBHkbeXECAQV7EYMBHAIBBnwTgQErAgELggETggGMAgIBB39Yf2YCAQ9+WH5nAgENfMgCfOUCAgEMggGiAYIBsgECAQmCAT6CAZcBAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

@@ -71,6 +71,7 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Parses a XAML file into a tree representation, returning the tree and the associated namespace manager. The namespace manager is required to make correct XPath queries in the checks." DisplayName="ParseXAML" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -103,7 +104,23 @@
       <InArgument x:TypeArguments="x:String">xaml</InArgument>
       <InArgument x:TypeArguments="x:String">http://schemas.microsoft.com/netfx/2009/xaml/activities</InArgument>
     </InvokeMethod>
-    <ui:ForEach x:TypeArguments="sx:XmlAttribute" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Add other namespaces." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
+    <Sequence sap2010:Annotation.AnnotationText="These namespaces are explicitly added to prevent errors when a particular check searches for elements in a namespace, but one of the workflows checked does not declare that namespace." DisplayName="Add commonly used namespaces" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used UI namespace: &#xD;&#xA;xmlns:ui=&quot;http://schemas.uipath.com/workflow/activities&quot;" DisplayName="Add UI namespace" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="AddNamespace">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
+        </InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="x:String">ui</InArgument>
+        <InArgument x:TypeArguments="x:String">http://schemas.uipath.com/workflow/activities</InArgument>
+      </InvokeMethod>
+      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used SAP namespace: &#xA;xmlns:sap2010=&quot;http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation&quot;" DisplayName="Add SAP2010 namespace" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="AddNamespace">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
+        </InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="x:String">sap2010</InArgument>
+        <InArgument x:TypeArguments="x:String">http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation</InArgument>
+      </InvokeMethod>
+    </Sequence>
+    <ui:ForEach x:TypeArguments="sx:XmlAttribute" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Add other namespaces defined in the workflow file." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlAttribute">
           <ActivityAction.Argument>
@@ -123,7 +140,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d05DOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VYQU1MLnhhbWwWTAN/DgIBAU0FVA4CARlVBVwOAgEVXQViFAIBEGMFaRQCAQtqBX0SAgECUjZSSQIBHE83T0QCARpaPlpuAgEYVz9XVQIBFmEuYT8CARNfNl9DAgERaC5oZQIBD2cuZzICAQ5lPmVUAgEMatEBavsBAgEKcAt6EAIBA3AZcEoCAQRyD3geAgEFdzh3SQIBCXY4dnECAQh0SHReAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d05DOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VYQU1MLnhhbWwfTQOQAQ4CAQFOBVUOAgEkVgVdDgIBIF4FYxQCARtkBWoUAgEWawV6EAIBC3sFjgESAgECUzZTSQIBJ1A3UEQCASVbPltuAgEjWD9YVQIBIWIuYj8CAR5gNmBDAgEcaS5pZQIBGmguaDICARlmPmZUAgEXbAdyFgIBEXMHeRYCAQx77gF7mAICAQqBAQuLARACAQNxMHFdAgEVcDBwMgIBFG5AblYCARJ4MHh0AgEQdzB3NwIBD3VAdVYCAQ2BARmBAUoCAQSDAQ+JAR4CAQWIATiIAUkCAQmHATiHAXECAQiFAUiFAV4CAQY=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -137,6 +154,28 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeMethod_4" sap:VirtualizedContainerService.HintSize="217.333333333333,232.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeMethod_5" sap:VirtualizedContainerService.HintSize="217.333333333333,249.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="480.666666666667,758">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="InvokeMethod_2" sap:VirtualizedContainerService.HintSize="217.333333333333,137.333333333333" />
       <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,291.333333333333" />
       <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="480.666666666667,458.666666666667">
@@ -146,7 +185,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="502.666666666667,1415.33333333333">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="502.666666666667,2213.33333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -154,7 +193,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ParseXAML_1" sap:VirtualizedContainerService.HintSize="542.666666666667,1495.33333333333" />
+      <sap2010:ViewStateData Id="ParseXAML_1" sap:VirtualizedContainerService.HintSize="542.666666666667,2293.33333333333" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
