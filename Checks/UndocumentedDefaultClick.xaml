@@ -15,11 +15,9 @@
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
     <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
-    <x:Property Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
-    <x:Property Name="in_Suggestion" Type="InArgument(x:String)" />
-    <x:Property Name="in_Issue" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,10 +94,11 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Since it does not depend on the mouse driver, SimulateClick provides a faster and more robust way to perform clicks, so it should be used whenever possible. &#xA;For more about input methods, refer to https://studio.uipath.com/docs/ui-automation#section-input-methods&#xA;&#xA;The steps to find activities not using SimulateClick are as follows:&#xA;1 - Get all nodes that have the attribute SimulateClick &#xA;2 - Check whether the SimulateClick attribute is set to False&#xA;&#xA;In this check, it would be also possible to use the condition directly in the XPath expression (&quot;//*[@SimulateClick='False']&quot;), which would be faster because there would be no need to use the If activity later. For an example of this approach, please refer to the UseSimulateType.xaml check." DisplayName="Check for use of SimulateClick" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Since they do not depend on the mouse driver, the properties SimulateClick and SendWindowMessages provide a faster and more robust way to perform clicks, so they should be used whenever possible. Alternatively, add an annotation in case the control does not support such properties. For more about input methods, refer to https://studio.uipath.com/docs/ui-automation#section-input-methods&#xA;&#xA;The steps to find activities using undocumented default click are as follows:&#xA;1 - Get all nodes that have the attribute SimulateClick&#xA;2 - Check whether both SimulateClick and SendWindowMessages attributes are set to False&#xA;3 - Check whether the node with default click has an annotation&#xA;&#xA;In this check, it would be also possible to use the condition directly in the XPath expression (&quot;//*[@SimulateClick='False' and @SendWindowMessages='False']&quot;), which would be faster because there would be no need to use the If activity later. For an example of this approach, please refer to the UseSimulateType.xaml check." DisplayName="Check for use of SimulateClick" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes that have the SimulateClick attribute." sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
@@ -112,39 +111,46 @@
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithSimulateClick" />
+            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithClick" />
           </ActivityAction.Argument>
-          <If Condition="[NodeWithSimulateClick.Attributes(&quot;SimulateClick&quot;).Value = &quot;False&quot;]" DisplayName="If" sap2010:WorkflowViewState.IdRef="If_3">
+          <If sap2010:Annotation.AnnotationText="Checks whether both the attributes SimulateClick and SendWindowMessages are false, and whether the activity has no annotation." Condition="[NodeWithClick.Attributes(&quot;SimulateClick&quot;).Value = &quot;False&quot; And NodeWithClick.Attributes(&quot;SendWindowMessages&quot;).Value = &quot;False&quot; And NodeWithClick.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If" sap2010:WorkflowViewState.IdRef="If_3">
             <If.Then>
-              <Sequence DisplayName="Get internal path and add issue" sap2010:WorkflowViewState.IdRef="Sequence_10">
+              <Sequence DisplayName="Sequence" sap2010:WorkflowViewState.IdRef="Sequence_10">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:String" Name="InternalPath" />
                 </Sequence.Variables>
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[NodeWithSimulateClick]</InArgument>
+                    <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[NodeWithClick]</InArgument>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_WorkflowFilename, InternalPath, NodeWithSimulateClick.LocalName, in_Issue, in_Suggestion}]" DataTable="[io_dt_Issues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, NodeWithClick.LocalName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
               </Sequence>
             </If.Then>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d0tDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xVc2VTaW11bGF0ZUNsaWNrLnhhbWwQYwOJAQ4CAQFnBW4OAgERbwWHARICAQJsMGxDAgEUaTFpQgIBEm+bAW/rAQIBEHULhAEQAgEDdRl1cgIBBHcPggEaAgEFexGAASkCAQqBARGBAZICAgEGflZ+ZAIBDn1WfW0CAQx7xgJ74wICAQuBAagBgQG4AQIBCIEBPIEBnQECAQc=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkRGVmYXVsdENsaWNrLnhhbWwSYQOIAQ4CAQFlBWW4CwIBFWYFbQ4CARFuBYYBEgIBAmXBAWXaAQIBFmswa0MCARRoMWhCAgESboMBbtMBAgEQdAuDARACAQN0vAF0uwMCAQR2D4EBGgIBBXoRfykCAQqAARGAAesBAgEGfVZ9ZAIBDnxWfGUCAQx6xgJ64wICAQuAAXKAAYsBAgEIgAE8gAFnAgEH</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="480.666666666667,107.333333333333">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="480,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,132">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="480,102">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -154,23 +160,24 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_4" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="336,318">
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="336,315">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,472">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,505">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480.666666666667,610.666666666667" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502.666666666667,1110.66666666667">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480,639" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1313">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -178,7 +185,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542.666666666667,1190.66666666667" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1433" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

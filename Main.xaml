@@ -64,7 +64,7 @@
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xD;&#xA;&#xD;&#xA;The architecture is composed by three main components:&#xD;&#xA;-Initialization: Reads configuration files and initializes the issues table&#xD;&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xD;&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xD;&#xA;&#xD;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_5">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xA;&#xA;The architecture is composed by three main components:&#xA;-Initialization: Reads configuration files and initializes the issues table&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_5">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
       <Variable x:TypeArguments="x:String" Name="ProjectPath" />
@@ -104,14 +104,14 @@
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYQwNsDgIBAUsFUx0CARtUBWMQAgEKZAVqHQIBAlBLUFYCASVOVE5sAgEjUUlRVgIBIU1VTWoCAR9LqwFLxQECAR5PVk9sAgEcVQdbHwIBE1wHYh8CAQtmSWZUAgEIaEdoVAIBBmdSZ2oCAQRkpwFkvAECAQNZTllZAgEZV1VXagIBF1hJWFYCARVVrQFVxgECARRfTl9ZAgERYFZgbAIBD15JXlYCAQ1crgFcyAECAQw=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYQwNsDgIBAUsFUx0CARtUBWMQAgEKZAVqHQIBAlBLUFYCASVOVE5sAgEjUUlRVgIBIU1VTWoCAR9LqwFLxQECAR5PVk9sAgEcVQdbHwIBE1wHYh8CAQtmSWZUAgEIaEdoVAIBBmdSZ2oCAQRkpwFkvAECAQNZTllZAgEZV1VXagIBF1hJWFYCARVVrQFVxgECARRfTl9ZAgERYFZgbAIBD15JXlYCAQ1crgFcyAECAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="336,86.6666666666667" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_8" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,337.333333333333">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="336,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_8" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,338">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -119,8 +119,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="336,86.6666666666667" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="358,960">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="336,87" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="358,938">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -128,7 +128,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,1080" />
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,2858" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

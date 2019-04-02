@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UseSimulateType"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UndocumentedDefaultType"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -15,11 +15,9 @@
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
     <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
-    <x:Property Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
-    <x:Property Name="in_Suggestion" Type="InArgument(x:String)" />
-    <x:Property Name="in_Issue" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -93,53 +91,66 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Since it does not depend on the keyboard driver, SimulateType provides a faster and more robust way to perform type actions, so it should be used whenever possible. &#xA;For more about input methods, refer to https://studio.uipath.com/docs/ui-automation#section-input-methods&#xA;&#xA;The steps to find activities not using SimulateType are as follows:&#xA;1 - Get all nodes that have the attribute SimulateType set to False" DisplayName="Check for use of SimulateType" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Since they do not depend on the keyboard driver, the properties SimulateType and SendWindowMessages provide a faster and more robust way to perform typing actions, so they should be used whenever possible. Alternatively, add an annotation in case the control does not support such properties. For more about input methods, refer to https://studio.uipath.com/docs/ui-automation#section-input-methods&#xA;&#xA;The steps to find activities using undocumented default type are as follows:&#xA;1 - Get all nodes that have both the attribute SimulateType  and SendWindowMessage set to False&#xA;2 - Check whether the node with default type has an annotation" DisplayName="Check for use of undocumented default type" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes whose SimulateType attribute is set to False." sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes whose SimulateType and SendWindowMessages attributes are set to False." sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">//*[@SimulateType = 'False']</InArgument>
+        <InArgument x:TypeArguments="x:String">["//*[@SimulateType = 'False' and @SendWindowMessages = 'False']"]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithoutSimulateType" />
+            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithDefaultType" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
-            </Sequence.Variables>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[NodeWithoutSimulateType]</InArgument>
-                <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
-            <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_WorkflowFilename, InternalPath, NodeWithoutSimulateType.LocalName, in_Issue, in_Suggestion}]" DataTable="[io_dt_Issues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
-          </Sequence>
+          <If Condition="[NodeWithDefaultType.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If the default type does not have a corresponding annotation" sap2010:WorkflowViewState.IdRef="If_3">
+            <If.Then>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                </Sequence.Variables>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[NodeWithDefaultType]</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, NodeWithDefaultType.LocalName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
+              </Sequence>
+            </If.Then>
+          </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d0pDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xVc2VTaW11bGF0ZVR5cGUueGFtbA5iA4QBDgIBAWYFbQ4CAQ9uBYIBEgIBAmswa0wCARJoMWhCAgEQbpsBbusBAgEOdAt/FgIBA3gNfSUCAQh+DX6QAgIBBHtSe2ACAQx6UnprAgEKeMICeN8CAgEJfqYBfrYBAgEGfjh+mwECAQU=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkRGVmYXVsdFR5cGUueGFtbBJhA4gBDgIBAWUFZbgLAgEVZgVtDgIBEW4FhgESAgECZcEBZdoBAgEWazBrcgIBFGgxaEICARJugwFu0wECARB0C4MBEAIBA3QZdHUCAQR2D4EBGgIBBXoRfykCAQqAARGAAfEBAgEGfVZ9ZAIBDnxWfGsCAQx6xgJ64wICAQuAAXiAAZEBAgEIgAE8gAFtAgEH</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="352.666666666667,107.333333333333">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="480,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,132">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="480,132">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -148,16 +159,17 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,318">
+      <sap2010:ViewStateData Id="AddDataRow_4" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="336,315">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="352.666666666667,456.666666666667" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="374.666666666667,923.333333333333">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,463" />
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480,597" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1211">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -165,7 +177,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="414.666666666667,1003.33333333333" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1331" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="CheckTemplate"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Undocumented UnreachableActivities"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -15,11 +15,9 @@
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
     <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
-    <x:Property Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
-    <x:Property Name="in_Suggestion" Type="InArgument(x:String)" />
-    <x:Property Name="in_Issue" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,10 +94,11 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows should only have the necessary activities for its execution, and activities that are commented out or that are not connected to any node in a flowchart should be removed. If there is need to keep commented activities, add annotations to describe the reason.&#xA;&#xA;The steps to find unreachable activities are as follows:&#xA;1 - Get activities inside a CommentOut activity or that are not in the subtree that starts with the Flowchart.StartNode element&#xA;2 - Verify whether these activities contain an annotation attribute" DisplayName="Check for activities that cannot be reached during the execution" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows should only have the necessary activities for its execution, and activities that are commented out or that are not connected to any node in a flowchart should be removed. If there is need to keep commented activities, add annotations to describe the reason.&#xA;&#xA;The steps to find unreachable activities are as follows:&#xA;1 - Get activities inside a CommentOut activity or that are not in the subtree that starts with the Flowchart.StartNode element&#xA;2 - Verify whether these activities contain an annotation attribute" DisplayName="Check for undocumented activities that cannot be reached during the execution" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign sap2010:Annotation.AnnotationText="Retrieves nodes having commented out activities and flowstep nodes not connected to the Start Node of a flowchart." sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
@@ -139,7 +138,7 @@
                       <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_WorkflowFilename, InternalPath, UnreachableNode.LocalName, in_Issue, in_Suggestion}]" DataTable="[io_dt_Issues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, UnreachableNode.LocalName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -147,10 +146,17 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwWYwOXAQ4CAQFnBW4OAgEZbwWVARICAQJsMGxtAgEcaTFpQgIBGm+DAW/TAQIBGHULkgEWAgEDeQ2EARICARGFAQ2RARICAQR56AF5nAICARJ7EYIBGgIBE4UBG4UBcwIBBYcBEY8BHAIBBoABPoABXQIBFn0/fVACARSIARONASsCAQuOAROOAY4CAgEHiwFYiwFmAgEPigFYigFpAgENiAHIAogB5QICAQyOAaQBjgG0AQIBCY4BPo4BmQECAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwYYQOWAQ4CAQFlBWW4CwIBHWYFbQ4CARluBZQBEgIBAmXBAWXaAQIBHmswa20CARxoMWhCAgEaboMBbtMBAgEYdAuRARYCAQN4DYMBEgIBEYQBDZABEgIBBHjoAXicAgIBEnoRgQEaAgEThAEbhAFzAgEFhgERjgEcAgEGfz5/XQIBFnw/fFACARSHAROMASsCAQuNARONAe8BAgEHigFYigFmAgEPiQFYiQFpAgENhwHIAocB5QICAQyNAXaNAY8BAgEJjQE+jQFrAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502,132">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -192,7 +198,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1026" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1454">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1610">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -200,7 +206,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1534" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1690" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
