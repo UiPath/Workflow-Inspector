@@ -73,6 +73,10 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Performs the project-wide checks using the specified project." DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -86,7 +90,7 @@
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_CheckArgument">[ProjectCheck(2).ToString]</InArgument>
               <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[io_dt_Issues]</InOutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_Suggestion">[ProjectCheck(4).ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Suggestion">[ProjectCheck(5).ToString]</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_Issue">[ProjectCheck(0).ToString]</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
             </ui:InvokeWorkflowFile.Arguments>
@@ -94,18 +98,18 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbApOA2IOAgEBTwVgFQIBAk82T1ACAQxVC10jAgEDWUxZZgIBC1hSWGACAQlXT1dpAgEIW01bXQIBBlXOA1XqAwIBBVpHWmECAQQ=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbApSA2YOAgEBUwVkFQIBAlMeUzgCAQxZC2EjAgEDXUxdZgIBC1xSXGACAQlbT1tpAgEIX01fXQIBBlnOA1nqAwIBBV5HXmECAQQ=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,198.666666666667">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,189">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_3" sap:VirtualizedContainerService.HintSize="344.666666666667,351.333333333333">
+      <sap2010:ViewStateData Id="ForEachRow_3" sap:VirtualizedContainerService.HintSize="344,337">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -113,7 +117,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="366.666666666667,504">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="366,488">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -121,7 +125,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="406.666666666667,584" />
+      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="406,568" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
