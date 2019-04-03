@@ -71,6 +71,7 @@
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Based on the system's language, chooses the appropriate checklist file and initializes the tables containing data about project checks and about workflow checks." DisplayName="InitializeChecklist" sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -92,6 +93,14 @@
     <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the appropriate filenames and sheet names based on the system's culture." DisplayName="Switch" Expression="[SystemCulture]" sap2010:WorkflowViewState.IdRef="Switch`1_3">
       <Switch.Default>
         <Sequence DisplayName="Use English files and names" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_20">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">Checklist.xlsx</InArgument>
+            </Assign.Value>
+          </Assign>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
@@ -205,21 +214,22 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemVDaGVja2xpc3QueGFtbDNMA9EBDgIBAVQFWw4CAUNcBZsBDgIBIpwBBaIBFAIBGqMBBbUBGgIBErYBBbwBFAIBCr0BBc8BGgIBAlkwWXACAUZWMVZAAgFEXLwBXM0BAgEjeQeaARICATJeCXcUAgElnAF+nAGaAQIBIJ8BC58BOgIBH5wB/AGcAZYCAgEdnAGkApwBuQICARuoATWoATgCARmrATerAT4CARijAZACowGsAgIBFqMBaaMBhQECARSyATGyATQCARO2AX+2AZwBAgEQuQELuQE6AgEPtgH/AbYBmgICAQ22AagCtgG9AgIBC8IBNcIBOAIBCcUBN8UBPgIBCL0BkwK9AbACAgEGvQFqvQGHAQIBBMwBMcwBNAIBA3oJgQESAgE/ggEJiQESAgE7igEJkQESAgE3kgEJmQESAgEzXwtmFAIBLmcLbhQCASpvC3YUAgEmfzR/RQIBQnw1fEgCAUCHATSHAToCAT6EATWEAU0CATyPATSPAToCATqMATWMAU4CATiXATSXAVICATaUATWUAVECATRkNmQ9AgExYTdhTwIBL2w2bD4CAS1pN2lQAgErdDZ0UQIBKXE3cVMCASc=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemVDaGVja2xpc3QueGFtbDZNA9oBDgIBAVUFXA4CAUddBaQBDgIBIqUBBasBFAIBGqwBBb4BGgIBEr8BBcUBFAIBCsYBBdgBGgIBAlowWnACAUpXMVdAAgFIXbwBXc0BAgEjggEHowESAgE2XwmAARQCASWlAX6lAZoBAgEgqAELqAE6AgEfpQH8AaUBlgICAR2lAaQCpQG5AgIBG7EBNbEBOAIBGbQBN7QBPgIBGKwBkAKsAawCAgEWrAFprAGFAQIBFLsBMbsBNAIBE78Bf78BnAECARDCAQvCAToCAQ+/Af8BvwGaAgIBDb8BqAK/Ab0CAgELywE1ywE4AgEJzgE3zgE+AgEIxgGTAsYBsAICAQbGAWrGAYcBAgEE1QEx1QE0AgEDgwEJigESAgFDiwEJkgESAgE/kwEJmgESAgE7mwEJogESAgE3YAtnFAIBMmgLbxQCAS5wC3cUAgEqeAt/FAIBJogBNIgBRQIBRoUBNYUBSAIBRJABNJABOgIBQo0BNY0BTQIBQJgBNJgBOgIBPpUBNZUBTgIBPKABNKABUgIBOp0BNZ0BUQIBOGU2ZUQCATViN2JKAgEzbTZtPQIBMWo3ak8CAS91NnU+AgEtcjdyUAIBK302fVECASl6N3pTAgEn</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="314,102">
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="477,102">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="264,384">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="264,484">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -230,51 +240,51 @@
       <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,484">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,472">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Switch`1_3" sap:VirtualizedContainerService.HintSize="314,108">
+      <sap2010:ViewStateData Id="Switch`1_3" sap:VirtualizedContainerService.HintSize="477,165">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ReadRange_2" sap:VirtualizedContainerService.HintSize="314,114">
+      <sap2010:ViewStateData Id="ReadRange_2" sap:VirtualizedContainerService.HintSize="477,114">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FilterDataTable_1" sap:VirtualizedContainerService.HintSize="314,86">
+      <sap2010:ViewStateData Id="FilterDataTable_1" sap:VirtualizedContainerService.HintSize="477,86">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ReadRange_1" sap:VirtualizedContainerService.HintSize="314,114">
+      <sap2010:ViewStateData Id="ReadRange_1" sap:VirtualizedContainerService.HintSize="477,114">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FilterDataTable_2" sap:VirtualizedContainerService.HintSize="314,86">
+      <sap2010:ViewStateData Id="FilterDataTable_2" sap:VirtualizedContainerService.HintSize="477,86">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,1006">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="499,1033">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -282,7 +292,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InitializeChecklist_1" sap:VirtualizedContainerService.HintSize="376,1086" />
+      <sap2010:ViewStateData Id="InitializeChecklist_1" sap:VirtualizedContainerService.HintSize="539,1193" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
