@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Main_1"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -10,6 +10,13 @@
  xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Main_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -104,7 +111,7 @@
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYQwNsDgIBAUsFUx0CARtUBWMQAgEKZAVqHQIBAlBLUFYCASVOVE5sAgEjUUlRVgIBIU1VTWoCAR9LqwFLxQECAR5PVk9sAgEcVQdbHwIBE1wHYh8CAQtmSWZUAgEIaEdoVAIBBmdSZ2oCAQRkpwFkvAECAQNZTllZAgEZV1VXagIBF1hJWFYCARVVrQFVxgECARRfTl9ZAgERYFZgbAIBD15JXlYCAQ1crgFcyAECAQw=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYSgNzDgIBAVIFWh0CARtbBWoQAgEKawVxHQIBAldLV1YCASVVVFVsAgEjWElYVgIBIVRVVGoCAR9SqwFSxQECAR5WVlZsAgEcXAdiHwIBE2MHaR8CAQttSW1UAgEIb0dvVAIBBm5SbmoCAQRrpwFrvAECAQNgTmBZAgEZXlVeagIBF19JX1YCARVcrQFcxgECARRmTmZZAgERZ1ZnbAIBD2VJZVYCAQ1jrgFjyAECAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -128,7 +135,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,2858" />
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,1218" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

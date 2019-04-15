@@ -98,7 +98,7 @@
               <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Checklist.xlsx</InArgument>
+              <InArgument x:TypeArguments="x:String">Config\EN\Checklist.xlsx</InArgument>
             </Assign.Value>
           </Assign>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
@@ -122,7 +122,7 @@
               <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Reports\ReportTemplate.xlsx</InArgument>
+              <InArgument x:TypeArguments="x:String">Config\EN\ReportTemplate.xlsx</InArgument>
             </Assign.Value>
           </Assign>
         </Sequence>
@@ -133,7 +133,7 @@
             <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">Checklist_JP.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String">Config\JP\Checklist_JP.xlsx</InArgument>
           </Assign.Value>
         </Assign>
         <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
@@ -157,7 +157,7 @@
             <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">Reports\ReportTemplate_JP.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String">Config\JP\ReportTemplate_JP.xlsx</InArgument>
           </Assign.Value>
         </Assign>
       </Sequence>
@@ -214,7 +214,7 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemVDaGVja2xpc3QueGFtbDZNA9oBDgIBAVUFXA4CAUddBaQBDgIBIqUBBasBFAIBGqwBBb4BGgIBEr8BBcUBFAIBCsYBBdgBGgIBAlowWnACAUpXMVdAAgFIXbwBXc0BAgEjggEHowESAgE2XwmAARQCASWlAX6lAZoBAgEgqAELqAE6AgEfpQH8AaUBlgICAR2lAaQCpQG5AgIBG7EBNbEBOAIBGbQBN7QBPgIBGKwBkAKsAawCAgEWrAFprAGFAQIBFLsBMbsBNAIBE78Bf78BnAECARDCAQvCAToCAQ+/Af8BvwGaAgIBDb8BqAK/Ab0CAgELywE1ywE4AgEJzgE3zgE+AgEIxgGTAsYBsAICAQbGAWrGAYcBAgEE1QEx1QE0AgEDgwEJigESAgFDiwEJkgESAgE/kwEJmgESAgE7mwEJogESAgE3YAtnFAIBMmgLbxQCAS5wC3cUAgEqeAt/FAIBJogBNIgBRQIBRoUBNYUBSAIBRJABNJABOgIBQo0BNY0BTQIBQJgBNJgBOgIBPpUBNZUBTgIBPKABNKABUgIBOp0BNZ0BUQIBOGU2ZUQCATViN2JKAgEzbTZtPQIBMWo3ak8CAS91NnU+AgEtcjdyUAIBK302fVECASl6N3pTAgEn</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemVDaGVja2xpc3QueGFtbDZNA9oBDgIBAVUFXA4CAUddBaQBDgIBIqUBBasBFAIBGqwBBb4BGgIBEr8BBcUBFAIBCsYBBdgBGgIBAlowWnACAUpXMVdAAgFIXbwBXc0BAgEjggEHowESAgE2XwmAARQCASWlAX6lAZoBAgEgqAELqAE6AgEfpQH8AaUBlgICAR2lAaQCpQG5AgIBG7EBNbEBOAIBGbQBN7QBPgIBGKwBkAKsAawCAgEWrAFprAGFAQIBFLsBMbsBNAIBE78Bf78BnAECARDCAQvCAToCAQ+/Af8BvwGaAgIBDb8BqAK/Ab0CAgELywE1ywE4AgEJzgE3zgE+AgEIxgGTAsYBsAICAQbGAWrGAYcBAgEE1QEx1QE0AgEDgwEJigESAgFDiwEJkgESAgE/kwEJmgESAgE7mwEJogESAgE3YAtnFAIBMmgLbxQCAS5wC3cUAgEqeAt/FAIBJogBNIgBTwIBRoUBNYUBSAIBRJABNJABOgIBQo0BNY0BTQIBQJgBNJgBOgIBPpUBNZUBTgIBPKABNKABVAIBOp0BNZ0BUQIBOGU2ZU4CATViN2JKAgEzbTZtPQIBMWo3ak8CAS91NnU+AgEtcjdyUAIBK302fVMCASl6N3pTAgEn</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -240,14 +240,14 @@
       <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,472">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,484">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Switch`1_3" sap:VirtualizedContainerService.HintSize="477,165">
+      <sap2010:ViewStateData Id="Switch`1_3" sap:VirtualizedContainerService.HintSize="477,693">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -284,7 +284,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="499,1033">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="499,1561">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -292,7 +292,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InitializeChecklist_1" sap:VirtualizedContainerService.HintSize="539,1193" />
+      <sap2010:ViewStateData Id="InitializeChecklist_1" sap:VirtualizedContainerService.HintSize="539,1721" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -98,7 +98,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign sap2010:Annotation.AnnotationText="Elements that represent activities are included in the default namespace of the XAML file, and the namespace manager provides access to these elements through the prefix 'xaml'.&#xA;&#xA;However, there is no need to specify a prefix for the attribute, since namespace declarations do not apply to attributes.&#xA;&#xA;For more information, refer to https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms950779(v%3dmsdn.10)" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
@@ -134,7 +134,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ2hlY2tUZW1wbGF0ZS54YW1sEmEDigEOAgEBZQVljQwCARVmBW8OAgERcAWIARICAQJlwQFl2gECARZsC2w6AgEUaDFoQgIBEnDuAXC+AgIBEHYLhQEWAgEDeg1/JQIBCoABDYQBEgIBBH1SfWACAQ58UnxYAgEMesICet8CAgELgAF3gAF+AgEFggERggHfAQIBBoIBaYIBggECAQiCATyCAV4CAQc=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ2hlY2tUZW1wbGF0ZS54YW1sEmEDigEOAgEBZQVluAsCARVmBW8OAgERcAWIARICAQJlwQFl2gECARZsC2w6AgEUaDFoQgIBEnDuAXC+AgIBEHYLhQEWAgEDeg1/JQIBCoABDYQBEgIBBH1SfWACAQ58UnxYAgEMesICet8CAgELgAF3gAF+AgEFggERggHfAQIBBoIBaYIBggECAQiCATyCAV4CAQc=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -191,7 +191,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1608" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1488" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
