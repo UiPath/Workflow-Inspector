@@ -14,7 +14,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Location of the project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Feature to be executed: (1) All; (2)Check for best practices; (3) Project statistics; (4) Activity/attribute search" Name="in_Feature" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Feature to be executed: (1) All; (2)Check for best practices; (3) Project statistics; (4) Activity/property search." Name="in_Feature" Type="InArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -69,7 +69,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development, generating projects statistics and searching specifig elements (activities or attributes) in workflows.&#xA;&#xA;This tools can receive the following arguments:&#xA;-Project path: Location of the project to be inspected.&#xA;-Feature: (1) All features; (2) Check for best practices; (3) Project statistics; (4) Activity/attribute search&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development, generating projects statistics and searching specifig elements (activities or attributes) in workflows.&#xA;&#xA;This tools can receive the following arguments:&#xA;-Project path: Location of the project to be inspected.&#xA;-Feature: (1) All features; (2) Check for best practices; (3) Project statistics; (4) Activity/property search&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectChecklist" />
       <Variable x:TypeArguments="x:String" Name="ReportTemplateFilename" />
@@ -100,9 +100,9 @@
               </FlowStep>
             </FlowSwitch.Default>
             <FlowStep x:Key="4" x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Activity Attribute Search" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Core\ActivityAttributeSearch.xaml">
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Activity/Property Search" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Core\ActivityPropertySearch.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
-                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
             </FlowStep>
@@ -130,7 +130,7 @@
     <x:Reference>__ReferenceID3</x:Reference>
     <x:Reference>__ReferenceID4</x:Reference>
     <x:Reference>__ReferenceID5</x:Reference>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwUAU8BUQECSAOGAQ8CAQFRCVohAgEOXHNcgQECAQxfEWMpAgEKdQ95JwIBBm4PcicCAQRnD2snAgECVk9WWgIBGlRYVHACARhTWVNuAgEWUa8BUckBAgEVVVpVcAIBE1dOV14CARFYSVhVAgEPX7UBX8wBAgELd1F3YQIBCHW7AXXZAQIBB265AW7WAQIBBWfAAWfjAQIBAw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwVAU8BUQECSAOGAQ8CAQFRCVohAgEQXHNcgQECAQ5fEWMpAgEMdQ95JwIBCG4PcicCAQZnD2snAgECVk9WWgIBHFRYVHACARpTWVNuAgEYUa8BUckBAgEXVVpVcAIBFVdOV14CARNYSVhVAgERX7UBX8wBAgENd1F3YQIBCnW7AXXZAQIBCW65AW7WAQIBB2lRaWECAQRnvwFn4QECAQM=</sads:DebugSymbol.Symbol>
   </Flowchart>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -139,16 +139,16 @@
       <sap2010:ViewStateData Id="FlowStep_5">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">40,364.5</av:Point>
+            <av:Point x:Key="ShapeLocation">20,364.5</av:Point>
             <av:Size x:Key="ShapeSize">200,51</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="200,51" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="FlowStep_7">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">700,364.5</av:Point>
+            <av:Point x:Key="ShapeLocation">680,364.5</av:Point>
             <av:Size x:Key="ShapeSize">200,51</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -157,7 +157,7 @@
       <sap2010:ViewStateData Id="FlowStep_6">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">480,364.5</av:Point>
+            <av:Point x:Key="ShapeLocation">460,364.5</av:Point>
             <av:Size x:Key="ShapeSize">200,51</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -166,7 +166,7 @@
       <sap2010:ViewStateData Id="FlowStep_8">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">260,364.5</av:Point>
+            <av:Point x:Key="ShapeLocation">240,364.5</av:Point>
             <av:Size x:Key="ShapeSize">200,51</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -175,12 +175,12 @@
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">425,228.5</av:Point>
+            <av:Point x:Key="ShapeLocation">405,228.5</av:Point>
             <av:Size x:Key="ShapeSize">92,87</av:Size>
-            <av:PointCollection x:Key="Default">425,272 140,272 140,364.5</av:PointCollection>
-            <av:PointCollection x:Key="2Connector">448,315.5 448,345.5 360,345.5 360,364.5</av:PointCollection>
-            <av:PointCollection x:Key="3Connector">494,315.5 494,345.5 580,345.5 580,364.5</av:PointCollection>
-            <av:PointCollection x:Key="4Connector">517,272 800,272 800,364.5</av:PointCollection>
+            <av:PointCollection x:Key="Default">405,272 120,272 120,364.5</av:PointCollection>
+            <av:PointCollection x:Key="2Connector">428,315.5 428,345.5 340,345.5 340,364.5</av:PointCollection>
+            <av:PointCollection x:Key="3Connector">474,315.5 474,345.5 560,345.5 560,364.5</av:PointCollection>
+            <av:PointCollection x:Key="4Connector">497,272 780,272 780,364.5</av:PointCollection>
             <x:String x:Key="DefaultCaseDisplayName">1</x:String>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -188,26 +188,25 @@
       <sap2010:ViewStateData Id="FlowStep_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">370,127.5</av:Point>
+            <av:Point x:Key="ShapeLocation">350,127.5</av:Point>
             <av:Size x:Key="ShapeSize">200,51</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">470,178.5 470,208.5 471,208.5 471,228.5</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">450,178.5 450,208.5 451,208.5 451,228.5</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="914,865">
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="914,768">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <av:Point x:Key="ShapeLocation">440,2.5</av:Point>
+            <av:Point x:Key="ShapeLocation">420,2.5</av:Point>
             <av:Size x:Key="ShapeSize">60,75</av:Size>
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <av:PointCollection x:Key="ConnectorLocation">470,77.5 470,127.5</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">450,77.5 450,127.5</av:PointCollection>
             <x:Double x:Key="Width">900</x:Double>
-            <x:Double x:Key="Height">697.00000000000023</x:Double>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="954,1105" />
+      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="954,1168" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

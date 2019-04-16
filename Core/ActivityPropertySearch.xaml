@@ -1,0 +1,385 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ActivityPropertySearch"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ActivityAttributeSearch_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Xml.XPath</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Activity/Property Search" sap2010:WorkflowViewState.IdRef="Sequence_6">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="ReportTemplateFilename" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Activities" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Properties" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Found" />
+    </Sequence.Variables>
+    <ui:BuildDataTable DataTable="[dt_Found]" DisplayName="Build DataTable of Found Activities and Properties" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Workflow_x0020_File&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Internal_x0020_Path&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Activity_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Initialize List of Activities and Properties to Search" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="ActivityPropertySearch\InitializeSearchList.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Activities">[dt_Activities]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Properties">[dt_Properties]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Parses and searches each workflow file  (.xaml file) in the project." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="WorkflowFilename" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="WorkflowContents" />
+              <Variable x:TypeArguments="sx:XmlDocument" Name="XMLTree" />
+              <Variable x:TypeArguments="sx:XmlNamespaceManager" Name="NamespaceManager" />
+            </Sequence.Variables>
+            <ui:ReadTextFile Content="[WorkflowContents]" DisplayName="Read Workflow File" FileName="[WorkflowFilename]" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Parse Workflow File" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Common\ParseXAML.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_XAMLContents">[WorkflowContents]</InArgument>
+                <OutArgument x:TypeArguments="sx:XmlDocument" x:Key="out_XMLTree">[XMLTree]</OutArgument>
+                <OutArgument x:TypeArguments="sx:XmlNamespaceManager" x:Key="out_NamespaceManager">[NamespaceManager]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:ForEachRow DataTable="[dt_Activities]" DisplayName="For Each Activity to Search" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="ActivityToSearch" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="XPathExpression" />
+                    </Sequence.Variables>
+                    <ui:LogMessage DisplayName="Log Message: Workflow and Activity" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[String.Format(&quot;Searching workflow {0} for {1}&quot;, WorkflowFilename, ActivityToSearch(0))]" />
+                    <Assign DisplayName="Assign XPath Expression to Search for Activity" sap2010:WorkflowViewState.IdRef="Assign_1">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["//x:" + ActivityToSearch(1).ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[XMLTree.DocumentElement.SelectNodes(XPathExpression, NamespaceManager)]">
+                      <ui:ForEach.Body>
+                        <ActivityAction x:TypeArguments="sx:XmlNode">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="FoundActivityNode" />
+                          </ActivityAction.Argument>
+                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                            </Sequence.Variables>
+                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetInternalPath workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
+                              <ui:InvokeWorkflowFile.Arguments>
+                                <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[FoundActivityNode]</InArgument>
+                                <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
+                              </ui:InvokeWorkflowFile.Arguments>
+                            </ui:InvokeWorkflowFile>
+                            <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{WorkflowFilename, InternalPath, FoundActivityNode.Attributes(&quot;Name&quot;).Value}]" DataTable="[dt_Found]" DisplayName="Add Found Activity to Table of Found Activities and Properties" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ForEach.Body>
+                    </ui:ForEach>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
+            <ui:ForEachRow DataTable="[dt_Properties]" DisplayName="For Each Property to Search" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="PropertyToSearch" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="XPathExpression" />
+                    </Sequence.Variables>
+                    <ui:LogMessage DisplayName="Log Message: Workflow and Property" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;Searching workflow {0} for {1}&quot;, WorkflowFilename, PropertyToSearch(0))]" />
+                    <Assign DisplayName="Assign XPath Expression to Search for Property" sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["//*[@"+PropertyToSearch(1).ToString+"]"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[XMLTree.DocumentElement.SelectNodes(XPathExpression, NamespaceManager)]">
+                      <ui:ForEach.Body>
+                        <ActivityAction x:TypeArguments="sx:XmlNode">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="FoundPropertyNode" />
+                          </ActivityAction.Argument>
+                          <If Condition="[FoundPropertyNode.Attributes(PropertyToSearch(1).ToString).Value.Contains(PropertyToSearch(2).ToString)]" sap2010:WorkflowViewState.IdRef="If_3">
+                            <If.Then>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_14">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                                </Sequence.Variables>
+                                <WriteLine DisplayName="Write workflowname" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Workflow: &quot; + WorkflowFilename]" />
+                                <WriteLine DisplayName="Write node value" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Node: &quot; + FoundPropertyNode.LocalName]" />
+                                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetInternalPath workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
+                                  <ui:InvokeWorkflowFile.Arguments>
+                                    <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[FoundPropertyNode]</InArgument>
+                                    <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
+                                  </ui:InvokeWorkflowFile.Arguments>
+                                </ui:InvokeWorkflowFile>
+                                <WriteLine DisplayName="Write internal path" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Internalpath: &quot; + InternalPath]" />
+                                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{WorkflowFilename, InternalPath, FoundPropertyNode.LocalName}]" DataTable="[dt_Found]" DisplayName="Add Found Property to Table of Found Activities and Properties" sap2010:WorkflowViewState.IdRef="AddDataRow_5" />
+                              </Sequence>
+                            </If.Then>
+                          </If>
+                        </ActivityAction>
+                      </ui:ForEach.Body>
+                    </ui:ForEach>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <If sap2010:Annotation.AnnotationText="Checks whether any issues were found." Condition="[dt_Found.Rows.Count &gt; 0]" sap2010:WorkflowViewState.IdRef="If_4">
+      <If.Then>
+        <Sequence DisplayName="Report the Found Activities and Properties" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="ReportFilename" />
+          </Sequence.Variables>
+          <Assign sap2010:Annotation.AnnotationText="Defines the report filename." sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ReportFilename]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[String.Format("Reports\ActivityPropertySearchReport-{0}-{1:yyyyMMddHHmmss}.xlsx", Path.GetFileName(in_ProjectPath), DateTime.Now)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:CopyFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Makes a working copy of the report template." Destination="[ReportFilename]" DisplayName="Copy Report Template File" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[ReportTemplateFilename]" />
+          <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[ReportFilename]">
+            <ui:ExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                </ActivityAction.Argument>
+                <ui:ExcelAppendRange sap2010:Annotation.AnnotationText="Append Range is used intead of Write Range to preserve the formatting of the Issues table." DataTable="[dt_Found]" DisplayName="Append Range" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="Sheet1" />
+              </ActivityAction>
+            </ui:ExcelApplicationScope.Body>
+          </ui:ExcelApplicationScope>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="No activities or properties found in the project." />
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEFjdGl2aXR5UHJvcGVydHlTZWFyY2gueGFtbE9KA/ABDgIBAVEFUawLAgFnUgVYHQIBX1kFzwESAgEX0AEF7gEKAgECUSJRLgIBaFVPVV4CAWVWT1ZeAgFjVFRUbAIBYVLTAVKFAgIBYFnhAVm4AgIBXl8LzAEWAgEY0AFd0AF7AgED0gEJ6QEUAgEG7AEJ7AGsAQIBBGUNZa0BAgFZZg1sJQIBUW0NmAEdAgE6mQENywEdAgEZ1gEL3QEUAgET3gEL3gGrAgIBDt8BC+gBJgIBB+wBduwBqQECAQVlZWV5AgFcZSZlOgIBWmlTaVwCAVdqZGp2AgFVaFBoYgIBU2a4AWbPAQIBUm0mbTcCAU9zE5UBHgIBO5kBJpkBNwIBOJ8BE8gBHgIBGtsBNtsBuQECARbYATfYAUcCARTeAZAB3gGiAQIBEd4BjgLeAagCAgEP3wGmAd8BuAECAQzlARHlAaECAgEIdxV3gQICAU14FX8eAgFJgAEVlAEiAgE8owEVowGBAgIBNqQBFasBHgIBMqwBFccBIgIBG+UBrwHlAbsBAgEK5QGWAuUBngICAQl3mgF3/gECAU59QH1nAgFMekF6UgIBSoABkwGAAd0BAgFIhgEbkQEmAgE9owGaAaMB/gECATepAUCpAWoCATWmAUGmAVICATOsAZMBrAHdAQIBMbIBG8QBIAIBHIoBHY8BNQIBQpABHZABuAICAT6yASmyAZQBAgEdtAEfwgEqAgEejQFijQFwAgFGjAFijAF1AgFEigHUAYoB8QECAUOQAa0BkAG5AQIBQJABSJABogECAT+4ASG4AbABAgEuuQEhuQG1AQIBLLoBIb8BOQIBJsABIcABsQECASPBASHBAaMCAgEfuAGAAbgBrQECAS+5AX65AbIBAgEtvQFmvQF0AgEqvAFmvAF5AgEougHYAboB9QECASfAAYEBwAGuAQIBJMEBmAHBAaQBAgEhwQFMwQGNAQIBIA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="489,59" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="489,87" />
+      <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="352,91" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="352,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="AddDataRow_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="336,273">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="352,407" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="374,762">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_3" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="480,91" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="480,60" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="314,61" />
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="314,61" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="314,61" />
+      <sap2010:ViewStateData Id="AddDataRow_5" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="336,576">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,724" />
+      <sap2010:ViewStateData Id="ForEach`1_3" sap:VirtualizedContainerService.HintSize="480,858" />
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="502,1213">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_4" sap:VirtualizedContainerService.HintSize="532,1441">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="336,492">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="489,108">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CopyFile_1" sap:VirtualizedContainerService.HintSize="242,64">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelAppendRange_1" sap:VirtualizedContainerService.HintSize="314,129">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="242,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="264,406">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="200,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="489,581">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="511,1079">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ActivityAttributeSearch_1" sap:VirtualizedContainerService.HintSize="551,1399" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

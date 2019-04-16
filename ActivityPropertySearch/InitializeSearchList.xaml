@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property sap2010:Annotation.AnnotationText="Data about workflow checks: issue name, check filename, argument and suggestion" Name="out_dt_WorkflowCheckslist" Type="OutArgument(sd:DataTable)" />
-    <x:Property sap2010:Annotation.AnnotationText="Data about project checks: issue name, check filename, argument and suggestion" Name="out_dt_ProjectCheckslist" Type="OutArgument(sd:DataTable)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location of the report template file" Name="out_ReportTemplateFilename" Type="OutArgument(x:String)" />
+    <x:Property Name="out_ReportTemplateFilename" Type="OutArgument(x:String)" />
+    <x:Property Name="out_dt_Activities" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_dt_Properties" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -76,9 +76,9 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Based on the system's language, chooses the appropriate checklist file and initializes the tables containing data about project checks and about workflow checks." DisplayName="InitializeChecklist" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="ChecklistFilename" />
-      <Variable x:TypeArguments="x:String" Name="ProjectChecksSheetName" />
-      <Variable x:TypeArguments="x:String" Name="WorkflowChecksSheetName" />
+      <Variable x:TypeArguments="x:String" Name="ActivityPropertySearchFilename" />
+      <Variable x:TypeArguments="x:String" Name="ActivitiesSheetName" />
+      <Variable x:TypeArguments="x:String" Name="PropertiesSheetName" />
       <Variable x:TypeArguments="x:String" Name="SystemCulture" />
     </Sequence.Variables>
     <Assign sap2010:Annotation.AnnotationText="Retrieves the system's culture to decide what checklist to use." sap2010:WorkflowViewState.IdRef="Assign_8">
@@ -94,26 +94,26 @@
         <Sequence DisplayName="Use English files and names" sap2010:WorkflowViewState.IdRef="Sequence_8">
           <Assign sap2010:WorkflowViewState.IdRef="Assign_20">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[ActivityPropertySearchFilename]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Config\EN\CheckBestPracticesCheckList.xlsx</InArgument>
+              <InArgument x:TypeArguments="x:String">Config\EN\ActivityPropertySearchList.xlsx</InArgument>
             </Assign.Value>
           </Assign>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[ActivitiesSheetName]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Project</InArgument>
+              <InArgument x:TypeArguments="x:String">Activities</InArgument>
             </Assign.Value>
           </Assign>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_16">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[PropertiesSheetName]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Workflow</InArgument>
+              <InArgument x:TypeArguments="x:String">Properties</InArgument>
             </Assign.Value>
           </Assign>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_17">
@@ -121,7 +121,7 @@
               <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">Config\EN\CheckBestPracticesReportTemplate.xlsx</InArgument>
+              <InArgument x:TypeArguments="x:String">Config\EN\ActivityPropertySearchReportTemplate.xlsx</InArgument>
             </Assign.Value>
           </Assign>
         </Sequence>
@@ -129,26 +129,26 @@
       <Sequence x:Key="日本語 (日本)" DisplayName="Use Japanese files and names" sap2010:WorkflowViewState.IdRef="Sequence_5">
         <Assign sap2010:WorkflowViewState.IdRef="Assign_11">
           <Assign.To>
-            <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
+            <OutArgument x:TypeArguments="x:String">[ActivityPropertySearchFilename]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">Config\JP\CheckBestPracticesCheckList.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String">Config\JP\ActivityPropertySearchList.xlsx</InArgument>
           </Assign.Value>
         </Assign>
         <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
           <Assign.To>
-            <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
+            <OutArgument x:TypeArguments="x:String">[ActivitiesSheetName]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">プロジェクト</InArgument>
+            <InArgument x:TypeArguments="x:String">アクティビティ</InArgument>
           </Assign.Value>
         </Assign>
         <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
           <Assign.To>
-            <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
+            <OutArgument x:TypeArguments="x:String">[PropertiesSheetName]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">ワークフロー</InArgument>
+            <InArgument x:TypeArguments="x:String">プロパティ</InArgument>
           </Assign.Value>
         </Assign>
         <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
@@ -156,19 +156,19 @@
             <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">Config\JP\CheckBestPracticesReportTemplate.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String">Config\JP\ActivityPropertySearchReportTemplate.xlsx</InArgument>
           </Assign.Value>
         </Assign>
       </Sequence>
     </Switch>
-    <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Reads list of checks related to a project." DataTable="[out_dt_ProjectCheckslist]" DisplayName="Read Range: Project Checks" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="[ProjectChecksSheetName]" WorkbookPath="[ChecklistFilename]">
+    <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Read activities to be searched." DataTable="[out_dt_Activities]" DisplayName="Read Range: Activities" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="[ActivitiesSheetName]" WorkbookPath="[ActivityPropertySearchFilename]">
       <ui:ReadRange.Range>
         <InArgument x:TypeArguments="x:String">
           <Literal x:TypeArguments="x:String" Value="" />
         </InArgument>
       </ui:ReadRange.Range>
     </ui:ReadRange>
-    <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected project checks." DataTable="[out_dt_ProjectCheckslist]" DisplayName="Filter Project Checks DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[out_dt_ProjectCheckslist]" SelectColumnsMode="Remove">
+    <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected activities." DataTable="[out_dt_Activities]" DisplayName="Filter Activities DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[out_dt_Activities]" SelectColumnsMode="Remove">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
@@ -187,14 +187,14 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Reads list of checks related to a workflow." DataTable="[out_dt_WorkflowCheckslist]" DisplayName="Read Range: Workflow Checks" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="[WorkflowChecksSheetName]" WorkbookPath="[ChecklistFilename]">
+    <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Read properties to be searched." DataTable="[out_dt_Properties]" DisplayName="Read Range: Properties" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="[PropertiesSheetName]" WorkbookPath="[ActivityPropertySearchFilename]">
       <ui:ReadRange.Range>
         <InArgument x:TypeArguments="x:String">
           <Literal x:TypeArguments="x:String" Value="" />
         </InArgument>
       </ui:ReadRange.Range>
     </ui:ReadRange>
-    <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected workflow checks." DataTable="[out_dt_WorkflowCheckslist]" DisplayName="Filter Workflow Checks DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[out_dt_WorkflowCheckslist]" SelectColumnsMode="Remove">
+    <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected properties." DataTable="[out_dt_Properties]" DisplayName="Filter Properties DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[out_dt_Properties]" SelectColumnsMode="Remove">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
@@ -213,7 +213,7 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja0Jlc3RQcmFjdGljZXNcSW5pdGlhbGl6ZUNoZWNrbGlzdC54YW1sNk0D2QEOAgEBVAVbDgIBR1wFowEOAgEipAEFqgEUAgEaqwEFvQEaAgESvgEFxAEUAgEKxQEF1wEaAgECWTBZcAIBSlYxVkACAUhcvAFczQECASOBAQeiARICATZeCX8UAgElpAF+pAGaAQIBIKcBC6cBOgIBH6QB/AGkAZYCAgEdpAGkAqQBuQICARuwATWwATgCARmzATezAT4CARirAZACqwGsAgIBFqsBaasBhQECARS6ATG6ATQCARO+AX++AZwBAgEQwQELwQE6AgEPvgH/Ab4BmgICAQ2+AagCvgG9AgIBC8oBNcoBOAIBCc0BN80BPgIBCMUBkwLFAbACAgEGxQFqxQGHAQIBBNQBMdQBNAIBA4IBCYkBEgIBQ4oBCZEBEgIBP5IBCZkBEgIBO5oBCaEBEgIBN18LZhQCATJnC24UAgEubwt2FAIBKncLfhQCASaHATSHAV4CAUaEATWEAUgCAUSPATSPAToCAUKMATWMAU0CAUCXATSXAToCAT6UATWUAU4CATyfATSfAWMCATqcATWcAVECAThkNmRgAgE1YTdhSgIBM2w2bD0CATFpN2lPAgEvdDZ0PgIBLXE3cVACASt8NnxlAgEpeTd5UwIBJw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxBY3Rpdml0eVByb3BlcnR5U2VhcmNoXEluaXRpYWxpemVTZWFyY2hMaXN0LnhhbWw2TQPZAQ4CAQFUBVsOAgFHXAWjAQ4CASKkAQWqARQCARqrAQW9ARoCARK+AQXEARQCAQrFAQXXARoCAQJZMFlwAgFKVjFWQAIBSFy8AVzNAQIBI4EBB6IBEgIBNl4JfxQCASWkAXOkAYgBAgEgpwELpwE6AgEfpAHmAaQB/QECAR2kAYsCpAGtAgIBG7ABNbABOAIBGbMBN7MBPgIBGKsBgQKrAZYCAgEWqwFlqwF6AgEUugExugE0AgETvgFzvgGIAQIBEMEBC8EBOgIBD74B5gG+Af0BAgENvgGLAr4BrQICAQvKATXKATgCAQnNATfNAT4CAQjFAYECxQGWAgIBBsUBZcUBegIBBNQBMdQBNAIBA4IBCYkBEgIBQ4oBCZEBEgIBP5IBCZkBEgIBO5oBCaEBEgIBN18LZhQCATJnC24UAgEubwt2FAIBKncLfhQCASaHATSHAV0CAUaEATWEAVUCAUSPATSPATsCAUKMATWMAUoCAUCXATSXATkCAT6UATWUAUoCATyfATSfAWcCATqcATWcAVECAThkNmRfAgE1YTdhVwIBM2w2bEACATFpN2lMAgEvdDZ0QAIBLXE3cUwCASt8NnxpAgEpeTd5UwIBJw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
