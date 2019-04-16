@@ -74,7 +74,6 @@
   <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xA;&#xA;The architecture is composed by three main components:&#xA;-Initialization: Reads configuration files and initializes the issues table&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_5">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
-      <Variable x:TypeArguments="x:String" Name="ProjectPath" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_WorkflowChecklist" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectChecklist" />
       <Variable x:TypeArguments="x:String" Name="ReportTemplateFilename" />
@@ -85,20 +84,20 @@
         <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowChecklist">[dt_WorkflowChecklist]</OutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Issues">[dt_Issues]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_ProjectPath">[ProjectPath]</OutArgument>
+        <InOutArgument x:TypeArguments="x:String" x:Key="io_ProjectPath">[in_ProjectPath]</InOutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <Sequence DisplayName="Checks" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Core\ProjectChecks.xaml">
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_ProjectChecklist">[dt_ProjectChecklist]</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
           <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Core\WorkflowChecks.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
           <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
           <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_WorkflowChecklist">[dt_WorkflowChecklist]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
@@ -108,10 +107,10 @@
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_Issues">[dt_Issues]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[ProjectPath]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYSgNzDgIBAVIFWh0CARtbBWoQAgEKawVxHQIBAldLV1YCASVVVFVsAgEjWElYVgIBIVRVVGoCAR9SqwFSxQECAR5WVlZsAgEcXAdiHwIBE2MHaR8CAQttSW1UAgEIb0dvVAIBBm5SbmoCAQRrpwFrvAECAQNgTmBZAgEZXlVeagIBF19JX1YCARVcrQFcxgECARRmTmZZAgERZ1ZnbAIBD2VJZVYCAQ1jrgFjyAECAQw=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYSgNyDgIBAVEFWR0CARtaBWkQAgEKagVwHQIBAlZLVlYCASVUVFRsAgEjU1VTagIBIVGrAVHFAQIBIFVWVWwCAR5XSldaAgEcWwdhHwIBE2IHaB8CAQtsSWxUAgEIbkduVwIBBm1SbWoCAQRqpwFqvAECAQNfTl9ZAgEZXVVdagIBF15JXlkCARVbrQFbxgECARRlTmVZAgERZlZmbAIBD2RJZFkCAQ1irgFiyAECAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -135,7 +134,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,1218" />
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="398,1618" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
