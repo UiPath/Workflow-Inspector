@@ -7,11 +7,15 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="io_ProjectPath" Type="InOutArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Feature to be executed: (0) All; (1) Check for best practices; (2) Project statistics; (3) Activity/property search" Name="io_Feature" Type="InOutArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Datatable that will be used to store the found issues." Name="out_dt_Issues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_dt_ProjectChecklist" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_ReportTemplateFilename" Type="OutArgument(x:String)" />
+    <x:Property Name="out_dt_WorkflowChecklist" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -80,10 +84,9 @@
       <AssemblyReference>UiPath.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="If they were not passed as arguments, prompts the user for the project folder and the features to be executed." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="If they were not passed as arguments, prompts the user for the project folder." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="ProjectFolderExists" />
-      <Variable x:TypeArguments="x:String" Name="SelectedFeature" />
     </Sequence.Variables>
     <ui:PathExists DisplayName="Path Exists (Project Folder)" Exists="[ProjectFolderExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[io_ProjectPath]" PathType="Folder" />
     <If Condition="[Not ProjectFolderExists]" DisplayName="If Project Path Exists" sap2010:WorkflowViewState.IdRef="If_1">
@@ -91,66 +94,152 @@
         <ui:SelectFolder sap2010:Annotation.AnnotationText="Prompts user for a project path." DisplayName="Select Folder" sap2010:WorkflowViewState.IdRef="SelectFolder_2" SelectedFolder="[io_ProjectPath]" />
       </If.Then>
     </If>
-    <If Condition="[io_Feature = 0]" DisplayName="If Feature Was Selected" sap2010:WorkflowViewState.IdRef="If_2">
-      <If.Then>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
-          <ui:InputDialog DisplayName="Input Dialog to Choose Feature" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Please choose a feature to be executed." Options="[{&quot;All features&quot;, &quot;Check best practices&quot;,  &quot;Project statistics&quot;, &quot;Activity/property search&quot;}]" Title="Workflow Inspector Feature">
-            <ui:InputDialog.Result>
-              <OutArgument x:TypeArguments="x:String">[SelectedFeature]</OutArgument>
-            </ui:InputDialog.Result>
-          </ui:InputDialog>
-          <Switch x:TypeArguments="x:String" DisplayName="Switch Selected Feature" Expression="[SelectedFeature]" sap2010:WorkflowViewState.IdRef="Switch`1_1">
-            <Switch.Default>
-              <Assign DisplayName="Assign io_Feature to All Features" sap2010:WorkflowViewState.IdRef="Assign_1">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:Int32">[io_Feature]</OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:Int32">1</InArgument>
-                </Assign.Value>
-              </Assign>
-            </Switch.Default>
-            <Assign x:Key="&quot;All features&quot;" DisplayName="Assign io_Feature to All Features" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <ui:BuildDataTable DataTable="[out_dt_Issues]" DisplayName="Build Issues DataTable" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Workflow_x0020_File&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Internal_x0020_Path&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Activity_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Issue&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Severity&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Suggestion&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Sequence sap2010:Annotation.AnnotationText="Based on the system's language, choose the appropriate checklist file and initializes the tables containing data about project checks and about workflow checks." DisplayName="Initialize Checklists" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="ChecklistFilename" />
+        <Variable x:TypeArguments="x:String" Name="ProjectChecksSheetName" />
+        <Variable x:TypeArguments="x:String" Name="WorkflowChecksSheetName" />
+        <Variable x:TypeArguments="x:String" Name="SystemCulture" />
+      </Sequence.Variables>
+      <Assign sap2010:Annotation.AnnotationText="Retrieves the system's culture to decide what checklist to use." sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[SystemCulture]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[System.Globalization.CultureInfo.InstalledUICulture.NativeName]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the appropriate filenames and sheet names based on the system's culture." DisplayName="Switch" Expression="[SystemCulture]" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+        <Switch.Default>
+          <Sequence DisplayName="Use English files and names" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_7">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[io_Feature]</OutArgument>
+                <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                <InArgument x:TypeArguments="x:String">Config\EN\Checklist.xlsx</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign x:Key="&quot;Check best practices&quot;" DisplayName="Assign io_Feature to Check Best Practices" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[io_Feature]</OutArgument>
+                <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">2</InArgument>
+                <InArgument x:TypeArguments="x:String">Project</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign x:Key="&quot;Project statistics&quot;" DisplayName="Assign io_Feature to Project Statistics" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_9">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[io_Feature]</OutArgument>
+                <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">3</InArgument>
+                <InArgument x:TypeArguments="x:String">Workflow</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign x:Key="&quot;Activity/propertysearch&quot;" DisplayName="Assign io_Feature to Activity/Property Search" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_10">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[io_Feature]</OutArgument>
+                <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">4</InArgument>
+                <InArgument x:TypeArguments="x:String">Config\EN\ReportTemplate.xlsx</InArgument>
               </Assign.Value>
             </Assign>
-          </Switch>
+          </Sequence>
+        </Switch.Default>
+        <Sequence x:Key="日本語 (日本)" DisplayName="Use Japanese files and names" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">Config\JP\Checklist.xlsx</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">プロジェクト</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">ワークフロー</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[out_ReportTemplateFilename]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">Config\JP\ReportTemplate.xlsx</InArgument>
+            </Assign.Value>
+          </Assign>
         </Sequence>
-      </If.Then>
-    </If>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWwhUwOWAQ4CAQFYBVi5AQIBKVkFXQoCASNeBZQBCgIBAlhGWF0CASxYkgFYpAECASpZE1kuAgEkWwlb0AECASZeE14lAgEDYAmSARQCAQVbuwFbzQECASdhC2UcAgEdZguRARQCAQZhkQFhugECASJhwwFhygICASFjN2NIAgEfYdECYe0CAgEeZl9mcgIBB3ENeBYCARl5DYABFgIBFYEBDYgBFgIBEYkBDZABFgIBDWgPbxgCAQl2N3Y4AgEcczhzRAIBGn43fjgCARh7OHtEAgEWhgE3hgE4AgEUgwE4gwFEAgESjgE3jgE4AgEQiwE4iwFEAgEObTltOgIBDGo6akYCAQo=</sads:DebugSymbol.Symbol>
+      </Switch>
+      <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Read list of checks related to a project." DataTable="[out_dt_ProjectChecklist]" DisplayName="Read Range: Project Checks" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="[ProjectChecksSheetName]" WorkbookPath="[ChecklistFilename]">
+        <ui:ReadRange.Range>
+          <InArgument x:TypeArguments="x:String">
+            <Literal x:TypeArguments="x:String" Value="" />
+          </InArgument>
+        </ui:ReadRange.Range>
+      </ui:ReadRange>
+      <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected project checks." DataTable="[out_dt_ProjectChecklist]" DisplayName="Filter Project Checks DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[out_dt_ProjectChecklist]" SelectColumnsMode="Remove">
+        <ui:FilterDataTable.Filters>
+          <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+            <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
+              <ui:FilterOperationArgument.Column>
+                <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+              </ui:FilterOperationArgument.Column>
+              <ui:FilterOperationArgument.Operand>
+                <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+              </ui:FilterOperationArgument.Operand>
+            </ui:FilterOperationArgument>
+          </scg:List>
+        </ui:FilterDataTable.Filters>
+        <ui:FilterDataTable.SelectColumns>
+          <scg:List x:TypeArguments="InArgument" Capacity="4">
+            <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+          </scg:List>
+        </ui:FilterDataTable.SelectColumns>
+      </ui:FilterDataTable>
+      <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Read list of checks related to a workflow." DataTable="[out_dt_WorkflowChecklist]" DisplayName="Read Range: Workflow Checks" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="[WorkflowChecksSheetName]" WorkbookPath="[ChecklistFilename]">
+        <ui:ReadRange.Range>
+          <InArgument x:TypeArguments="x:String">
+            <Literal x:TypeArguments="x:String" Value="" />
+          </InArgument>
+        </ui:ReadRange.Range>
+      </ui:ReadRange>
+      <ui:FilterDataTable sap2010:Annotation.AnnotationText="Remove unselected workflow checks." DataTable="[out_dt_WorkflowChecklist]" DisplayName="Filter Workflow Checks DataTable" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[out_dt_WorkflowChecklist]" SelectColumnsMode="Remove">
+        <ui:FilterDataTable.Filters>
+          <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+            <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
+              <ui:FilterOperationArgument.Column>
+                <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+              </ui:FilterOperationArgument.Column>
+              <ui:FilterOperationArgument.Operand>
+                <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+              </ui:FilterOperationArgument.Operand>
+            </ui:FilterOperationArgument>
+          </scg:List>
+        </ui:FilterDataTable.Filters>
+        <ui:FilterDataTable.SelectColumns>
+          <scg:List x:TypeArguments="InArgument" Capacity="4">
+            <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+          </scg:List>
+        </ui:FilterDataTable.SelectColumns>
+      </ui:FilterDataTable>
+    </Sequence>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWxAVwPvAQ4CAQFbBVu5AQIBVVwFYAoCAU9hBWH2DQIBTGIF7QEQAgECW0ZbXQIBWFuSAVukAQIBVlwTXC4CAVBeCV7QAQIBUmEiYTMCAU1pB3AQAgFIcQe4ARACASO5AQe/ARYCARvAAQfSARwCARPTAQfZARYCAQvaAQfsARwCAQNeuwFezQECAVNuMm5yAgFLazNrQgIBSXG+AXHPAQIBJJYBCbcBFAIBN3MLlAEWAgEmuQF/uQGaAQIBIbwBDbwBPAIBILkB/AG5AZYCAgEeuQGkArkBuQICARzFATfFAToCARrIATnIAUACARnAAZECwAGsAgIBF8ABa8ABhgECARXPATPPATYCARTTAYAB0wGcAQIBEdYBDdYBPAIBENMB/wHTAZoCAgEO0wGoAtMBvQICAQzfATffAToCAQriATniAUACAQnaAZQC2gGwAgIBB9oBbNoBiAECAQXpATPpATYCAQSXAQueARQCAUSfAQumARQCAUCnAQuuARQCATyvAQu2ARQCATh0DXsWAgEzfA2DARYCAS+EAQ2LARYCASuMAQ2TARYCASecATacAU4CAUeZATeZAUoCAUWkATakATwCAUOhATehAU8CAUGsATasATwCAT+pATepAVACAT20ATa0AVMCATuxATexAVMCATl5OHlQAgE2djl2TAIBNIEBOIEBPwIBMn45flECATCJATiJAUACAS6GATmGAVICASyRATiRAVUCASqOATmOAVUCASg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="624,89" />
+      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="314,89" />
       <sap2010:ViewStateData Id="SelectFolder_2" sap:VirtualizedContainerService.HintSize="200,64">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -158,44 +247,91 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="624,212">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="314,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InputDialog_1" sap:VirtualizedContainerService.HintSize="477,92" />
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Switch`1_1" sap:VirtualizedContainerService.HintSize="477,310">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="477,102">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="264,484">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,472">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477,165">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="499,566">
+      <sap2010:ViewStateData Id="ReadRange_1" sap:VirtualizedContainerService.HintSize="477,114">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="624,714">
+      <sap2010:ViewStateData Id="FilterDataTable_1" sap:VirtualizedContainerService.HintSize="477,86">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadRange_2" sap:VirtualizedContainerService.HintSize="477,114">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FilterDataTable_2" sap:VirtualizedContainerService.HintSize="477,86">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="314,168">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="646,1246">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,653">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -204,7 +340,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="686,1326" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="376,1093" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

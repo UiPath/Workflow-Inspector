@@ -1,6 +1,5 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" this:Main.in_Feature="0"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
@@ -9,12 +8,10 @@
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
  xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
- xmlns:this="clr-namespace:"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Location of the project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Feature to be executed: (1) All; (2)Check for best practices; (3) Project statistics; (4) Activity/property search." Name="in_Feature" Type="InArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -69,144 +66,59 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development, generating projects statistics and searching specifig elements (activities or attributes) in workflows.&#xA;&#xA;This tools can receive the following arguments:&#xA;-Project path: Location of the project to be inspected.&#xA;-Feature: (1) All features; (2) Check for best practices; (3) Project statistics; (4) Activity/property search&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Workflow Inspector" sap2010:WorkflowViewState.IdRef="Flowchart_1">
-    <Flowchart.Variables>
+  <Sequence DisplayName="Worklfow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectChecklist" />
       <Variable x:TypeArguments="x:String" Name="ReportTemplateFilename" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_WorkflowChecklist" />
-      <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
-    </Flowchart.Variables>
-    <Flowchart.StartNode>
-      <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_1">
-        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Core\Initialization.xaml">
-          <ui:InvokeWorkflowFile.Arguments>
-            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_ProjectChecklist">[dt_ProjectChecklist]</OutArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
-            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowChecklist">[dt_WorkflowChecklist]</OutArgument>
-            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Issues">[dt_Issues]</OutArgument>
-            <InOutArgument x:TypeArguments="x:String" x:Key="io_ProjectPath">[in_ProjectPath]</InOutArgument>
-            <InOutArgument x:TypeArguments="x:Int32" x:Key="io_Feature">[in_Feature]</InOutArgument>
-          </ui:InvokeWorkflowFile.Arguments>
-        </ui:InvokeWorkflowFile>
-        <FlowStep.Next>
-          <FlowSwitch x:TypeArguments="x:Int32" x:Name="__ReferenceID1" DisplayName="Selected Feature" Expression="[in_Feature]" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_2">
-            <FlowSwitch.Default>
-              <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_5">
-                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="All Features" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Core\AllFeatures.xaml">
-                  <ui:InvokeWorkflowFile.Arguments>
-                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                  </ui:InvokeWorkflowFile.Arguments>
-                </ui:InvokeWorkflowFile>
-              </FlowStep>
-            </FlowSwitch.Default>
-            <FlowStep x:Key="4" x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Activity/Property Search" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Core\ActivityPropertySearch.xaml">
-                <ui:InvokeWorkflowFile.Arguments>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-                </ui:InvokeWorkflowFile.Arguments>
-              </ui:InvokeWorkflowFile>
-            </FlowStep>
-            <FlowStep x:Key="3" x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_6">
-              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Project Statistics" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Core\ProjectStatistics.xaml">
-                <ui:InvokeWorkflowFile.Arguments>
-                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                </ui:InvokeWorkflowFile.Arguments>
-              </ui:InvokeWorkflowFile>
-            </FlowStep>
-            <FlowStep x:Key="2" x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_8">
-              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Check Best Practices" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Core\CheckBestPractices.xaml">
-                <ui:InvokeWorkflowFile.Arguments>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-                </ui:InvokeWorkflowFile.Arguments>
-              </ui:InvokeWorkflowFile>
-            </FlowStep>
-          </FlowSwitch>
-        </FlowStep.Next>
-      </FlowStep>
-    </Flowchart.StartNode>
-    <x:Reference>__ReferenceID0</x:Reference>
-    <x:Reference>__ReferenceID1</x:Reference>
-    <x:Reference>__ReferenceID2</x:Reference>
-    <x:Reference>__ReferenceID3</x:Reference>
-    <x:Reference>__ReferenceID4</x:Reference>
-    <x:Reference>__ReferenceID5</x:Reference>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwVAU8BUQECSAOGAQ8CAQFRCVohAgEQXHNcgQECAQ5fEWMpAgEMdQ95JwIBCG4PcicCAQZnD2snAgECVk9WWgIBHFRYVHACARpTWVNuAgEYUa8BUckBAgEXVVpVcAIBFVdOV14CARNYSVhVAgERX7UBX8wBAgENd1F3YQIBCnW7AXXZAQIBCW65AW7WAQIBB2lRaWECAQRnvwFn4QECAQM=</sads:DebugSymbol.Symbol>
-  </Flowchart>
+    </Sequence.Variables>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Initialization workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Core\Initialization.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InOutArgument x:TypeArguments="x:String" x:Key="io_ProjectPath">[in_ProjectPath]</InOutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Issues">[dt_Issues]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_ProjectChecklist">[dt_ProjectChecklist]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowChecklist">[dt_WorkflowChecklist]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Core\ProjectChecks.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_ProjectChecklist">[dt_ProjectChecklist]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Core\WorkflowChecks.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_WorkflowChecklist">[dt_WorkflowChecklist]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Best Practices Report" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Core\Reporting.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_Issues">[dt_Issues]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwXRQNrDgIBAUwFVB0CARpVBVsdAgESXAViHQIBCmMFaR0CAQJPS09WAgEkUVRRbAIBIlBVUGoCASBMvAFM1gECAR9SVlJsAgEdTkpOWgIBG1lMWVcCARhXU1doAgEWWEdYVwIBFFWsAVXFAQIBE19MX1cCARBgVGBqAgEOXkdeVwIBDFytAVzHAQIBC2VJZVQCAQhnR2dXAgEGZlJmagIBBGOzAWPIAQIBAw==</sads:DebugSymbol.Symbol>
+  </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="200,51" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="200,51" />
-      <sap2010:ViewStateData Id="FlowStep_5">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">20,364.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="FlowStep_7">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">680,364.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="200,51" />
-      <sap2010:ViewStateData Id="FlowStep_6">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">460,364.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_8" sap:VirtualizedContainerService.HintSize="200,51" />
-      <sap2010:ViewStateData Id="FlowStep_8">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">240,364.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowSwitch`1_2" sap:VirtualizedContainerService.HintSize="92,87">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_13" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_11" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_12" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,592">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">405,228.5</av:Point>
-            <av:Size x:Key="ShapeSize">92,87</av:Size>
-            <av:PointCollection x:Key="Default">405,272 120,272 120,364.5</av:PointCollection>
-            <av:PointCollection x:Key="2Connector">428,315.5 428,345.5 340,345.5 340,364.5</av:PointCollection>
-            <av:PointCollection x:Key="3Connector">474,315.5 474,345.5 560,345.5 560,364.5</av:PointCollection>
-            <av:PointCollection x:Key="4Connector">497,272 780,272 780,364.5</av:PointCollection>
-            <x:String x:Key="DefaultCaseDisplayName">1</x:String>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_1">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">350,127.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">450,178.5 450,208.5 451,208.5 451,228.5</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="914,768">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <av:Point x:Key="ShapeLocation">420,2.5</av:Point>
-            <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <av:PointCollection x:Key="ConnectorLocation">450,77.5 450,127.5</av:PointCollection>
-            <x:Double x:Key="Width">900</x:Double>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="954,1168" />
+      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1032" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
