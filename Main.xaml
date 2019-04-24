@@ -66,7 +66,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Worklfow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xA;&#xA;The architecture is composed by three main components:&#xA;-Initialization: Reads configuration files and initializes the issues table&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Worklfow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectChecklist" />
@@ -78,8 +78,8 @@
         <InOutArgument x:TypeArguments="x:String" x:Key="io_ProjectPath">[in_ProjectPath]</InOutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Issues">[dt_Issues]</OutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_ProjectChecklist">[dt_ProjectChecklist]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowChecklist">[dt_WorkflowChecklist]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Core\ProjectChecks.xaml">
@@ -96,14 +96,14 @@
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_WorkflowChecklist">[dt_WorkflowChecklist]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Best Practices Report" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Core\Reporting.xaml">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Reporting" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Core\Reporting.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_Issues">[dt_Issues]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwXRQNrDgIBAUwFVB0CARpVBVsdAgESXAViHQIBCmMFaR0CAQJPS09WAgEkUVRRbAIBIlBVUGoCASBMvAFM1gECAR9SVlJsAgEdTkpOWgIBG1lMWVcCARhXU1doAgEWWEdYVwIBFFWsAVXFAQIBE19MX1cCARBgVGBqAgEOXkdeVwIBDFytAVzHAQIBC2VJZVQCAQhnR2dXAgEGZlJmagIBBGOzAWPIAQIBAw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwXRQNrDgIBAUwFVB0CARpVBVsdAgESXAViHQIBCmMFaR0CAQJPS09WAgEkUlRSbAIBIlBVUGoCASBMvAFM1gECAR9RVlFsAgEdTkpOWgIBG1lMWVcCARhXU1doAgEWWEdYVwIBFFWsAVXFAQIBE19MX1cCARBgVGBqAgEOXkdeVwIBDFytAVzHAQIBC2VJZVQCAQhmR2ZXAgEGZ1JnagIBBGOnAWO8AQIBAw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -111,14 +111,15 @@
       <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_11" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_12" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,592">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,829">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1032" />
+      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1389" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

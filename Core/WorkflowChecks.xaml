@@ -50,6 +50,7 @@
       <x:String>UiPath.CSV</x:String>
       <x:String>System.Windows.Markup</x:String>
       <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Xml.XPath</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -79,10 +80,11 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Performs the workflow checks using the defined checklist." DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="Sequence_8">
-    <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Parses and checks each workflow file  (.xaml file) in the project." DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+    <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Parses and checks each workflow file  (.xaml file) in the project." DisplayName="For Each Workflow File in Project Folder" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
@@ -94,6 +96,7 @@
               <Variable x:TypeArguments="sx:XmlDocument" Name="XMLTree" />
               <Variable x:TypeArguments="sx:XmlNamespaceManager" Name="NamespaceManager" />
             </Sequence.Variables>
+            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[WorkflowFilename]" />
             <ui:ReadTextFile Content="[WorkflowContents]" DisplayName="Read Workflow File" FileName="[WorkflowFilename]" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Parse Workflow File" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Common\ParseXAML.xaml">
               <ui:InvokeWorkflowFile.Arguments>
@@ -141,12 +144,13 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWweVAORAQ4CAQFVBY8BEgIBAlXfAVW2AgIBK1sLjAEWAgEDYQ1hrQECASZiDWglAgEeaQ2LAR0CAQRhZWF5AgEpYSZhOgIBJ2VTZVwCASRmZGZ2AgEiZFBkYgIBIGK4AWLPAQIBH2mjAWm+AQIBHG8TiAEeAgEFcxVz+gECARp0FX0tAgENfhWHASUCAQZzlwFz9wECARt6XHpuAgEYeWN5dgIBFnZZdmICARR4WXh0AgETd2p3fAIBEXtXe2cCAQ902QN09gMCAQ5+kgF+pwECAQuEARuEAZ8EAgEHhAGsA4QBvAMCAQmEAewBhAGhAwIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwgVgOUAQ4CAQFXBZIBEgIBAlf/AVfWAgIBLl0LjwEWAgEDYw1jewIBK2QNZK0BAgEmZQ1rJQIBHmwNjgEdAgEEY2RjeAIBLGRlZHkCASlkJmQ6AgEnaFNoXAIBJGlkaXYCASJnUGdiAgEgZbgBZc8BAgEfbKMBbL4BAgEcchOLAR4CAQV2FXb6AQIBGncVgAEtAgENgQEVigElAgEGdpcBdvcBAgEbfVx9bgIBGHxjfHYCARZ5WXliAgEUe1l7dAIBE3pqenwCARF+V35nAgEPd9kDd/YDAgEOgQGSAYEBpwECAQuHARuHAZ8EAgEHhwGsA4cBvAMCAQmHAewBhwGhAwIBCA==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="366,61" />
+      <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="366,87" />
       <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,91" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,189">
         <sap:WorkflowViewStateService.ViewState>
@@ -177,16 +181,16 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="366,1173">
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="366,973">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,473">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="388,1424">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -194,14 +198,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="352,649">
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="404,1585">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="374,800">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="426,1736">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -209,7 +213,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="414,1200" />
+      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,2096" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
