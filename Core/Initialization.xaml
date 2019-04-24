@@ -198,7 +198,7 @@
                 <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
               </ui:FilterOperationArgument.Column>
               <ui:FilterOperationArgument.Operand>
-                <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+                <InArgument x:TypeArguments="x:String">["No"]</InArgument>
               </ui:FilterOperationArgument.Operand>
             </ui:FilterOperationArgument>
           </scg:List>
@@ -224,7 +224,7 @@
                 <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
               </ui:FilterOperationArgument.Column>
               <ui:FilterOperationArgument.Operand>
-                <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+                <InArgument x:TypeArguments="x:String">["No"]</InArgument>
               </ui:FilterOperationArgument.Operand>
             </ui:FilterOperationArgument>
           </scg:List>
@@ -236,7 +236,7 @@
         </ui:FilterDataTable.SelectColumns>
       </ui:FilterDataTable>
     </Sequence>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWxAWAPwAQ4CAQFcBVy5AQIBVV0FYQoCAU9iBWKGDgIBTGMF7gEQAgECXEZcXQIBWFySAVykAQIBVl0TXS4CAVBfCV/QAQIBUmIiYjMCAU1qB3EQAgFIcge5ARACASO6AQfAARYCARvBAQfTARwCARPUAQfaARYCAQvbAQftARwCAQNfuwFfzQECAVNvMm9yAgFLbDNsQgIBSXLcAXLtAQIBJJcBCbgBFAIBN3QLlQEWAgEmugF/ugGaAQIBIb0BDb0BPAIBILoB/AG6AZYCAgEeugGkAroBuQICARzGATfGAToCARrJATnJAUACARnBAZECwQGsAgIBF8EBa8EBhgECARXQATPQATYCARTUAYAB1AGcAQIBEdcBDdcBPAIBENQB/wHUAZoCAgEO1AGoAtQBvQICAQzgATfgAToCAQrjATnjAUACAQnbAZQC2wGwAgIBB9sBbNsBiAECAQXqATPqATYCAQSYAQufARQCAUSgAQunARQCAUCoAQuvARQCATywAQu3ARQCATh1DXwWAgEzfQ2EARYCAS+FAQ2MARYCASuNAQ2UARYCASedATadAU4CAUeaATeaAUoCAUWlATalATwCAUOiATeiAU8CAUGtATatATwCAT+qATeqAVACAT21ATa1AVMCATuyATeyAVMCATl6OHpQAgE2dzl3TAIBNIIBOIIBPwIBMn85f1ECATCKATiKAUACAS6HATmHAVICASySATiSAVUCASqPATmPAVUCASg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWxAWAPwAQ4CAQFcBVy5AQIBVV0FYQoCAU9iBWKGDgIBTGMF7gEQAgECXEZcXQIBWFySAVykAQIBVl0TXS4CAVBfCV/QAQIBUmIiYjMCAU1qB3EQAgFIcge5ARACASO6AQfAARYCARvBAQfTARwCARPUAQfaARYCAQvbAQftARwCAQNfuwFfzQECAVNvMm9yAgFLbDNsQgIBSXLcAXLtAQIBJJcBCbgBFAIBN3QLlQEWAgEmugF/ugGaAQIBIb0BDb0BPAIBILoB/AG6AZYCAgEeugGkAroBuQICARzGATfGAToCARrJATjJAT4CARnBAZECwQGsAgIBF8EBa8EBhgECARXQATPQATYCARTUAYAB1AGcAQIBEdcBDdcBPAIBENQB/wHUAZoCAgEO1AGoAtQBvQICAQzgATfgAToCAQrjATjjAT4CAQnbAZQC2wGwAgIBB9sBbNsBiAECAQXqATPqATYCAQSYAQufARQCAUSgAQunARQCAUCoAQuvARQCATywAQu3ARQCATh1DXwWAgEzfQ2EARYCAS+FAQ2MARYCASuNAQ2UARYCASedATadAU4CAUeaATeaAUoCAUWlATalATwCAUOiATeiAU8CAUGtATatATwCAT+qATeqAVACAT21ATa1AVMCATuyATeyAVMCATl6OHpQAgE2dzl3TAIBNIIBOIIBPwIBMn85f1ECATCKATiKAUACAS6HATmHAVICASySATiSAVUCASqPATmPAVUCASg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -279,14 +279,14 @@
       <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,484">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,481">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477,693">
+      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477,165">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -323,7 +323,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,1561">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,1033">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -332,7 +332,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,2031">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,1503">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -341,7 +341,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,2191" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,1583" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
