@@ -96,7 +96,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xD;&#xA;&#xD;&#xA;Author: Silviu Predan (silviu.predan@uipath.com)" DisplayName="Check for VariableOverridesArgument" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xA;&#xA;Author: Silviu Predan (silviu.predan@uipath.com)" DisplayName="Check for VariableOverridesArgument" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Name="ArgumentsNames" />
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />
@@ -138,7 +138,6 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:String" Name="VariableName" />
             </Sequence.Variables>
             <Assign DisplayName="Assign VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
@@ -151,7 +150,10 @@
             </Assign>
             <If sap2010:Annotation.AnnotationText="[If the check fails, add the issue to the issues table]&#xA;&#xA;The variable's names are case-insentive. Perform the &quot;Contains&quot; search using case-insentive mode." Condition="[ArgumentsNames.Contains(VariableName, StringComparer.OrdinalIgnoreCase)]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence DisplayName="Sequence" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                  </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[Variable]</InArgument>
@@ -166,7 +168,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVmFyaWFibGVPdmVycmlkZXNBcmd1bWVudC54YW1sH2MDqgEOAgEBaAVouAsCASlpBXwQAgEefQWEAQ4CARiFAQWoARICAQJowQFo2gECASpqB3EQAgElcgd7FAIBH4IBNoIBiAECARt/N39GAgEZhQHfAYUB8AECAReLAQulARYCAQNvPG9RAgEobD1sTQIBJnJ8ct4BAgEkeA14wwECASCQAQ2XARYCAROYAQ2kARICAQR4RHhWAgEieLIBeMABAgEhlQE4lQFbAgEWkgE5kgFHAgEUmAHsAZgBtwICAQWaARGiARwCAQabAROgASsCAQ2hAROhAd8BAgEHngFYngFmAgERnQFYnQFiAgEPmwHIApsB5QICAQ6hAWmhAYIBAgELoQE+oQFeAgEI</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVmFyaWFibGVPdmVycmlkZXNBcmd1bWVudC54YW1sH2MDrAEOAgEBaAVouAsCASlpBXwQAgEefQWEAQ4CARiFAQWqARICAQJowQFo2gECASpqB3EQAgElcgd7FAIBH4IBNoIBiAECARt/N39GAgEZhQHfAYUB8AECAReLAQunARYCAQNvPG9RAgEobD1sTQIBJnJ8ct4BAgEkeA14wwECASCPAQ2WARYCAROXAQ2mARICAQR4RHhWAgEieLIBeMABAgEhlAE4lAFbAgEWkQE5kQFHAgEUlwHsAZcBtwICAQWZARGkARwCAQadAROiASsCAQ2jAROjAd8BAgEHoAFYoAFmAgERnwFYnwFiAgEPnQHIAp0B5QICAQ6jAWmjAYIBAgELowE+owFeAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

@@ -76,13 +76,9 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Check if the given variable is used in the scope of the given node, either directly in one of the child activities or in more that one sub-containers on different branches whos minim parent node is the given root node. &#xA;If the variable is used in an activity that is inside another container, it should be defined in that container, hence the result will be false. But, if it used in more that one containers, then it should be defined in the common parent container. If that common parent continer is the given node, the result is true, otherwise false.&#xA;&quot;Container&quot; means any of the activities were variables can be defined: Sequence, Flowchart, StateMachine.&#xA;&#xA;Arguments:&#xA; - in_Node, XmlNode - the root node container where the variable should be used.&#xA; - in_VariableName, String - the name of the variable to check if it's used.&#xA; - out_UsageFound, Boolean - the result." DisplayName="VariableUsedInScope" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="CheckVariableUsageRegex" />
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithValue" />
       <Variable x:TypeArguments="scg:List(sx:XmlNode)" Name="NodesUsingVariable" />
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithAttributes" />
-      <Variable x:TypeArguments="sx:XmlNode" Name="FirstUsageContainer" />
-      <Variable x:TypeArguments="sx:XmlNode" Name="CurrentUsageContainer" />
-      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Index variable to loop through elements in the NodesWithValue array." Default="0" Name="Index" />
       <Variable x:TypeArguments="x:Int32" Name="UsagesCount" />
     </Sequence.Variables>
     <Assign sap2010:Annotation.AnnotationText="Select all nodes that have values, except for Reference and DebugSymbol.Symbol." DisplayName="Assign NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_2">
@@ -154,7 +150,6 @@
                 </ActivityAction.Argument>
                 <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_18">
                   <Sequence.Variables>
-                    <Variable x:TypeArguments="x:String" Name="VariablesText" />
                     <Variable x:TypeArguments="x:Boolean" Name="VariableIsUsed" />
                   </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableMinimumScope_VariableUsedInValue workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
@@ -200,111 +195,16 @@
         <InArgument x:TypeArguments="x:Int32">[NodesUsingVariable.Count]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-      <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_19">
-          <Flowchart sap2010:Annotation.AnnotationText="Check first for the first node, and then for all other nodes. We need to get the first container (for the first node) to be able to compare with containers for other nodes to check if used in more than one container.&#xA;&#xA;We stop when:&#xA; - Correct usage was found&#xA; - No more nodes to process" DisplayName="Check if the variable is defined in the right scope" sap2010:WorkflowViewState.IdRef="Flowchart_1">
-            <Flowchart.StartNode>
-              <FlowDecision x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="The variable is used in at least one node. If not, there is nothing else to check, the result is false." Condition="[UsagesCount &gt; 0]" DisplayName="Any usage?" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
-                <FlowDecision.True>
-                  <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_1">
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get the top container for the first node where the variable is used." DisplayName="Invoke VariableScope_GetTopContainer workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="CheckBestPractices\Checks\VariableMinimumScope\VariableMinimumScope_GetTopContainer.xaml">
-                      <ui:InvokeWorkflowFile.Arguments>
-                        <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_StartNode">[NodesUsingVariable(0)]</InArgument>
-                        <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_RootNode">[in_Node]</InArgument>
-                        <OutArgument x:TypeArguments="sx:XmlNode" x:Key="out_ContainerNode">[FirstUsageContainer]</OutArgument>
-                      </ui:InvokeWorkflowFile.Arguments>
-                    </ui:InvokeWorkflowFile>
-                    <FlowStep.Next>
-                      <FlowDecision x:Name="__ReferenceID4" sap2010:Annotation.AnnotationText="FirstUsageContainer is Nothing (meaning that the variable is used directly in the root node (in_Node)" Condition="[FirstUsageContainer Is Nothing]" DisplayName="First usage is in root" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
-                        <FlowDecision.True>
-                          <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_3">
-                            <Assign sap2010:Annotation.AnnotationText="Variable is used! Assign output value and return." DisplayName="Assign out_UsageFount to True" sap2010:WorkflowViewState.IdRef="Assign_12">
-                              <Assign.To>
-                                <OutArgument x:TypeArguments="x:Boolean">[out_UsageFound]</OutArgument>
-                              </Assign.To>
-                              <Assign.Value>
-                                <InArgument x:TypeArguments="x:Boolean">True</InArgument>
-                              </Assign.Value>
-                            </Assign>
-                          </FlowStep>
-                        </FlowDecision.True>
-                        <FlowDecision.False>
-                          <FlowStep x:Name="__ReferenceID9" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-                            <ui:Comment sap2010:WorkflowViewState.IdRef="Comment_1" Text="Check for all other nodes if the parent container is the root node or different than first one." />
-                            <FlowStep.Next>
-                              <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_6">
-                                <Assign sap2010:Annotation.AnnotationText="Start from second usage. The first one was processed above." DisplayName="Assign Index" sap2010:WorkflowViewState.IdRef="Assign_7">
-                                  <Assign.To>
-                                    <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
-                                  </Assign.To>
-                                  <Assign.Value>
-                                    <InArgument x:TypeArguments="x:Int32">1</InArgument>
-                                  </Assign.Value>
-                                </Assign>
-                                <FlowStep.Next>
-                                  <FlowDecision x:Name="__ReferenceID1" Condition="[Index &lt; NodesUsingVariable.Count]" DisplayName="More nodes to check" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
-                                    <FlowDecision.True>
-                                      <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_5">
-                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get the top container for the first node where the variable is used." DisplayName="Invoke VariableScope_GetTopContainer workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="CheckBestPractices\Checks\VariableMinimumScope\VariableMinimumScope_GetTopContainer.xaml">
-                                          <ui:InvokeWorkflowFile.Arguments>
-                                            <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_StartNode">[NodesUsingVariable(Index)]</InArgument>
-                                            <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_RootNode">[in_Node]</InArgument>
-                                            <OutArgument x:TypeArguments="sx:XmlNode" x:Key="out_ContainerNode">[CurrentUsageContainer]</OutArgument>
-                                          </ui:InvokeWorkflowFile.Arguments>
-                                        </ui:InvokeWorkflowFile>
-                                        <FlowStep.Next>
-                                          <FlowDecision x:Name="__ReferenceID7" sap2010:Annotation.AnnotationText="Usage found in root (CurrentUsageContainer is Nothing) or used in different container (CurrentUsageContainer is not FirstUsageContainer)" Condition="[CurrentUsageContainer Is Nothing OrElse CurrentUsageContainer IsNot FirstUsageContainer]" DisplayName="Usage found" sap2010:WorkflowViewState.IdRef="FlowDecision_3" True="{x:Reference __ReferenceID0}">
-                                            <FlowDecision.False>
-                                              <FlowStep x:Name="__ReferenceID8" sap2010:WorkflowViewState.IdRef="FlowStep_4">
-                                                <Assign DisplayName="Assign Index increment" sap2010:WorkflowViewState.IdRef="Assign_14">
-                                                  <Assign.To>
-                                                    <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
-                                                  </Assign.To>
-                                                  <Assign.Value>
-                                                    <InArgument x:TypeArguments="x:Int32">[1 + Index]</InArgument>
-                                                  </Assign.Value>
-                                                </Assign>
-                                                <FlowStep.Next>
-                                                  <x:Reference>__ReferenceID1</x:Reference>
-                                                </FlowStep.Next>
-                                              </FlowStep>
-                                            </FlowDecision.False>
-                                          </FlowDecision>
-                                        </FlowStep.Next>
-                                      </FlowStep>
-                                    </FlowDecision.True>
-                                  </FlowDecision>
-                                </FlowStep.Next>
-                              </FlowStep>
-                            </FlowStep.Next>
-                          </FlowStep>
-                        </FlowDecision.False>
-                      </FlowDecision>
-                    </FlowStep.Next>
-                  </FlowStep>
-                </FlowDecision.True>
-              </FlowDecision>
-            </Flowchart.StartNode>
-            <x:Reference>__ReferenceID2</x:Reference>
-            <x:Reference>__ReferenceID3</x:Reference>
-            <x:Reference>__ReferenceID4</x:Reference>
-            <x:Reference>__ReferenceID0</x:Reference>
-            <x:Reference>__ReferenceID5</x:Reference>
-            <x:Reference>__ReferenceID1</x:Reference>
-            <x:Reference>__ReferenceID6</x:Reference>
-            <x:Reference>__ReferenceID7</x:Reference>
-            <x:Reference>__ReferenceID8</x:Reference>
-            <x:Reference>__ReferenceID9</x:Reference>
-          </Flowchart>
-        </Sequence>
-      </ui:CommentOut.Body>
-    </ui:CommentOut>
     <Flowchart sap2010:Annotation.AnnotationText="We need to get the first container (for the first node) to be able to compare with containers for other nodes to check if used in more than one container.&#xA;&#xA;We stop when:&#xA; - Correct usage was found&#xA; - No more nodes to process" DisplayName="Check if the variable is defined in the right scope" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+      <Flowchart.Variables>
+        <Variable x:TypeArguments="sx:XmlNode" Name="FirstUsageContainer" />
+        <Variable x:TypeArguments="sx:XmlNode" Name="CurrentUsageContainer" />
+        <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Index variable to loop through elements in the NodesWithValue array." Default="0" Name="Index" />
+      </Flowchart.Variables>
       <Flowchart.StartNode>
-        <FlowDecision x:Name="__ReferenceID10" Condition="[Index &lt; NodesUsingVariable.Count]" DisplayName="More nodes to check" sap2010:WorkflowViewState.IdRef="FlowDecision_7">
+        <FlowDecision x:Name="__ReferenceID0" Condition="[Index &lt; NodesUsingVariable.Count]" DisplayName="More nodes to check" sap2010:WorkflowViewState.IdRef="FlowDecision_7">
           <FlowDecision.True>
-            <FlowStep x:Name="__ReferenceID13" sap2010:WorkflowViewState.IdRef="FlowStep_11">
+            <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_11">
               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get the top container for the first node where the variable is used." DisplayName="Invoke VariableScope_GetTopContainer workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_GetTopContainer.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
                   <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_StartNode">[NodesUsingVariable(Index)]</InArgument>
@@ -313,9 +213,9 @@
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
               <FlowStep.Next>
-                <FlowDecision x:Name="__ReferenceID15" sap2010:Annotation.AnnotationText="Save the container where the variable is first used." Condition="[FirstUsageContainer Is Nothing]" DisplayName="FirstUsage is Nothing" sap2010:WorkflowViewState.IdRef="FlowDecision_6">
+                <FlowDecision x:Name="__ReferenceID5" sap2010:Annotation.AnnotationText="Save the container where the variable is first used." Condition="[FirstUsageContainer Is Nothing]" DisplayName="FirstUsage is Nothing" sap2010:WorkflowViewState.IdRef="FlowDecision_6">
                   <FlowDecision.True>
-                    <FlowStep x:Name="__ReferenceID16" sap2010:WorkflowViewState.IdRef="FlowStep_10">
+                    <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_10">
                       <Assign DisplayName="Assign First Usage Container" sap2010:WorkflowViewState.IdRef="Assign_16">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[FirstUsageContainer]</OutArgument>
@@ -325,9 +225,9 @@
                         </Assign.Value>
                       </Assign>
                       <FlowStep.Next>
-                        <FlowDecision x:Name="__ReferenceID11" sap2010:Annotation.AnnotationText="Usage found in root (CurrentUsageContainer is Nothing) or used in different container (CurrentUsageContainer is not FirstUsageContainer)" Condition="[CurrentUsageContainer Is Nothing OrElse CurrentUsageContainer IsNot FirstUsageContainer]" DisplayName="Usage found" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
+                        <FlowDecision x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="Usage found in root (CurrentUsageContainer is Nothing) or used in different container (CurrentUsageContainer is not FirstUsageContainer)" Condition="[CurrentUsageContainer Is Nothing OrElse CurrentUsageContainer IsNot FirstUsageContainer]" DisplayName="Usage found" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
                           <FlowDecision.True>
-                            <FlowStep x:Name="__ReferenceID12" sap2010:WorkflowViewState.IdRef="FlowStep_8">
+                            <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_8">
                               <Assign sap2010:Annotation.AnnotationText="Variable is used! Assign output value and return." DisplayName="Assign out_UsageFount to True" sap2010:WorkflowViewState.IdRef="Assign_17">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="x:Boolean">[out_UsageFound]</OutArgument>
@@ -339,7 +239,7 @@
                             </FlowStep>
                           </FlowDecision.True>
                           <FlowDecision.False>
-                            <FlowStep x:Name="__ReferenceID14" sap2010:WorkflowViewState.IdRef="FlowStep_9">
+                            <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_9">
                               <Assign DisplayName="Assign Index increment" sap2010:WorkflowViewState.IdRef="Assign_18">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
@@ -349,7 +249,7 @@
                                 </Assign.Value>
                               </Assign>
                               <FlowStep.Next>
-                                <x:Reference>__ReferenceID10</x:Reference>
+                                <x:Reference>__ReferenceID0</x:Reference>
                               </FlowStep.Next>
                             </FlowStep>
                           </FlowDecision.False>
@@ -358,7 +258,7 @@
                     </FlowStep>
                   </FlowDecision.True>
                   <FlowDecision.False>
-                    <x:Reference>__ReferenceID11</x:Reference>
+                    <x:Reference>__ReferenceID1</x:Reference>
                   </FlowDecision.False>
                 </FlowDecision>
               </FlowStep.Next>
@@ -366,15 +266,15 @@
           </FlowDecision.True>
         </FlowDecision>
       </Flowchart.StartNode>
-      <x:Reference>__ReferenceID12</x:Reference>
-      <x:Reference>__ReferenceID10</x:Reference>
-      <x:Reference>__ReferenceID13</x:Reference>
-      <x:Reference>__ReferenceID11</x:Reference>
-      <x:Reference>__ReferenceID14</x:Reference>
-      <x:Reference>__ReferenceID15</x:Reference>
-      <x:Reference>__ReferenceID16</x:Reference>
+      <x:Reference>__ReferenceID2</x:Reference>
+      <x:Reference>__ReferenceID0</x:Reference>
+      <x:Reference>__ReferenceID3</x:Reference>
+      <x:Reference>__ReferenceID1</x:Reference>
+      <x:Reference>__ReferenceID4</x:Reference>
+      <x:Reference>__ReferenceID5</x:Reference>
+      <x:Reference>__ReferenceID6</x:Reference>
     </Flowchart>
-    <sads:DebugSymbol.Symbol>d4IBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlX1ZhcmlhYmxlVXNlZEluU2NvcGUueGFtbEJNA/oCDgIBAVWcAVWfAQIBAlgFXw4CAVVgBWcOAgFQaAVvDgIBTXAFjgESAgE8jwEFugESAgEnuwEFwgEOAgEjwwEFygEOAgEfywEFrgIVAgEerwIF+AIRAgEDXTZdwAECAVhaN1pHAgFWZTZl+gECAVNiN2JMAgFRbTxtUgIBT2o9alECAU5w3QFw7wECAUx2C4sBFgIBPY8ByAGPAd8BAgE7lQELtwEYAgEowAExwAE2AgEmvQEyvQFCAgEkyAEvyAFJAgEixQEwxQE9AgEgsQI6sQJhAgEdtAIPugInAgEUvAKbAbwCvQECARPIAvcByALSAgIBEtcCH94CKAIBDcsCH9ICKAIBCb8CF8YCIAIBBHoNgAElAgFFgQENigESAgE+lQHyAZUBhQICATqbARG0ARwCASm2AlG2AmwCARq4Ale4Am4CARi3AlC3AlkCARa0Ar0CtAKEAwIBFdwCSdwCVAIBENkCStkCUQIBDtACS9ACTwIBDM0CTM0CXAIBCsQCRMQCWwIBB8ECRcECWgIBBXxJfFkCAUt+UH5hAgFJerICev0CAgFIfVV9ZQIBRoEBG4EBLQIBP4MBEYgBIAIBQaABE6YBKwIBM6cBE7MBGAIBKoUBSIUBXAIBRIcBPIcBQgIBQqIBT6IBYAIBOaQBVqQBZwIBN6ABuAKgAYMDAgE2owFbowFrAgE0pwEhpwEzAgErqQEXsQEiAgEtqgEZrwEoAgEvsAEZsAHaAQIBLqwBUKwBZAIBMq4BRK4BSgIBMA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d4IBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlX1ZhcmlhYmxlVXNlZEluU2NvcGUueGFtbEFNA5YCDgIBAVQFWw4CAVRcBWMOAgFPZAVrDgIBTGwFigESAgE7iwEFtQESAgEmtgEFvQEOAgEivgEFxQEOAgEexgEFlAIRAgECWTZZwAECAVdWN1ZHAgFVYTZh+gECAVJeN15MAgFQaTxpUgIBTmY9ZlECAU1s3QFs7wECAUtyC4cBFgIBPIsByAGLAd8BAgE6kQELsgEYAgEnuwExuwE2AgEluAEyuAFCAgEjwwEvwwFJAgEhwAEwwAE9AgEfygGeAcoBoQECAQPNATnNAWACAR3QAQ/WAScCARTYAZoB2AG8AQIBE+QB9gHkAdECAgES8wEf+gEoAgEN5wEf7gEoAgEJ2wEX4gEgAgEEdg18JQIBRH0NhgESAgE9kQHyAZEBhQICATmXARGvARwCASjSAVHSAWwCARrUAVfUAW4CARjTAVDTAVkCARbQAb0C0AGEAwIBFfgBSfgBVAIBEPUBSvUBUQIBDuwBS+wBTwIBDOkBTOkBXAIBCuABROABWwIBB90BRd0BWgIBBXhJeFkCAUp6UHphAgFIdrICdv0CAgFHeVV5ZQIBRX0bfS0CAT5/EYQBIAIBQJsBE6EBKwIBMqIBE64BGAIBKYEBSIEBXAIBQ4MBPIMBQgIBQZ0BT50BYAIBOJ8BVp8BZwIBNpsBuAKbAYMDAgE1ngFbngFrAgEzogEhogEzAgEqpAEXrAEiAgEspQEZqgEoAgEuqwEZqwHaAQIBLacBUKcBZAIBMakBRKkBSgIBLw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -499,174 +399,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="200,108">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,102">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_3">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">19,1159</av:Point>
-            <av:Size x:Key="ShapeSize">242,102</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Comment_1" sap:VirtualizedContainerService.HintSize="314,93">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,102">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="200,108">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="FlowStep_4">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">549,900</av:Point>
-            <av:Size x:Key="ShapeSize">242,60</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">670,900 670,753.5</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_3" sap:VirtualizedContainerService.HintSize="160,204">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">340,948</av:Point>
-            <av:Size x:Key="ShapeSize">160,204</av:Size>
-            <av:PointCollection x:Key="TrueConnector">340,1050 140,1050 140,1159</av:PointCollection>
-            <av:PointCollection x:Key="FalseConnector">500,1050 670,1050 670,960</av:PointCollection>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_5">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">320,786</av:Point>
-            <av:Size x:Key="ShapeSize">200,108</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">420,894 420,948</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_4" sap:VirtualizedContainerService.HintSize="117,87">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">611.5,666.5</av:Point>
-            <av:Size x:Key="ShapeSize">117,87</av:Size>
-            <av:PointCollection x:Key="TrueConnector">611.5,710 420,710 420,786</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_6">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">549,499</av:Point>
-            <av:Size x:Key="ShapeSize">242,102</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">670,601 670,666.5</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_7">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">513,372</av:Point>
-            <av:Size x:Key="ShapeSize">314,93</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">670,465 670,499</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="159,174">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">290.5,393</av:Point>
-            <av:Size x:Key="ShapeSize">159,174</av:Size>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <av:PointCollection x:Key="TrueConnector">290.5,480 140,480 140,1159</av:PointCollection>
-            <av:PointCollection x:Key="FalseConnector">449.5,480 479.5,480 479.5,342 670,342 670,372</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_1">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">50,306</av:Point>
-            <av:Size x:Key="ShapeSize">200,108</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">250,360 370,360 370,393</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_2" sap:VirtualizedContainerService.HintSize="158,174">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">291,133</av:Point>
-            <av:Size x:Key="ShapeSize">158,174</av:Size>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <av:PointCollection x:Key="TrueConnector">291,220 150,220 150,306</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="200,243">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            <av:Point x:Key="ShapeLocation">340,2.5</av:Point>
-            <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">370,77.5 370,133</av:PointCollection>
-            <x:Double x:Key="Width">849</x:Double>
-            <x:Double x:Key="Height">1272</x:Double>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_19" sap:VirtualizedContainerService.HintSize="222,367">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="695,51">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,129">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="200,108">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -778,7 +511,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="717,4067">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="717,3976">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -786,7 +519,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="VariableUsedInScope_1" sap:VirtualizedContainerService.HintSize="757,4147" />
+      <sap2010:ViewStateData Id="VariableUsedInScope_1" sap:VirtualizedContainerService.HintSize="757,4096" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

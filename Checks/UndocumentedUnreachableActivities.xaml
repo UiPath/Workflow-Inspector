@@ -114,9 +114,6 @@
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="UnreachableNode" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
-            </Sequence.Variables>
             <If sap2010:Annotation.AnnotationText="An unreachable activity in a flowchart is a child of the unreachable FlowStep, so the path to the child should be retrieved, instead of the path to the FlowStep itself." Condition="[UnreachableNode.LocalName = &quot;FlowStep&quot;]" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
                 <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
@@ -132,6 +129,9 @@
             <If Condition="[UnreachableNode.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If unreachable node does not have an annotation" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                  </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[UnreachableNode]</InArgument>
@@ -146,7 +146,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwYYQOWAQ4CAQFlBWW4CwIBHWYFbQ4CARluBZQBEgIBAmXBAWXaAQIBHmswa20CARxoMWhCAgEaboMBbtMBAgEYdAuRARYCAQN4DYMBEgIBEYQBDZABEgIBBHjoAXicAgIBEnoRgQEaAgEThAEbhAFzAgEFhgERjgEcAgEGfz5/XQIBFnw/fFACARSHAROMASsCAQuNARONAe8BAgEHigFYigFmAgEPiQFYiQFpAgENhwHIAocB5QICAQyNAXaNAY8BAgEJjQE+jQFrAgEI</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwYYQOWAQ4CAQFlBWW4CwIBHWYFbQ4CARluBZQBEgIBAmXBAWXaAQIBHmswa20CARxoMWhCAgEaboMBbtMBAgEYdAuRARYCAQN1DYABEgIBEYEBDZABEgIBBHXoAXWcAgIBEncRfhoCAROBARuBAXMCAQWDARGOARwCAQZ8PnxdAgEWeT95UAIBFIcBE4wBKwIBC40BE40B7wECAQeKAViKAWYCAQ+JAViJAWkCAQ2HAcgChwHlAgIBDI0Bdo0BjwECAQmNAT6NAWsCAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

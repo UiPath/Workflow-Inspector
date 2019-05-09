@@ -94,7 +94,6 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="The project.json file contains important information about the project and it is used by UiPath Studio when loading the project. For more information about this file, refer to https://studio.uipath.com/docs/about-the-projectjson-file&#xA;&#xA;The project.json file should be located in the root folder of the project." DisplayName="Check for project.json configuration file" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="XPathExpression" />
       <Variable x:TypeArguments="x:Boolean" Name="ProjectJsonExists" />
     </Sequence.Variables>
     <ui:PathExists sap2010:Annotation.AnnotationText="Verifies whether the project.json file exists in the root folder of the project." DisplayName="Path Exists" Exists="[ProjectJsonExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_ProjectPath + &quot;\project.json&quot;]" PathType="File" />
@@ -103,11 +102,11 @@
         <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Project&quot;, &quot;&quot;, &quot;&quot;, in_Issue, in_Suggestion}]" DataTable="[io_dt_Issues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d1dDOlxVc2Vyc1xtYXRldXMuY3J1elxEZXNrdG9wXFdvcmtmbG93SW5zcGVjdG9yXENoZWNrc1xQcm9qZWN0SnNvbkNvbmZpZ3VyYXRpb25GaWxlLnhhbWwJXwNrDgIBAWQFZLUCAgELZQVpCgIBAmSqAWS/AQIBDmT0AWSiAgIBDGUTZSwCAQNnCWf3AQIBBWeNAWedAQIBCWc0Z4IBAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUHJvamVjdEpzb25Db25maWd1cmF0aW9uRmlsZS54YW1sCV8Dag4CAQFjBWO1AgIBC2QFaAoCAQJjqgFjvwECAQ5j9AFjogICAQxkE2QsAgEDZglm9wECAQVmjQFmnQECAQlmNGaCAQIBBg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="464,136">
+      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="464,131">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -115,8 +114,8 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_3" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,214" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,609.333333333333">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,208" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,590">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -124,7 +123,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,689.333333333333" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,670" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

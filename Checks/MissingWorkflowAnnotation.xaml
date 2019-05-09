@@ -98,7 +98,6 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNode" Name="TopLevelActivity" />
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
-      <Variable x:TypeArguments="x:String" Name="InternalPath" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign sap2010:Annotation.AnnotationText="Retrieves the first activity that is a child of Activity (the root element)." sap2010:WorkflowViewState.IdRef="Assign_2">
@@ -120,6 +119,9 @@
     <If Condition="[TopLevelActivity IsNot Nothing AndAlso TopLevelActivity.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
         <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="InternalPath" />
+          </Sequence.Variables>
           <Assign sap2010:Annotation.AnnotationText="The top level activity does not have an internal path, since it is the first activity in the workflow." sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[InternalPath]</OutArgument>
@@ -132,7 +134,7 @@
         </Sequence>
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1dvcmtmbG93QW5ub3RhdGlvbi54YW1sEmEDiAEOAgEBZwVnuAsCARhoBW8OAgEUcAV3DgIBDXgFhgEKAgECZ8EBZ9oBAgEZbTBtyAECARdqMWpCAgEVdTJ1hQECARByM3JFAgEOeBN4kwECAQN6CYQBFAIBBHsLggEUAgEJgwELgwHoAQIBBYABNoABNwIBDH03fUUCAQqDAW+DAYgBAgEHgwE2gwFkAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1dvcmtmbG93QW5ub3RhdGlvbi54YW1sEmEDigEOAgEBZgVmuAsCARhnBW4OAgEUbwV2DgIBDXcFiAEKAgECZsEBZtoBAgEZbDBsyAECARdpMWlCAgEVdDJ0hQECARBxM3FFAgEOdxN3kwECAQN5CYYBFAIBBH0LhAEUAgEJhQELhQHoAQIBBYIBNoIBNwIBDH83f0UCAQqFAW+FAYgBAgEHhQE2hQFkAgEG</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -175,7 +177,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,1360" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,1200" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

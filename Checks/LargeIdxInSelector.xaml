@@ -127,7 +127,6 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:String" Name="Selector" />
               <Variable x:TypeArguments="x:String" Name="IdxValue" />
               <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="SelectorIdxMatches" />
@@ -166,6 +165,9 @@
             <If Condition="[CInt(IdxValue) &gt; CInt(IdxValueThreshold)]" DisplayName="If the idx value is greater than the specified threshold" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                  </Sequence.Variables>
                   <If sap2010:Annotation.AnnotationText="In some activities, the selector is located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithIdx.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the selector was found in the Target node" sap2010:WorkflowViewState.IdRef="If_4">
                     <If.Then>
                       <Assign sap2010:WorkflowViewState.IdRef="Assign_7">
@@ -192,7 +194,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTGFyZ2VJZHhJblNlbGVjdG9yLnhhbWwqZAPEAQ4CAQFpBWm4CwIBOGoFcQ4CATNyBXkOAgEvegXCARICAQJpwQFp2gECATlvMG9CAgE2bDFsRAIBNHcwd08CATJ0MXRCAgEweoMBetMBAgEugAELvwEWAgEDhwENjgEWAgEqjwENjwGqAgIBJJABDaUBEgIBGqYBDb4BEgIBBIwBOIwBYgIBLYkBOYkBQwIBK48BuAGPAcQBAgEojwGRAo8BpwICASaPAc0BjwHmAQIBJZAB6gGQAY8CAgEbkgERmQEaAgEgnAERowEaAgEcpgEbpgFKAgEFqAERvAEcAgEIlwE8lwFeAgEjlAE9lAFHAgEhoQE8oQE9AgEfngE9ngFHAgEdqQETtAEYAgETtQETugErAgENuwETuwHrAQIBCakBnAKpAdICAgEUqwEXsgEgAgEVuAFYuAFmAgERtwFYtwFlAgEPtQHIArUB5QICAQ67AXK7AYsBAgELuwE+uwFnAgEKsAFEsAFnAgEYrQFFrQFSAgEW</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTGFyZ2VJZHhJblNlbGVjdG9yLnhhbWwqZAPGAQ4CAQFpBWm4CwIBOGoFcQ4CATNyBXkOAgEvegXEARICAQJpwQFp2gECATlvMG9CAgE2bDFsRAIBNHcwd08CATJ0MXRCAgEweoMBetMBAgEugAELwQEWAgEDhgENjQEWAgEqjgENjgGqAgIBJI8BDaQBEgIBGqUBDcABEgIBBIsBOIsBYgIBLYgBOYgBQwIBK44BuAGOAcQBAgEojgGRAo4BpwICASaOAc0BjgHmAQIBJY8B6gGPAY8CAgEbkQERmAEaAgEgmwERogEaAgEcpQEbpQFKAgEFpwERvgEcAgEIlgE8lgFeAgEjkwE9kwFHAgEhoAE8oAE9AgEfnQE9nQFHAgEdqwETtgEYAgETtwETvAErAgENvQETvQHrAQIBCasBnAKrAdICAgEUrQEXtAEgAgEVugFYugFmAgERuQFYuQFlAgEPtwHIArcB5QICAQ69AXK9AYsBAgELvQE+vQFnAgEKsgFEsgFnAgEYrwFFrwFSAgEW</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -281,7 +283,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2320" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2160" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

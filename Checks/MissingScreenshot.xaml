@@ -116,7 +116,6 @@
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="ScreenshotExists" />
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:String" Name="ScreenshotReference" />
             </Sequence.Variables>
             <Assign sap2010:WorkflowViewState.IdRef="Assign_11">
@@ -131,6 +130,9 @@
             <If Condition="[Not ScreenshotExists]" DisplayName="If no screenshot file was found" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                  </Sequence.Variables>
                   <If sap2010:Annotation.AnnotationText="In some activities, the screenshot is located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithScreenshot.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the screenshot was found in the Target node" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
                       <Assign sap2010:WorkflowViewState.IdRef="Assign_9">
@@ -157,7 +159,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1NjcmVlbnNob3QueGFtbB5hA6EBDgIBAWUFZcoLAgEoZgVtDgIBJG4FnwESAgECZdMBZewBAgEpazBrSwIBJ2gxaEICASVunAFu7AECASN0C5wBFgIBA3oNgQEWAgEfggENggG/AgIBGYMBDZsBEgIBBH84f3YCASJ8OXxOAgEgggGLAYIBnwECAR2CAdQBggGsAgIBGoMBG4MBMwIBBYUBEZkBHAIBB4YBE5EBGAIBEpIBE5cBKwIBDJgBE5gB8gECAQiGAZ4ChgHbAgIBE4gBF48BIAIBFJUBWJUBZgIBEJQBWJQBbAIBDpIByAKSAeUCAgENmAF5mAGSAQIBCpgBPpgBbgIBCY0BRI0BbgIBF4oBRYoBWQIBFQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1NjcmVlbnNob3QueGFtbB5hA6MBDgIBAWUFZcoLAgEoZgVtDgIBJG4FoQESAgECZdMBZewBAgEpazBrSwIBJ2gxaEICASVunAFu7AECASN0C54BFgIBA3kNgAEWAgEfgQENgQG/AgIBGYIBDZ0BEgIBBH44fnYCASJ7OXtOAgEggQGLAYEBnwECAR2BAdQBgQGsAgIBGoIBG4IBMwIBBYQBEZsBHAIBB4gBE5MBGAIBEpQBE5kBKwIBDJoBE5oB8gECAQiIAZ4CiAHbAgIBE4oBF5EBIAIBFJcBWJcBZgIBEJYBWJYBbAIBDpQByAKUAeUCAgENmgF5mgGSAQIBCpoBPpoBbgIBCY8BRI8BbgIBF4wBRYwBWQIBFQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

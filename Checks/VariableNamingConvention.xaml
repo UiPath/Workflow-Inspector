@@ -124,13 +124,15 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:Boolean" Name="VariableFollowsConvention" />
             </Sequence.Variables>
             <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the variable name matches the regular expression specified as input." DisplayName="Is Match" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[VariableNode.Attributes(&quot;Name&quot;).Value]" Pattern="[VariableNamingPattern]" RegexOption="Compiled" Result="[VariableFollowsConvention]" />
             <If Condition="[Not VariableFollowsConvention]" DisplayName="If variable does not follow naming convention" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                  </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[VariableNode]</InArgument>
@@ -145,7 +147,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVmFyaWFibGVOYW1pbmdDb252ZW50aW9uLnhhbWwaYQOVAQ4CAQFmBWa4CwIBImcFbg4CAR1vBXYOAgEZdwWTARICAQJmwQFm2gECASNsMGxCAgEgaTFpSAIBHnQwdD8CARxxMXFCAgEad4MBd9MBAgEYfQuQARYCAQOCAQ2CAfACAgESgwENjwESAgEEggHcAYIBjwICAReCAdACggHtAgIBFYIBmAKCAbECAgETgwEbgwE8AgEFhQERjQEcAgEHhgETiwErAgEMjAETjAGFAgIBCIkBWIkBZgIBEIgBWIgBZgIBDoYByAKGAeUCAgENjAGMAYwBpQECAQqMAT6MAYEBAgEJ</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVmFyaWFibGVOYW1pbmdDb252ZW50aW9uLnhhbWwaYQOXAQ4CAQFmBWa4CwIBImcFbg4CAR1vBXYOAgEZdwWVARICAQJmwQFm2gECASNsMGxCAgEgaTFpSAIBHnQwdD8CARxxMXFCAgEad4MBd9MBAgEYfQuSARYCAQOBAQ2BAfACAgESggENkQESAgEEgQHcAYEBjwICAReBAdACgQHtAgIBFYEBmAKBAbECAgETggEbggE8AgEFhAERjwEcAgEHiAETjQErAgEMjgETjgGFAgIBCIsBWIsBZgIBEIoBWIoBZgIBDogByAKIAeUCAgENjgGMAY4BpQECAQqOAT6OAYEBAgEJ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -205,7 +207,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1669" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1589" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

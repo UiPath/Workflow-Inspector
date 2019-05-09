@@ -81,12 +81,12 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Outputs the issues table to a report based on a template." DisplayName="Reporting" sap2010:WorkflowViewState.IdRef="Sequence_4">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="ReportFilename" />
-    </Sequence.Variables>
     <If Condition="[in_dt_Issues.Rows.Count &gt; 0]" DisplayName="If any issues were found" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence DisplayName="Report the found issues" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="ReportFilename" />
+          </Sequence.Variables>
           <Assign sap2010:Annotation.AnnotationText="Defines the report filename." DisplayName="Assign: Report Filename" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ReportFilename]</OutArgument>
@@ -112,7 +112,7 @@
         <ui:LogMessage DisplayName="Log Message: No Issues Found" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="No issues found in the project." />
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sEVMDdA4CAQFXBXIKAgECVxNXNQIBA1kJbRQCAQZwCXCrAQIBBFoLYRQCARNiC2KuAgIBDmMLbCYCAQdwhwFwqAECAQVfNl+jAQIBFlw3XEcCARRikAFiogECARFijgJiqwICAQ9jvAFjzgECAQxpEWmlAgIBCGmvAWm/AQIBCmmaAmmiAgIBCQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sEVMDdA4CAQFUBXIKAgECVBNUNQIBA1YJbRQCAQZwCXCrAQIBBFoLYRQCARNiC2KuAgIBDmMLbCYCAQdwhwFwqAECAQVfNl+jAQIBFlw3XEcCARRikAFiogECARFijgJiqwICAQ9jvAFjzgECAQxpEWmlAgIBCGmvAWm/AQIBCmmaAmmiAgIBCQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -170,7 +170,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Reporting_1" sap:VirtualizedContainerService.HintSize="723,1092" />
+      <sap2010:ViewStateData Id="Reporting_1" sap:VirtualizedContainerService.HintSize="723,972" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
