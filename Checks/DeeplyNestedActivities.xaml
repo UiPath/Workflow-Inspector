@@ -165,6 +165,7 @@
                 <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_6">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                    <Variable x:TypeArguments="x:String" Name="TargetName" />
                   </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
@@ -172,7 +173,29 @@
                       <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, ActivityNode.LocalName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[ActivityNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_4">
+                    <If.Then>
+                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_6">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[ActivityNode.LocalName]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_7">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[ActivityNode.Attributes("DisplayName").Value]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Else>
+                  </If>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -180,7 +203,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1tDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcRGVlcGx5TmVzdGVkQWN0aXZpdGllcy54YW1sJWIDuAEOAgEBZwVuDgIBMG8Fb7gLAgEtcAV3DgIBKXgFtgESAgECbC9sRwIBM2kwaUACATFvwQFv2gECAS51MHVVAgEscjFyQgIBKniDAXjTAQIBKH4LswEWAgEDgAE7gAE+AgEEgwENigEWAgEjiwENogEVAgEUowENsgESAgEFiAE6iAFAAgEmhQE7hQFJAgEkjAEPoQEaAgEWiwH2AYsByAICARWjARujATUCAQalARGwARwCAQmNARGYARYCARyZARGgARoCARepAROuASsCAQ6vAROvAewBAgEKjQGhAY0BpAICAR2PARWWAR4CAR6eAT6eAU8CARqbAT+bAUUCARisAVisAWYCARKrAVirAWYCARCpAcgCqQHlAgIBD68Bc68BjAECAQyvAT6vAWgCAQuUAT+UAUoCASGRAUCRAUcCAR8=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1tDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcRGVlcGx5TmVzdGVkQWN0aXZpdGllcy54YW1sLWIDzwEOAgEBZwVuDgIBPG8Fb7gLAgE5cAV3DgIBNXgFzQESAgECbC9sRwIBP2kwaUACAT1vwQFv2gECATp1MHVVAgE4cjFyQgIBNniDAXjTAQIBNH4LygEWAgEDgAE7gAE+AgEEgwENigEWAgEviwENogEVAgEgowENyQESAgEFiAE6iAFAAgEyhQE7hQFJAgEwjAEPoQEaAgEiiwH2AYsByAICASGjARujATUCAQalARHHARwCAQmNARGYARYCASiZARGgARoCASOqAROvASsCARqwARPFARgCARDGARPGAeABAgEKjQGhAY0BpAICASmPARWWAR4CASqeAT6eAU8CASabAT+bAUUCASStAVitAWYCAR6sAVisAWYCARyqAcgCqgHlAgIBG7ABfLABuwECARGyARe5ASACARa8ARfDASACARLGAWfGAYABAgEOxgE+xgFcAgELlAE/lAFKAgEtkQFAkQFHAgErtwFCtwFaAgEZtAFDtAFPAgEXwQFCwQFwAgEVvgFDvgFPAgET</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -237,8 +260,19 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="314,93">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,315">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,448">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -246,14 +280,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="512,463">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="512,596">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="534,1401">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="534,1534">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -261,14 +295,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="550,1535">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="550,1668">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="572,2421">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="572,2554">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -276,7 +310,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="612,2541">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="612,2634">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>

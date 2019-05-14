@@ -128,9 +128,10 @@
             </If>
             <If Condition="[UnreachableNode.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If unreachable node does not have an annotation" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="InternalPath" />
+                    <Variable x:TypeArguments="x:String" Name="TargetName" />
                   </Sequence.Variables>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
@@ -138,7 +139,29 @@
                       <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, UnreachableNode.LocalName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[UnreachableNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If.Then>
+                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[UnreachableNode.LocalName]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_4">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[UnreachableNode.Attributes("DisplayName").Value]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Else>
+                  </If>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -146,7 +169,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwYYQOWAQ4CAQFlBWW4CwIBHWYFbQ4CARluBZQBEgIBAmXBAWXaAQIBHmswa20CARxoMWhCAgEaboMBbtMBAgEYdAuRARYCAQN1DYABEgIBEYEBDZABEgIBBHXoAXWcAgIBEncRfhoCAROBARuBAXMCAQWDARGOARwCAQZ8PnxdAgEWeT95UAIBFIcBE4wBKwIBC40BE40B7wECAQeKAViKAWYCAQ+JAViJAWkCAQ2HAcgChwHlAgIBDI0Bdo0BjwECAQmNAT6NAWsCAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwgYQOtAQ4CAQFlBWW4CwIBKWYFbQ4CASVuBasBEgIBAmXBAWXaAQIBKmswa20CAShoMWhCAgEmboMBbtMBAgEkdAuoARYCAQN1DYABEgIBHYEBDacBEgIBBHXoAXWcAgIBHncRfhoCAR+BARuBAXMCAQWDARGlARwCAQZ8PnxdAgEieT95UAIBIIgBE40BKwIBF44BE6MBGAIBDaQBE6QB4AECAQeLAViLAWYCARuKAViKAWkCARmIAcgCiAHlAgIBGI4BfI4BvgECAQ6QAReXASACAROaARehASACAQ+kAWekAYABAgELpAE+pAFcAgEIlQFClQFdAgEWkgFDkgFPAgEUnwFCnwFzAgESnAFDnAFPAgEQ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -181,24 +204,35 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="314,93">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,315">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,448">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,463" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,892">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,596" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,1025">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1026" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1610">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1159" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1743">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -206,7 +240,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1690" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1983" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
