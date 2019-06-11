@@ -94,7 +94,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="[CheckDescription]&#xA;&#xA;The steps to find [CheckName] are as follows:&#xA;1 - &#xA;2 - &#xA;3 - " DisplayName="Check for [CheckName]" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="[WorkflowCheckDescription]&#xA;&#xA;The steps to find [WorkflowCheckName] are as follows:&#xA;1 - &#xA;2 - &#xA;3 - " DisplayName="Check for [WorkflowCheckName]" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
@@ -161,7 +161,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ2hlY2tUZW1wbGF0ZS54YW1sG2EDpQEOAgEBZQVluAsCASJmBW8OAgEecAWjARICAQJlwQFl2gECASNsC2w6AgEhaDFoQgIBH3DuAXC+AgIBHXYLoAEWAgEDeg2fARICAQR6d3p+AgEFfBGdARwCAQaAAROFASsCAReGARObARgCAQ2cAROcAd0BAgEHgwFYgwFmAgEbggFYggFeAgEZgAHIAoAB5QICARiGAXyGAbMBAgEOiAEXjwEgAgETkgEXmQEgAgEPnAFnnAGAAQIBC5wBPpwBXAIBCI0BQo0BUgIBFooBQ4oBTwIBFJcBQpcBaAIBEpQBQ5QBTwIBEA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcV29ya2Zsb3dDaGVja1RlbXBsYXRlLnhhbWwbYQOlAQ4CAQFlBWW4CwIBImYFbw4CAR5wBaMBEgIBAmXBAWXaAQIBI2wLbDoCASFoMWhCAgEfcO4BcL4CAgEddgugARYCAQN6DZ8BEgIBBHp3en4CAQV8EZ0BHAIBBoABE4UBKwIBF4YBE5sBGAIBDZwBE5wB3QECAQeDAViDAWYCARuCAViCAV4CARmAAcgCgAHlAgIBGIYBfIYBswECAQ6IARePASACAROSAReZASACAQ+cAWecAYABAgELnAE+nAFcAgEIjQFCjQFSAgEWigFDigFPAgEUlwFClwFoAgESlAFDlAFPAgEQ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -236,7 +236,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1747" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1787" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
