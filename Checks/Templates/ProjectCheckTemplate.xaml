@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ProjectJsonConfigurationFile"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ProjectCheckTemplate"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -111,7 +111,7 @@
         </Assign>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUHJvamVjdENoZWNrVGVtcGxhdGUueGFtbAlbA3MOAgEBXAVxCgIBAlwTXBoCAQNeCWUSAgEIaAlvEgIBBGM1YzkCAQtgNmBLAgEJbTVtOgIBB2o2aksCAQU=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFByb2plY3RDaGVja1RlbXBsYXRlLnhhbWwJWwNzDgIBAVwFcQoCAQJcE1waAgEDXgllEgIBCGgJbxICAQRjNWM5AgELYDZgSwIBCW01bToCAQdqNmpLAgEF</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -126,7 +126,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,834" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,554" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

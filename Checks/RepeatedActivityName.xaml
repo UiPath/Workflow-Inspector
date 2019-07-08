@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="CheckTemplate" this:CheckTemplate.in_CheckArgument="1"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="RepeatedActivityName" this:RepeatedActivityName.in_CheckArgument="1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -97,14 +97,14 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The names of the activities should give a clear idea of how it is being used. Although the default names usually provide a good description, sometimes they are too generic, so it is recommended to add more information when the context is not clear. &#xD;&#xA;This check looks for activities that have the same name, which might indicate that the same generic name is used multiple times. &#xD;&#xA;The check accepts an argument which is the threshold of how many activities can have the same name.&#xA;&#xA;The steps to find repeated activity names are as follows:&#xA;1 - Find all XML nodes that contain the DisplayName attribute&#xA;2 - Create an index (Dictionary) with DisplayNames and a list of what nodes they are found in&#xA;3 - Checks whether the list of nodes for a given DisplayName is longer than the specified repetition threshold" DisplayName="Check for repeated activity name" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The names of the activities should give a clear idea of how it is being used. Although the default names usually provide a good description, sometimes they are too generic, so it is recommended to add more information when the context is not clear. &#xA;This check looks for activities that have the same name, which might indicate that the same generic name is used multiple times. &#xA;The check accepts an argument which is the threshold of how many activities can have the same name.&#xA;&#xA;The steps to find repeated activity names are as follows:&#xA;1 - Find all XML nodes that contain the DisplayName attribute&#xA;2 - Create an index (Dictionary) with DisplayNames and a list of what nodes they are found in&#xA;3 - Checks whether the list of nodes for a given DisplayName is longer than the specified repetition threshold" DisplayName="Check for repeated activity name" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
       <Variable x:TypeArguments="x:Int32" Name="RepetitionThreshold" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(sx:XmlNode))" Default="[New Dictionary(Of String, List(Of XmlNode))]" Name="ActivityDisplayNameIndex" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xD;&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -171,7 +171,7 @@
                 </Assign>
               </If.Else>
             </If>
-            <If sap2010:Annotation.AnnotationText="Creates an index of activity names.&#xD;&#xA;&#xD;&#xA;Sequence activities are not considered due to the fact that error messages are thrown by activities inside sequences, not by sequences themselves, so it is not a problem if their names are repeated (like it happens when they are named Body or Do)." Condition="[ActivityDisplayNameIndex.ContainsKey(DisplayName) And ActivityNode.LocalName &lt;&gt; &quot;Sequence&quot;]" DisplayName="If DisplayName was previously found" sap2010:WorkflowViewState.IdRef="If_5">
+            <If sap2010:Annotation.AnnotationText="Creates an index of activity names.&#xA;&#xA;Sequence activities are not considered due to the fact that error messages are thrown by activities inside sequences, not by sequences themselves, so it is not a problem if their names are repeated (like it happens when they are named Body or Do)." Condition="[ActivityDisplayNameIndex.ContainsKey(DisplayName) And ActivityNode.LocalName &lt;&gt; &quot;Sequence&quot;]" DisplayName="If DisplayName was previously found" sap2010:WorkflowViewState.IdRef="If_5">
               <If.Then>
                 <AddToCollection x:TypeArguments="sx:XmlNode" Collection="[ActivityDisplayNameIndex(DisplayName)]" DisplayName="Add node to activities with the same DisplayName" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[ActivityNode]" />
               </If.Then>
@@ -247,7 +247,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRBY3Rpdml0aXlOYW1lLnhhbWw8AWcBaQECZAP7AQ4CAQFoWmiJAQIBAmoFargLAgFIawVyDgIBRHMFiAEKAgE5iQEFwAESAgEgwQEF+QESAgEDasEBatoBAgFJcDBwWQIBR20xbUICAUVzVXOEAQIBOnUJfBICAUB/CYYBEgIBPIkBnAGJAewBAgE4jwELvQEWAgEhwQGsAcEByAECAR/HAQv2ARACAQR6M3o0AgFDdzR3SQIBQYQBM4QBVgIBP4EBNIEBSQIBPZMBDZcBEgIBNZgBDa0BEgIBK64BDbwBEgIBIscBiAHHAccBAgEFyQEP9AEcAgEGkwGmAZMB1wECATaVARGVAU0CATeYAYoBmAHMAQIBLJoBEaEBGgIBMaQBEasBGgIBLa4B7gKuAdwDAgEjsAERsAGBAgIBJ7MBEboBGgIBJMkBpwHJAccBAgEezwEV8QEgAgEHnwFDnwFxAgE0nAFEnAFRAgEyqQFDqQFbAgEwpgFEpgFRAgEusAFKsAFzAgEqsAHuAbAB/gECASi4AUi4AXICASa1AUm1AXACASXUARfZAS8CARjaARfvARwCAQ7wARfwAeEBAgEI1wFc1wFqAgEc1gFc1gF5AgEa1AHMAtQB6QICARnaAYAB2gHOAQIBD9wBG+MBJAIBFOYBG+0BJAIBEPABa/ABhAECAQzwAULwAWACAQnhAUbhAW0CARfeAUfeAVMCARXrAUbrAYMBAgET6AFH6AFTAgER</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRBY3Rpdml0eU5hbWUueGFtbDwBdQF3AQJkA/sBDgIBAWhaaIkBAgECagVquAsCAUhrBXIOAgFEcwWIAQoCATmJAQXAARICASDBAQX5ARICAQNqwQFq2gECAUlwMHBZAgFHbTFtQgIBRXNVc4QBAgE6dQl8EgIBQH8JhgESAgE8iQGcAYkB7AECATiPAQu9ARYCASHBAawBwQHIAQIBH8cBC/YBEAIBBHozejQCAUN3NHdJAgFBhAEzhAFWAgE/gQE0gQFJAgE9kwENlwESAgE1mAENrQESAgErrgENvAESAgEixwGIAccBxwECAQXJAQ/0ARwCAQaTAaYBkwHXAQIBNpUBEZUBTQIBN5gBigGYAcwBAgEsmgERoQEaAgExpAERqwEaAgEtrgHkAq4B0gMCASOwARGwAYECAgEnswERugEaAgEkyQGnAckBxwECAR7PARXxASACAQefAUOfAXECATScAUScAVECATKpAUOpAVsCATCmAUSmAVECAS6wAUqwAXMCASqwAe4BsAH+AQIBKLgBSLgBcgIBJrUBSbUBcAIBJdQBF9kBLwIBGNoBF+8BHAIBDvABF/AB4QECAQjXAVzXAWoCARzWAVzWAXkCARrUAcwC1AHpAgIBGdoBgAHaAc4BAgEP3AEb4wEkAgEU5gEb7QEkAgEQ8AFr8AGEAQIBDPABQvABYAIBCeEBRuEBbQIBF94BR94BUwIBFesBRusBgwECARPoAUfoAVMCARE=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -378,7 +378,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,2357" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,2317" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

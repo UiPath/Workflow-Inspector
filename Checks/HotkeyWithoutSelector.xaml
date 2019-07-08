@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="CheckTemplate"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="HotkeyWithoutSelector"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -98,7 +98,7 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selector can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. For this reason, it is recommended to use selectors or include them in containers that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes&#xD;&#xA;2 - Check if the Selector attribute contains a selector string&#xD;&#xA;3 - If it does not have a selector, check if the element is inside another that is a container  (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) and if the container specifies a selector or has a scope specified (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check for hotkey without selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selector can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. For this reason, it is recommended to use selectors or include them in containers that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes&#xA;2 - Check if the Selector attribute contains a selector string&#xA;3 - If it does not have a selector, check if the element is inside another that is a container  (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) and if the container specifies a selector or has a scope specified (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check for hotkey without selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
@@ -415,7 +415,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="772,3587">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="772,2907">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>

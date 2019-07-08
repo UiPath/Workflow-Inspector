@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ProjectJsonConfigurationFile"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="RepeatedWorkflowName"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -134,7 +134,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <Assign sap2010:Annotation.AnnotationText="Appends all repeated paths and returns it to be output to the report.&#xD;&#xA;The brackets are appended for more legibility in the report." DisplayName="Assign out_OptionalMessage" sap2010:WorkflowViewState.IdRef="Assign_8">
+    <Assign sap2010:Annotation.AnnotationText="Appends all repeated paths and returns it to be output to the report.&#xA;The brackets are appended for more legibility in the report." DisplayName="Assign out_OptionalMessage" sap2010:WorkflowViewState.IdRef="Assign_8">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_OptionalMessage]</OutArgument>
       </Assign.To>
@@ -213,7 +213,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,1601" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,1561" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
