@@ -90,23 +90,27 @@
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="ProjectCheck" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="OptionalMessage" />
+            </Sequence.Variables>
             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic filename that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Invoke Project Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="[ProjectCheck(1).ToString]">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="in_CheckArgument">[ProjectCheck(2).ToString]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_HasProjectIssue">[HasProjectIssue]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_OptionalMessage">[OptionalMessage]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
             <If Condition="[HasProjectIssue]" DisplayName="If project check failed" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about a project issue." ArrayRow="[{&quot;Project&quot;, &quot;-&quot;, &quot;-&quot;, ProjectCheck(0).ToString, ProjectCheck(3).ToString, ProjectCheck(5).ToString}]" DataTable="[io_dt_Issues]" DisplayName="Add project issue to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about a project issue." ArrayRow="[{&quot;Project&quot;+OptionalMessage, &quot;-&quot;, &quot;-&quot;, ProjectCheck(0).ToString, ProjectCheck(3).ToString, ProjectCheck(5).ToString}]" DataTable="[io_dt_Issues]" DisplayName="Add project issue to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
               </If.Then>
             </If>
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbA5SA24OAgEBVgVsFQIBAlYeVjgCARJcC2kWAgEDXQ1jJQIBC2QNaBICAQRfUV9rAgERYVZhZwIBD2BPYF8CAQ1d0ANd7AMCAQxkG2QuAgEFZhFmkQMCAQdmlwJmpwICAQlmhwFmjAICAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbA9SA3IOAgEBVgVwFQIBAlYeVjgCARRcC20WAgEDYA1nJQIBC2gNbBICAQRiUWJrAgETZFZkZwIBEWVVZWYCAQ9jT2NfAgENYNADYOwDAgEMaBtoLgIBBWoRaqEDAgEHaqcCarcCAgEJaocBapwCAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -148,7 +152,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="578,1424" />
+      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="578,1024" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

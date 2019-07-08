@@ -13,6 +13,7 @@
     <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_HasProjectIssue" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="out_OptionalMessage" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -116,7 +117,7 @@
         </Assign>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d2FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUHJvamVjdEpzb25Db25maWd1cmF0aW9uRmlsZS54YW1sDFwDeA4CAQFgBWC1AgIBDWEFdgoCAQJgqgFgvwECARBg9AFgogICAQ5hE2EsAgEDYwlqEgIBCW0JdBICAQVoNWg5AgEMZTZlSwIBCnI1cjoCAQhvNm9LAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUHJvamVjdEpzb25Db25maWd1cmF0aW9uRmlsZS54YW1sDF0DeQ4CAQFhBWG1AgIBDWIFdwoCAQJhqgFhvwECARBh9AFhogICAQ5iE2IsAgEDZAlrEgIBCW4JdRICAQVpNWk5AgEMZjZmSwIBCnM1czoCAQhwNnBLAgEG</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -130,7 +131,7 @@
       <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="509,208" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="531,590">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="531,503">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -138,7 +139,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,870" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,583" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

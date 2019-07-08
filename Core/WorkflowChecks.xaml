@@ -88,7 +88,7 @@
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:String" Name="WorkflowFilename" />
+            <DelegateInArgument x:TypeArguments="x:String" Name="WorkflowFilepath" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <Sequence.Variables>
@@ -96,8 +96,7 @@
               <Variable x:TypeArguments="sx:XmlDocument" Name="XMLTree" />
               <Variable x:TypeArguments="sx:XmlNamespaceManager" Name="NamespaceManager" />
             </Sequence.Variables>
-            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[WorkflowFilename]" />
-            <ui:ReadTextFile Content="[WorkflowContents]" DisplayName="Read Workflow File" FileName="[WorkflowFilename]" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+            <ui:ReadTextFile Content="[WorkflowContents]" DisplayName="Read Workflow File" FileName="[WorkflowFilepath]" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Parse Workflow File" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Common\ParseXAML.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="in_XAMLContents">[WorkflowContents]</InArgument>
@@ -115,14 +114,14 @@
                     <Sequence.Variables>
                       <Variable x:TypeArguments="sd:DataTable" Name="dt_WorkflowIssues" />
                     </Sequence.Variables>
-                    <ui:LogMessage DisplayName="Log Message: Workflow and Check" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;Checking workflow {0} for {1}&quot;, WorkflowFilename, WorkflowCheck(0))]" />
+                    <ui:LogMessage DisplayName="Log Message: Workflow and Check" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;Checking workflow {0} for {1}&quot;, Path.GetFileName(WorkflowFilepath), WorkflowCheck(0))]" />
                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic filename that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Invoke Workflow Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="[WorkflowCheck(1).ToString]">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="sx:XmlDocument" x:Key="in_XMLTree">[XMLTree]</InArgument>
                         <InArgument x:TypeArguments="sx:XmlNamespaceManager" x:Key="in_NamespaceManager">[NamespaceManager]</InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_CheckArgument">[WorkflowCheck(2).ToString]</InArgument>
                         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowIssues">[dt_WorkflowIssues]</OutArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowFilename">[WorkflowFilename]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowFilename">[WorkflowFilepath]</InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
@@ -132,7 +131,7 @@
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="WorkflowIssue" />
                           </ActivityAction.Argument>
-                          <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about an issue: Workflow Filename, Target Node Internal Path, Target Node Name, Issue Name, Severity, Suggestion." ArrayRow="[{WorkflowFilename, WorkflowIssue(&quot;InternalPath&quot;), WorkflowIssue(&quot;NodeName&quot;), WorkflowCheck(0).ToString, WorkflowCheck(3).ToString, WorkflowCheck(5).ToString}]" DataTable="[io_dt_Issues]" DisplayName="Add issues to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                          <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about an issue: Workflow Filepath, Target Node Internal Path, Target Node Name, Issue Name, Severity, Suggestion." ArrayRow="[{WorkflowFilepath, WorkflowIssue(&quot;InternalPath&quot;), WorkflowIssue(&quot;NodeName&quot;), WorkflowCheck(0).ToString, WorkflowCheck(3).ToString, WorkflowCheck(5).ToString}]" DataTable="[io_dt_Issues]" DisplayName="Add issues to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
                         </ActivityAction>
                       </ui:ForEachRow.Body>
                     </ui:ForEachRow>
@@ -144,11 +143,10 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwgVgOUAQ4CAQFXBZIBEgIBAlf/AVfWAgIBLl0LjwEWAgEDYw1jewIBK2QNZK0BAgEmZQ1rJQIBHmwNjgEdAgEEY2RjeAIBLGRlZHkCASlkJmQ6AgEnaFNoXAIBJGlkaXYCASJnUGdiAgEgZbgBZc8BAgEfbKMBbL4BAgEcchOLAR4CAQV2FXb6AQIBGncVgAEtAgENgQEVigElAgEGdpcBdvcBAgEbfVx9bgIBGHxjfHYCARZ5WXliAgEUe1l7dAIBE3pqenwCARF+V35nAgEPd9kDd/YDAgEOgQGSAYEBpwECAQuHARuHAZ8EAgEHhwGsA4cBvAMCAQmHAewBhwGhAwIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWweVgOTAQ4CAQFXBZEBEgIBAlf/AVfWAgIBK10LjgEWAgEDYw1jrQECASZkDWolAgEeaw2NAR0CAQRjZWN5AgEpYyZjOgIBJ2dTZ1wCASRoZGh2AgEiZlBmYgIBIGS4AWTPAQIBH2ujAWu+AQIBHHETigEeAgEFdRV1jAICARp2FX8tAgENgAEViQElAgEGdZcBdYkCAgEbfFx8bgIBGHtje3YCARZ4WXhiAgEUell6dAIBE3lqeXwCARF9V31nAgEPdtkDdvYDAgEOgAGSAYABpwECAQuGARuGAZ8EAgEHhgGsA4YBvAMCAQmGAewBhgGhAwIBCA==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="366,61" />
       <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="366,59" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="366,87" />
       <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,91" />
@@ -190,7 +188,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="388,1424">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="388,1323">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -198,14 +196,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="404,1585">
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="404,1484">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="426,1736">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="426,1635">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -213,7 +211,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,2096" />
+      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,1715" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
