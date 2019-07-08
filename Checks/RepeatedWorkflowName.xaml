@@ -7,13 +7,13 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_HasProjectIssue" Type="OutArgument(x:Boolean)" />
-    <x:Property Name="out_OptionalMessage" Type="OutArgument(x:String)" />
+    <x:Property Name="out_dt_ProjectIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -94,8 +94,8 @@
   <Sequence sap2010:Annotation.AnnotationText="Workflows in a project should have unique names (even if they are in different folders) to facilitate project organization and debugging.&#xA;&#xA;The steps to find repeated workflow names are as follows:&#xA;1 - Retrieve all workflow paths&#xA;2 - Checks whether the workflow filename has been found previously" DisplayName="Check for repeated workflow name" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" Default="[New Dictionary(Of String, List(Of String))]" Name="WorkflowsNamesIndex" />
-      <Variable x:TypeArguments="scg:List(x:String)" Default="[New List(Of String)]" Name="RepeatedWorkflowsPaths" />
     </Sequence.Variables>
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold issues related to this check. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_ProjectIssues]" DisplayName="Build data table with project issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <ui:ForEach x:TypeArguments="x:String" DisplayName="For each workflow in project" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
@@ -126,48 +126,25 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, scg:List(x:String))" Name="WorkflowNameAndPaths" />
           </ActivityAction.Argument>
-          <If sap2010:Annotation.AnnotationText="Checks whether a workflow name was repeated." Condition="[WorkflowNameAndPaths.Value.Count &gt; 1]" sap2010:WorkflowViewState.IdRef="If_5">
+          <If Condition="[WorkflowNameAndPaths.Value.Count &gt; 1]" DisplayName="If workflow name is repeated" sap2010:WorkflowViewState.IdRef="If_5">
             <If.Then>
-              <AddToCollection x:TypeArguments="x:String" Collection="[RepeatedWorkflowsPaths]" DisplayName="Add to RepeatedWorkflowsPaths" sap2010:WorkflowViewState.IdRef="AddToCollection`1_4" Item="[String.Join(&quot;&lt;-&gt;&quot;, WorkflowNameAndPaths.Value)]" />
+              <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;-&quot;, String.Join(&quot;&lt;-&gt;&quot;, WorkflowNameAndPaths.Value)}]" DataTable="[out_dt_ProjectIssues]" DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
             </If.Then>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <Assign sap2010:Annotation.AnnotationText="Appends all repeated paths and returns it to be output to the report.&#xA;The brackets are appended for more legibility in the report." DisplayName="Assign out_OptionalMessage" sap2010:WorkflowViewState.IdRef="Assign_8">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_OptionalMessage]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[": [" + String.Join(", ", RepeatedWorkflowsPaths) + "]"]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <If Condition="[String.IsNullOrWhiteSpace(out_OptionalMessage)]" DisplayName="If repeated names were found and included in the optional message" sap2010:WorkflowViewState.IdRef="If_4">
-      <If.Then>
-        <Assign DisplayName="Assign out_HasProjectIssue (False)" sap2010:WorkflowViewState.IdRef="Assign_5">
-          <Assign.To>
-            <OutArgument x:TypeArguments="x:Boolean">[out_HasProjectIssue]</OutArgument>
-          </Assign.To>
-          <Assign.Value>
-            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
-          </Assign.Value>
-        </Assign>
-      </If.Then>
-      <If.Else>
-        <Assign DisplayName="Assign out_HasProjectIssue (True)" sap2010:WorkflowViewState.IdRef="Assign_1">
-          <Assign.To>
-            <OutArgument x:TypeArguments="x:Boolean">[out_HasProjectIssue]</OutArgument>
-          </Assign.To>
-          <Assign.Value>
-            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
-          </Assign.Value>
-        </Assign>
-      </If.Else>
-    </If>
-    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbB9eA6gBDgIBAWBYYIYBAgEDYT5hVQIBAmMFehICAR97BYgBEgIBFIkBBZABDgIBD5EBBaYBCgIBBGOMAWPjAQIBKWkLdxACASB7wAJ71wICAR2BAQuFARACARWOATCOAWkCARKLATGLAUYCARCRARORAUUCAQWTAQmaARICAQudAQmkARICAQdpyAFpjwICASFrD2uKAgIBJW4PdRgCASKBAWqBAZUBAgEWgwEPgwGNAgIBGJgBNZgBOgIBDpUBNpUBSwIBDKIBNaIBOQIBCp8BNp8BSwIBCGtGa4EBAgEoa/MBa4cCAgEmc0RzcQIBJHBFcH4CASODAUaDAWACARuDAcgBgwGKAgIBGQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgVivQsCARljBXoSAgEOewWIARICAQNiyAFi4AECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH6AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGwAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="483,116">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddToCollection`1_2" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="467,250">
@@ -177,16 +154,10 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="509,384" />
-      <sap2010:ViewStateData Id="AddToCollection`1_4" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="464,235">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_4" sap:VirtualizedContainerService.HintSize="509,411">
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="483,384" />
+      <sap2010:ViewStateData Id="AddDataRow_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="464,208" />
+      <sap2010:ViewStateData Id="ForEach`1_4" sap:VirtualizedContainerService.HintSize="483,384">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -195,17 +166,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="509,132">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="509,208" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="531,1481">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="505,1190">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -213,7 +174,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="571,1561" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1390" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
