@@ -144,7 +144,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="ui:GenericValue" Name="DisplayName" />
             </Sequence.Variables>
-            <If sap2010:Annotation.AnnotationText="Skip FlowStep nodes, since they don't have a DisplayName and aren't explicitly shown in UiPath Studio." Condition="[ActivityNode.LocalName = &quot;FlowStep&quot;]" DisplayName="If activity is a FlowStep" sap2010:WorkflowViewState.IdRef="If_12">
+            <If sap2010:Annotation.AnnotationText="Skip FlowStep, since they don't have a DisplayName and aren't explicitly shown in UiPath Studio.&#xD;&#xA;Catch blocks are also skipped because their display name cannot be changed." Condition="[ActivityNode.LocalName = &quot;FlowStep&quot; Or ActivityNode.LocalName = &quot;Catch&quot;]" DisplayName="If activity is a FlowStep" sap2010:WorkflowViewState.IdRef="If_12">
               <If.Then>
                 <ui:Continue sap2010:WorkflowViewState.IdRef="Continue_1" />
               </If.Then>
@@ -247,18 +247,18 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRBY3Rpdml0eU5hbWUueGFtbDwBdQF3AQJkA/sBDgIBAWhaaIkBAgECagVquAsCAUhrBXIOAgFEcwWIAQoCATmJAQXAARICASDBAQX5ARICAQNqwQFq2gECAUlwMHBZAgFHbTFtQgIBRXNVc4QBAgE6dQl8EgIBQH8JhgESAgE8iQGcAYkB7AECATiPAQu9ARYCASHBAawBwQHIAQIBH8cBC/YBEAIBBHozejQCAUN3NHdJAgFBhAEzhAFWAgE/gQE0gQFJAgE9kwENlwESAgE1mAENrQESAgErrgENvAESAgEixwGIAccBxwECAQXJAQ/0ARwCAQaTAaYBkwHXAQIBNpUBEZUBTQIBN5gBigGYAcwBAgEsmgERoQEaAgExpAERqwEaAgEtrgHkAq4B0gMCASOwARGwAYECAgEnswERugEaAgEkyQGnAckBxwECAR7PARXxASACAQefAUOfAXECATScAUScAVECATKpAUOpAVsCATCmAUSmAVECAS6wAUqwAXMCASqwAe4BsAH+AQIBKLgBSLgBcgIBJrUBSbUBcAIBJdQBF9kBLwIBGNoBF+8BHAIBDvABF/AB4QECAQjXAVzXAWoCARzWAVzWAXkCARrUAcwC1AHpAgIBGdoBgAHaAc4BAgEP3AEb4wEkAgEU5gEb7QEkAgEQ8AFr8AGEAQIBDPABQvABYAIBCeEBRuEBbQIBF94BR94BUwIBFesBRusBgwECARPoAUfoAVMCARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRBY3Rpdml0eU5hbWUueGFtbDwBdQF3AQJkA/sBDgIBAWhaaIkBAgECagVquAsCAUhrBXIOAgFEcwWIAQoCATmJAQXAARICASDBAQX5ARICAQNqwQFq2gECAUlwMHBZAgFHbTFtQgIBRXNVc4QBAgE6dQl8EgIBQH8JhgESAgE8iQGcAYkB7AECATiPAQu9ARYCASHBAawBwQHIAQIBH8cBC/YBEAIBBHozejQCAUN3NHdJAgFBhAEzhAFWAgE/gQE0gQFJAgE9kwENlwESAgE1mAENrQESAgErrgENvAESAgEixwGIAccBxwECAQXJAQ/0ARwCAQaTAfUBkwHUAgIBNpUBEZUBTQIBN5gBigGYAcwBAgEsmgERoQEaAgExpAERqwEaAgEtrgHkAq4B0gMCASOwARGwAYECAgEnswERugEaAgEkyQGnAckBxwECAR7PARXxASACAQefAUOfAXECATScAUScAVECATKpAUOpAVsCATCmAUSmAVECAS6wAUqwAXMCASqwAe4BsAH+AQIBKLgBSLgBcgIBJrUBSbUBcAIBJdQBF9kBLwIBGNoBF+8BHAIBDvABF/AB4QECAQjXAVzXAWoCARzWAVzWAXkCARrUAcwC1AHpAgIBGdoBgAHaAc4BAgEP3AEb4wEkAgEU5gEb7QEkAgEQ8AFr8AGEAQIBDPABQvABYAIBCeEBRuEBbQIBF94BR94BUwIBFesBRusBgwECARPoAUfoAVMCARE=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="480,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="480,192">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502,192">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -267,7 +267,7 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_9" sap:VirtualizedContainerService.HintSize="480,78">
+      <sap2010:ViewStateData Id="If_9" sap:VirtualizedContainerService.HintSize="502,78">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -277,18 +277,18 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Continue_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_12" sap:VirtualizedContainerService.HintSize="200,138">
+      <sap2010:ViewStateData Id="If_12" sap:VirtualizedContainerService.HintSize="464,265">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_10" sap:VirtualizedContainerService.HintSize="200,108">
+      <sap2010:ViewStateData Id="If_10" sap:VirtualizedContainerService.HintSize="464,108">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -308,14 +308,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="222,708">
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="486,835">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480,842">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,969">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -370,7 +370,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,2237">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,2364">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -378,7 +378,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,2317" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2444" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
