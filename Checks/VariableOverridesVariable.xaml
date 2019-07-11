@@ -96,7 +96,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as another variable defined in a ancestor container. The problem is that the local variable will override the outer with the same name, which can be an unintended behaviour and difficult to debug. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides other Variables are as follows:&#xA;1 - Get all variable nodes from the document.&#xA;2 - For each variable, do:&#xA;  2.1 - Get the Container Node where it is defined (the Sequence, Flowchart or StateMachine).&#xA;  2.2 - Get all other variables defined in descendant nodes of the Container node.&#xA;  2.3 - Check for each other variable if it has the same name as the outer one.&#xA;&#xA;Author: Silviu Predan (silviu.predan@uipath.com)" DisplayName="Check for VariableOverridesVariable" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as another variable defined in a ancestor container. The problem is that the local variable will override the outer with the same name, which can be an unintended behaviour and difficult to debug. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides other Variables are as follows:&#xA;1 - Get all variable nodes from the document.&#xA;2 - For each variable, do:&#xA;  2.1 - Get the Container Node where it is defined (the Sequence, Flowchart or StateMachine).&#xA;  2.2 - Get all other variables defined in descendant nodes of the Container node.&#xA;  2.3 - Check for each other variable if it has the same name as the outer one." DisplayName="Check for VariableOverridesVariable" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />
     </Sequence.Variables>
@@ -273,7 +273,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="562,2233">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="562,2203">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -281,7 +281,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,2313" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,2283" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

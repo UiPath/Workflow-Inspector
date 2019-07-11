@@ -71,7 +71,7 @@
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Retrieves the path from the root activity in the workflow to the activity that is passed as parameter.&#xD;&#xA;This is useful to localize the issue in workflows that have a large number of activities." DisplayName="Get internal path" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="Retrieves the path from the root activity in the workflow to the activity that is passed as parameter.&#xA;This is useful to localize the issue in workflows that have a large number of activities." DisplayName="Get internal path" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Default="[New List(Of String)]" Name="InternalPath" />
     </Sequence.Variables>
@@ -107,14 +107,14 @@
         <InArgument x:TypeArguments="x:String">[String.Join(" &gt; ", InternalPath.AsEnumerable.Reverse())]</InArgument>
       </Assign.Value>
     </Assign>
-    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwVSgNvDgIBAUw+TFUCAQJOBWUNAgEHZgVtDgIBA08HZBICAQlOQE57AgEIazBrbAIBBmgxaEMCAQRQCVsOAgEPXAljEgIBClCZAVCyAgIBEFINWRICARFhNmFSAgENXjdeSAIBC1IbUl0CARJUEVTTAQIBF1cRV/sBAgETVEhUWAIBGVSzAVTQAQIBGFdIV1gCARVXuwFX+AECARQ=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwVSgNvDgIBAUw+TFUCAQJOBWUNAgEHZgVtDgIBA08HZBICAQlOQE57AgEIazBrbAIBBmgxaEMCAQRQCVsOAgEPXAljEgIBClCZAVCyAgIBEFINWRICARFhNmFSAgENXjdeSAIBC1IbUl0CARJUEVTTAQIBF1cRV/sBAgETVEhUWAIBGVSzAVTQAQIBGFdIV1gCARVXuwFX+AECARQ=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="AddToCollection`1_3" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="AddToCollection`1_2" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,214" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="590,396.666666666667">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,208" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="590,383">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -124,16 +124,16 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="590,62" />
-      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="612,622.666666666667">
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="612,609">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="638.666666666667,786.666666666667" />
+      <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="639,767" />
       <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="638.666666666667,62" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="660.666666666667,1058">
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="661,1035">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -141,7 +141,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="700.666666666667,1138" />
+      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="701,1115" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
