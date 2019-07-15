@@ -14,10 +14,10 @@
   <x:Members>
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -92,14 +92,15 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows should only have the necessary activities for its execution, and activities that are commented out or that are not connected to any node in a flowchart should be removed. If there is need to keep commented activities, add annotations to describe the reason.&#xA;&#xA;The steps to find unreachable activities are as follows:&#xA;1 - Get activities inside a CommentOut activity or that are not in the subtree that starts with the Flowchart.StartNode element&#xA;2 - Verify whether these activities contain an annotation attribute" DisplayName="Check for undocumented activities that cannot be reached during the execution" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows should only have the necessary activities for its execution, and activities that are commented out or that are not connected to any node in a flowchart should be removed. &#xD;&#xA;If there is need to keep commented activities, add annotations to describe the reason.&#xA;&#xA;The steps to find unreachable activities are as follows:&#xA;1 - Get activities inside a CommentOut activity or that are not in the subtree that starts with the Flowchart.StartNode element&#xA;2 - Verify whether these activities contain an annotation attribute" DisplayName="Check for undocumented activities that cannot be reached during the execution" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves nodes having commented out activities and flowstep nodes not connected to the Start Node of a flowchart." sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves nodes having commented out activities and flowstep nodes not connected to the Start Node of a flowchart." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -116,7 +117,7 @@
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <If sap2010:Annotation.AnnotationText="An unreachable activity in a flowchart is a child of the unreachable FlowStep, so the path to the child should be retrieved, instead of the path to the FlowStep itself." Condition="[UnreachableNode.LocalName = &quot;FlowStep&quot;]" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
-                <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                <Assign DisplayName="Assign UnreachableNode" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
                     <OutArgument x:TypeArguments="sx:XmlNode">[UnreachableNode]</OutArgument>
                   </Assign.To>
@@ -169,7 +170,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwgYQOtAQ4CAQFlBWW4CwIBKWYFbQ4CASVuBasBEgIBAmXBAWXaAQIBKmswa20CAShoMWhCAgEmboMBbtMBAgEkdAuoARYCAQN1DYABEgIBHYEBDacBEgIBBHXoAXWcAgIBHncRfhoCAR+BARuBAXMCAQWDARGlARwCAQZ8PnxdAgEieT95UAIBIIgBE40BKwIBF44BE6MBGAIBDaQBE6QB4AECAQeLAViLAWYCARuKAViKAWkCARmIAcgCiAHlAgIBGI4BfI4BvgECAQ6QAReXASACAROaARehASACAQ+kAWekAYABAgELpAE+pAFcAgEIlQFClQFdAgEWkgFDkgFPAgEUnwFCnwFzAgESnAFDnAFPAgEQ</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d29DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwgYgOuAQ4CAQFmBWa4CwIBKWcFbg4CASVvBawBEgIBAmbBAWbaAQIBKmwwbG0CAShpMWlCAgEmb4MBb9MBAgEkdQupARYCAQN2DYEBEgIBHYIBDagBEgIBBHboAXacAgIBHngRfxoCAR+CARuCAXMCAQWEARGmARwCAQZ9Pn1dAgEiej96UAIBIIkBE44BKwIBF48BE6QBGAIBDaUBE6UB4AECAQeMAViMAWYCARuLAViLAWkCARmJAcgCiQHlAgIBGI8BfI8BvgECAQ6RAReYASACARObAReiASACAQ+lAWelAYABAgELpQE+pQFcAgEIlgFClgFdAgEWkwFDkwFPAgEUoAFCoAFzAgESnQFDnQFPAgEQ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -240,7 +241,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1983" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1823" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -14,10 +14,10 @@
   <x:Members>
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,7 +96,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as another variable defined in a ancestor container. The problem is that the local variable will override the outer with the same name, which can be an unintended behaviour and difficult to debug. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides other Variables are as follows:&#xA;1 - Get all variable nodes from the document.&#xA;2 - For each variable, do:&#xA;  2.1 - Get the Container Node where it is defined (the Sequence, Flowchart or StateMachine).&#xA;  2.2 - Get all other variables defined in descendant nodes of the Container node.&#xA;  2.3 - Check for each other variable if it has the same name as the outer one.&#xD;&#xA;&#xD;&#xA;Author: Silviu Predan" DisplayName="Check for VariableOverridesVariable" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as another variable defined in a ancestor container. The problem is that the local variable will override the outer with the same name, which can be an unintended behaviour and difficult to debug. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides other Variables are as follows:&#xA;1 - Get all variable nodes from the document.&#xA;2 - For each variable, do:&#xA;  2.1 - Get the Container Node where it is defined (the Sequence, Flowchart or StateMachine).&#xA;  2.2 - Get all other variables defined in descendant nodes of the Container node.&#xA;  2.3 - Check for each other variable if it has the same name as the outer one.&#xA;&#xA;Author: Silviu Predan" DisplayName="Check for VariableOverridesVariable" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />
     </Sequence.Variables>

@@ -14,10 +14,10 @@
   <x:Members>
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -92,14 +92,15 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Other than textual descriptions, screenshots are helpful in explaining what the activity does and with what elements it interacts. The default location for screenshot files is the .screenshots folder of the project.&#xA;&#xA;The steps to find missing screenshots are as follows:&#xA;1 - Find all XML nodes that have the attribute InformativeScreenshot&#xA;2 - Checks whether the attributes specifiy screenshot files&#xA;3 - Checks whether screenshot files are in the .screenshot folder of the project" DisplayName="Check for missing screenshot" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Other than textual descriptions, screenshots are helpful in explaining what the activity does and with what elements it interacts. &#xD;&#xA;The default location for screenshot files is the .screenshots folder of the project.&#xA;&#xA;The steps to find missing screenshots are as follows:&#xA;1 - Find all XML nodes that have the attribute InformativeScreenshot&#xA;2 - Checks whether the attributes specifiy screenshot files&#xA;3 - Checks whether screenshot files are in the .screenshot folder of the project" DisplayName="Check for missing screenshot" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. This data table wil later be merged to the one containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." sap2010:WorkflowViewState.IdRef="Assign_12">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_12">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -118,7 +119,7 @@
               <Variable x:TypeArguments="x:Boolean" Name="ScreenshotExists" />
               <Variable x:TypeArguments="x:String" Name="ScreenshotReference" />
             </Sequence.Variables>
-            <Assign sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign DisplayName="Assign ScreenshotReference" sap2010:WorkflowViewState.IdRef="Assign_11">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[ScreenshotReference]</OutArgument>
               </Assign.To>
@@ -136,7 +137,7 @@
                   </Sequence.Variables>
                   <If sap2010:Annotation.AnnotationText="In some activities, the screenshot is located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithScreenshot.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the screenshot was found in the Target node" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <Assign sap2010:WorkflowViewState.IdRef="Assign_9">
+                      <Assign DisplayName="Assign NodeWithScreenshot" sap2010:WorkflowViewState.IdRef="Assign_9">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[NodeWithScreenshot]</OutArgument>
                         </Assign.To>
@@ -182,7 +183,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcTWlzc2luZ1NjcmVlbnNob3QueGFtbCZhA7oBDgIBAWUFZcoLAgE0ZgVtDgIBMG4FuAESAgECZdMBZewBAgE1azBrSwIBM2gxaEICATFunAFu7AECAS90C7UBFgIBA3kNgAEWAgErgQENgQG/AgIBJYIBDbQBEgIBBH44fnYCAS57OXtOAgEsgQGLAYEBnwECASmBAdQBgQGsAgIBJoIBG4IBMwIBBYQBEbIBHAIBB4kBE5QBGAIBHpUBE5oBKwIBGJsBE7ABGAIBDrEBE7EB4AECAQiJAZ4CiQHbAgIBH4sBF5IBIAIBIJgBWJgBZgIBHJcBWJcBbAIBGpUByAKVAeUCAgEZmwF8mwHBAQIBD50BF6QBIAIBFKcBF64BIAIBELEBZ7EBgAECAQyxAT6xAVwCAQmQAUSQAW4CASONAUWNAVkCASGiAUKiAWACARefAUOfAU8CARWsAUKsAXYCAROpAUOpAU8CARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d19DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTWlzc2luZ1NjcmVlbnNob3QueGFtbCZiA7sBDgIBAWYFZsoLAgE0ZwVuDgIBMG8FuQESAgECZtMBZuwBAgE1bDBsSwIBM2kxaUICATFvnAFv7AECAS91C7YBFgIBA3oNgQEWAgErggENggG/AgIBJYMBDbUBEgIBBH84f3YCAS58OXxOAgEsggGLAYIBnwECASmCAdQBggGsAgIBJoMBG4MBMwIBBYUBEbMBHAIBB4oBE5UBGAIBHpYBE5sBKwIBGJwBE7EBGAIBDrIBE7IB4AECAQiKAZ4CigHbAgIBH4wBF5MBIAIBIJkBWJkBZgIBHJgBWJgBbAIBGpYByAKWAeUCAgEZnAF8nAHBAQIBD54BF6UBIAIBFKgBF68BIAIBELIBZ7IBgAECAQyyAT6yAVwCAQmRAUSRAW4CASOOAUWOAVkCASGjAUKjAWACARegAUOgAU8CARWtAUKtAXYCAROqAUOqAU8CARE=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -255,7 +256,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="649,1430" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="671,1969">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="671,1984">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -263,7 +264,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="711,2049" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="711,2064" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

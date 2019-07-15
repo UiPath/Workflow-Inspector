@@ -14,10 +14,10 @@
   <x:Members>
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,7 +96,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xD;&#xA;&#xD;&#xA;Author: Silviu Predan" DisplayName="Check for VariableOverridesArgument" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xA;&#xA;Author: Silviu Predan" DisplayName="Check for VariableOverridesArgument" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Name="ArgumentsNames" />
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />

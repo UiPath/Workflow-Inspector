@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_ProjectIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -134,7 +134,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1lDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgVivQsCARljBXoSAgEOewWIARICAQNiyAFi4AECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH6AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGwAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgVivQsCARljBXoSAgEOewWIARICAQNiyAFi4AECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH6AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGwAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -174,7 +174,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1390" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1270" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
