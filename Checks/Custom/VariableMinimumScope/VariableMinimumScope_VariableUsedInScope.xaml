@@ -115,7 +115,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="VariableIsUsed" />
             </Sequence.Variables>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with values)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with values)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="in_Value">[node.InnerText]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableIsUsed">[VariableIsUsed]</OutArgument>
@@ -152,7 +152,7 @@
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="VariableIsUsed" />
                   </Sequence.Variables>
-                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with attributes)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with attributes)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Value">[attribute.Value]</InArgument>
                       <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableIsUsed">[VariableIsUsed]</OutArgument>
@@ -205,7 +205,7 @@
         <FlowDecision x:Name="__ReferenceID0" Condition="[Index &lt; NodesUsingVariable.Count]" DisplayName="More nodes to check" sap2010:WorkflowViewState.IdRef="FlowDecision_7">
           <FlowDecision.True>
             <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_11">
-              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get the top container for the first node where the variable is used." DisplayName="Invoke VariableScope_GetTopContainer workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_GetTopContainer.xaml">
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get the top container for the first node where the variable is used." DisplayName="Invoke VariableScope_GetTopContainer workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_GetTopContainer.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
                   <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_StartNode">[NodesUsingVariable(Index)]</InArgument>
                   <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_RootNode">[in_Node]</InArgument>
@@ -274,7 +274,7 @@
       <x:Reference>__ReferenceID5</x:Reference>
       <x:Reference>__ReferenceID6</x:Reference>
     </Flowchart>
-    <sads:DebugSymbol.Symbol>d4IBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlX1ZhcmlhYmxlVXNlZEluU2NvcGUueGFtbEFNA5YCDgIBAVQFWw4CAVRcBWMOAgFPZAVrDgIBTGwFigESAgE7iwEFtQESAgEmtgEFvQEOAgEivgEFxQEOAgEexgEFlAIRAgECWTZZwAECAVdWN1ZHAgFVYTZh+gECAVJeN15MAgFQaTxpUgIBTmY9ZlECAU1s3QFs7wECAUtyC4cBFgIBPIsByAGLAd8BAgE6kQELsgEYAgEnuwExuwE2AgEluAEyuAFCAgEjwwEvwwFJAgEhwAEwwAE9AgEfygGeAcoBoQECAQPNATnNAWACAR3QAQ/WAScCARTYAZoB2AG8AQIBE+QB9gHkAdECAgES8wEf+gEoAgEN5wEf7gEoAgEJ2wEX4gEgAgEEdg18JQIBRH0NhgESAgE9kQHyAZEBhQICATmXARGvARwCASjSAVHSAWwCARrUAVfUAW4CARjTAVDTAVkCARbQAb0C0AGEAwIBFfgBSfgBVAIBEPUBSvUBUQIBDuwBS+wBTwIBDOkBTOkBXAIBCuABROABWwIBB90BRd0BWgIBBXhJeFkCAUp6UHphAgFIdrECdvwCAgFHeVV5ZQIBRX0bfS0CAT5/EYQBIAIBQJsBE6EBKwIBMqIBE64BGAIBKYEBSIEBXAIBQ4MBPIMBQgIBQZ0BT50BYAIBOJ8BVp8BZwIBNpsBuwKbAYYDAgE1ngFbngFrAgEzogEhogEzAgEqpAEXrAEiAgEspQEZqgEoAgEuqwEZqwHaAQIBLacBUKcBZAIBMakBRKkBSgIBLw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d4kBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXEN1c3RvbVxWYXJpYWJsZU1pbmltdW1TY29wZVxWYXJpYWJsZU1pbmltdW1TY29wZV9WYXJpYWJsZVVzZWRJblNjb3BlLnhhbWxBTQOWAg4CAQFUBVsOAgFUXAVjDgIBT2QFaw4CAUxsBYoBEgIBO4sBBbUBEgIBJrYBBb0BDgIBIr4BBcUBDgIBHsYBBZQCEQIBAlk2WcABAgFXVjdWRwIBVWE2YfoBAgFSXjdeTAIBUGk8aVICAU5mPWZRAgFNbN0BbO8BAgFLcguHARYCATyLAcgBiwHfAQIBOpEBC7IBGAIBJ7sBMbsBNgIBJbgBMrgBQgIBI8MBL8MBSQIBIcABMMABPQIBH8oBngHKAaEBAgEDzQE5zQFgAgEd0AEP1gEnAgEU2AGaAdgBvAECARPkAfYB5AHRAgIBEvMBH/oBKAIBDecBH+4BKAIBCdsBF+IBIAIBBHYNfCUCAUR9DYYBEgIBPZEB8gGRAYUCAgE5lwERrwEcAgEo0gFR0gFsAgEa1AFX1AFuAgEY0wFQ0wFZAgEW0AG9AtABiwMCARX4AUn4AVQCARD1AUr1AVECAQ7sAUvsAU8CAQzpAUzpAVwCAQrgAUTgAVsCAQfdAUXdAVoCAQV4SXhZAgFKelB6YQIBSHaxAnaDAwIBR3lVeWUCAUV9G30tAgE+fxGEASACAUCbAROhASsCATKiAROuARgCASmBAUiBAVwCAUODATyDAUICAUGdAU+dAWACATifAVafAWcCATabAbsCmwGNAwIBNZ4BW54BawIBM6IBIaIBMwIBKqQBF6wBIgIBLKUBGaoBKAIBLqsBGasB2gECAS2nAVCnAWQCATGpAUSpAUoCAS8=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -399,7 +399,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="200,108">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>

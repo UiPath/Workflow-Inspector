@@ -135,7 +135,7 @@
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:Boolean" Name="UsageFound" />
                     </Sequence.Variables>
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the scope of the container." DisplayName="Invoke VariableUserdByElement workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\VariableMinimumScope\VariableMinimumScope_VariableUsedInScope.xaml">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the scope of the container." DisplayName="Invoke VariableUserdByElement workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInScope.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_Node">[ContainerNode]</InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[VariableNode.Value]</InArgument>
@@ -166,7 +166,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d3VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlLnhhbWweYQOqAQ4CAQFlBWW4CwIBJ2YFbQ4CASNuBagBEgIBAmXBAWXaAQIBKGswa48BAgEmaDFoQgIBJG6DAW7TAQIBInQLpQEWAgEDeA1/FgIBHIABDaQBGgIBBH0+fYkBAgEfej96TgIBHYAB4gGAAfMBAgEbhgEToQEeAgEFigEVkAEtAgEUkQEVoAEaAgEGjgFZjgFlAgEZjAFSjAFhAgEXjQFYjQFsAgEWigG0AooB/wICARWRAagBkQG6AQIBB5MBGZ4BJAIBCZcBG5wBMwIBDp0BG50B8AECAQqaAWCaAW4CARKZAWCZAW8CARCXAdAClwHtAgIBD50Bd50BkAECAQydAUadAWwCAQs=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlLnhhbWweYQOqAQ4CAQFlBWW4CwIBJ2YFbQ4CASNuBagBEgIBAmXBAWXaAQIBKGswa48BAgEmaDFoQgIBJG6DAW7TAQIBInQLpQEWAgEDeA1/FgIBHIABDaQBGgIBBH0+fYkBAgEfej96TgIBHYAB4gGAAfMBAgEbhgEToQEeAgEFigEVkAEtAgEUkQEVoAEaAgEGjgFZjgFlAgEZjAFSjAFhAgEXjQFYjQFsAgEWigG0AooBhgMCARWRAagBkQG6AQIBB5MBGZ4BJAIBCZcBG5wBMwIBDp0BG50B8AECAQqaAWCaAW4CARKZAWCZAW8CARCXAdAClwHtAgIBD50Bd50BkAECAQydAUadAWwCAQs=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
