@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_ProjectIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -88,6 +88,7 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="[ProjectCheckDescription]&#xA;&#xA;The steps to find [ProjectCheckName] are as follows:&#xA;1 - &#xA;2 - &#xA;3 - " DisplayName="Check for [ProjectCheckName]" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -97,7 +98,7 @@
         <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Adds information about project issue." ArrayRow="[{&quot;-&quot;, &quot;-&quot;}]" DataTable="[out_dt_ProjectIssues]" DisplayName="Add issue " sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFByb2plY3RDaGVja1RlbXBsYXRlLnhhbWwIXQNlDgIBAV4FXr0LAgEIXwVjCgIBAl7IAV7gAQIBCV8TXxoCAQNhCWGOAgIBBGGrAWHDAQIBBmF+YaABAgEF</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFByb2plY3RDaGVja1RlbXBsYXRlLnhhbWwIXgNmDgIBAV8FX70LAgEIYAVkCgIBAl/IAV/gAQIBCWATYBoCAQNiCWKOAgIBBGKrAWLDAQIBBmJ+YqABAgEF</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -124,7 +125,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,914" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,674" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

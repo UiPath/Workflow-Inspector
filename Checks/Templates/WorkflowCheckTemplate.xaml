@@ -14,10 +14,10 @@
   <x:Members>
     <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
     <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_CheckArgument" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
     <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
     <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -92,6 +92,7 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="[WorkflowCheckDescription]&#xA;&#xA;The steps to find [WorkflowCheckName] are as follows:&#xA;1 - &#xA;2 - &#xA;3 - " DisplayName="Check for [WorkflowCheckName]" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -115,55 +116,49 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="Node" />
           </ActivityAction.Argument>
-          <If sap2010:Annotation.AnnotationText="[If the check fails, add the issue to the issues table]" Condition="False" DisplayName="If check fails">
+          <If sap2010:Annotation.AnnotationText="[If the check fails, add the issue to the issues table]" Condition="False" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_4">
             <If.Then>
-              <Sequence DisplayName="Add issue">
+              <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_6">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:String" Name="TargetName" />
                   <Variable x:TypeArguments="x:String" Name="InternalPath" />
                 </Sequence.Variables>
-                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
                     <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[Node]</InArgument>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                   </ui:InvokeWorkflowFile.Arguments>
-                  <sap2010:WorkflowViewState.IdRef>InvokeWorkflowFile_2</sap2010:WorkflowViewState.IdRef>
                 </ui:InvokeWorkflowFile>
-                <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[Node.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName">
+                <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[Node.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_3">
                   <If.Then>
-                    <Assign DisplayName="Assign: Target Name is Local Name">
+                    <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_4">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
                         <InArgument x:TypeArguments="x:String">[Node.LocalName]</InArgument>
                       </Assign.Value>
-                      <sap2010:WorkflowViewState.IdRef>Assign_4</sap2010:WorkflowViewState.IdRef>
                     </Assign>
                   </If.Then>
                   <If.Else>
-                    <Assign DisplayName="Assign: Target Name is Display Name">
+                    <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_5">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
                         <InArgument x:TypeArguments="x:String">[Node.Attributes("DisplayName").Value]</InArgument>
                       </Assign.Value>
-                      <sap2010:WorkflowViewState.IdRef>Assign_5</sap2010:WorkflowViewState.IdRef>
                     </Assign>
                   </If.Else>
-                  <sap2010:WorkflowViewState.IdRef>If_3</sap2010:WorkflowViewState.IdRef>
                 </If>
                 <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
-                <sap2010:WorkflowViewState.IdRef>Sequence_6</sap2010:WorkflowViewState.IdRef>
               </Sequence>
             </If.Then>
-            <sap2010:WorkflowViewState.IdRef>If_4</sap2010:WorkflowViewState.IdRef>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcV29ya2Zsb3dDaGVja1RlbXBsYXRlLnhhbWwaYQOnAQ4CAQFlBWW4CwIBIWYFbw4CAR1wBaUBEgIBAmXBAWXaAQIBImwLbDoCASBoMWhCAgEecO4BcL4CAgEcdguiARACAQN2dXZ8AgEEeA+fARoCAQV9EYMBKQIBFoQBEZwBFgIBDJ0BEZ0B2wECAQaAAVaAAWQCARp/Vn9cAgEYfY8CfawCAgEXhAF6hAGxAQIBDYYBFY4BHgIBEpEBFZkBHgIBDp0BZZ0BfgIBCp0BPJ0BWgIBB4sBQIsBUAIBFYgBQYgBTQIBE5YBQJYBZgIBEZMBQZMBTQIBDw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFdvcmtmbG93Q2hlY2tUZW1wbGF0ZS54YW1sGmIDogEOAgEBZgVmuAsCASFnBXAOAgEdcQWgARICAQJmwQFm2gECASJtC206AgEgaTFpQgIBHnHuAXG+AgIBHHcLnQEQAgEDd3V3fAIBBHkPmwEaAgEFfhGDASkCARaEARGZARYCAQyaARGaAdsBAgEGgQFWgQFkAgEagAFWgAFcAgEYfsYCfuMCAgEXhAF6hAGxAQIBDYYBFY0BHgIBEpABFZcBHgIBDpoBZZoBfgIBCpoBPJoBWgIBB4sBQIsBUAIBFYgBQYgBTQIBE5UBQJUBZgIBEZIBQZIBTQIBDw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
