@@ -77,9 +77,9 @@
     </Sequence.Variables>
     <While sap2010:WorkflowViewState.IdRef="While_2" Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;Activity&quot;]">
       <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_12">
-        <If sap2010:Annotation.AnnotationText="Ignores FlowStep nodes and nodes without IdRef because they are not visible on UiPath Studio." Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;FlowStep&quot; AndAlso in_ActivityNode.Attributes(&quot;sap2010:WorkflowViewState.IdRef&quot;) IsNot Nothing]" sap2010:WorkflowViewState.IdRef="If_1">
+        <If sap2010:Annotation.AnnotationText="Ignores FlowStep nodes and nodes without IdRef because they are not visible on UiPath Studio." Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;FlowStep&quot; AndAlso in_ActivityNode.Attributes(&quot;sap2010:WorkflowViewState.IdRef&quot;) IsNot Nothing]" DisplayName="If node is not a FlowStep" sap2010:WorkflowViewState.IdRef="If_1">
           <If.Then>
-            <If Condition="[in_ActivityNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" sap2010:WorkflowViewState.IdRef="If_2">
+            <If Condition="[in_ActivityNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If node does not have DisplayName" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
                 <AddToCollection x:TypeArguments="x:String" Collection="[InternalPath]" DisplayName="Add name of node" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3" Item="[in_ActivityNode.LocalName]" />
               </If.Then>
@@ -114,7 +114,7 @@
       <sap2010:ViewStateData Id="AddToCollection`1_3" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="AddToCollection`1_2" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,208" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="590,383">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="589,383">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -123,17 +123,17 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="590,62" />
-      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="612,609">
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="589,60" />
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="611,607">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="639,767" />
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="638.666666666667,62" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="661,1035">
+      <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="637,765" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="637,60" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="659,1031">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -141,7 +141,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="701,1115" />
+      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="699,1111" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
