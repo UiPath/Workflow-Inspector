@@ -7,6 +7,7 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_ArgumentsJSONString" Type="InArgument(x:String)" />
@@ -67,20 +68,13 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Converts the JSON string provided in the Argument column of the configuration file to a dictionary for easier manipulation.&#xA;&#xA;This parser assumes that arguments are defined as strings. Further type conversion might be necessary depending on the argument. For example, if a check uses a integer threshold value, the argument needs to be converted to integer in the check." DisplayName="ParseArguments" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Assign DisplayName="Assign out_CheckArguments" sap2010:WorkflowViewState.IdRef="Assign_1">
-      <Assign.To>
-        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[out_CheckArguments]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[JsonConvert.DeserializeObject(Of Dictionary(Of String, String))(in_ArgumentsJSONString)]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <sads:DebugSymbol.Symbol>d1NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VBcmd1bWVudHMueGFtbARFA08OAgEBRgVNDgIBAktKS6MBAgEFSEtIXwIBAw==</sads:DebugSymbol.Symbol>
+    <ui:DeserializeJson x:TypeArguments="scg:Dictionary(x:String, x:String)" DisplayName="Deserialize json" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_2" JsonObject="[out_CheckArguments]" JsonString="[in_ArgumentsJSONString]" />
+    <sads:DebugSymbol.Symbol>d1NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VBcmd1bWVudHMueGFtbARGA0kOAgEBRwVH7QECAQJH0AFH6gECAQVHrgFHxAECAQM=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="264,361">
+      <sap2010:ViewStateData Id="DeserializeJson`1_2" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,331">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -88,7 +82,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ParseArguments_1" sap:VirtualizedContainerService.HintSize="304,441" />
+      <sap2010:ViewStateData Id="ParseArguments_1" sap:VirtualizedContainerService.HintSize="376,411" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
