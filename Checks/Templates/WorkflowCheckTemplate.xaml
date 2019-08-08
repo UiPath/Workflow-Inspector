@@ -151,14 +151,14 @@
                     </Assign>
                   </If.Else>
                 </If>
-                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
               </Sequence>
             </If.Then>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFdvcmtmbG93Q2hlY2tUZW1wbGF0ZS54YW1sGmIDogEOAgEBZgVmuAsCASFnBXAOAgEdcQWgARICAQJmwQFm2gECASJtC206AgEgaTFpQgIBHnHuAXG+AgIBHHcLnQEQAgEDd3V3fAIBBHkPmwEaAgEFfhGDASkCARaEARGZARYCAQyaARGaAdsBAgEGgQFWgQFkAgEagAFWgAFcAgEYfsYCfuMCAgEXhAF6hAGxAQIBDYYBFY0BHgIBEpABFZcBHgIBDpoBZZoBfgIBCpoBPJoBWgIBB4sBQIsBUAIBFYgBQYgBTQIBE5UBQJUBZgIBEZIBQZIBTQIBDw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcVGVtcGxhdGVzXFdvcmtmbG93Q2hlY2tUZW1wbGF0ZS54YW1sGmIDogEOAgEBZgVmuAsCASFnBXAOAgEdcQWgARICAQJmwQFm2gECASJtC206AgEgaTFpQgIBHnHuAXG+AgIBHHcLnQEQAgEDd3V3fAIBBHkPmwEaAgEFfhGDASkCARaEARGZARYCAQyaARGaAd4BAgEGgQFWgQFkAgEagAFWgAFcAgEYfsYCfuMCAgEXhAF6hAGxAQIBDYYBFY0BHgIBEpABFZcBHgIBDpoBZZoBfgIBCpoBPJoBWgIBB4sBQIsBUAIBFYgBQYgBTQIBE5UBQJUBZgIBEZIBQZIBTQIBDw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
