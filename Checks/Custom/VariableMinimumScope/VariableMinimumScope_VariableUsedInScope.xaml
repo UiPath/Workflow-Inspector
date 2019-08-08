@@ -74,7 +74,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if the given variable is used in the scope of the given node, either directly in one of the child activities or in more that one sub-containers on different branches whos minim parent node is the given root node. &#xA;If the variable is used in an activity that is inside another container, it should be defined in that container, hence the result will be false. But, if it used in more that one containers, then it should be defined in the common parent container. If that common parent continer is the given node, the result is true, otherwise false.&#xA;&quot;Container&quot; means any of the activities were variables can be defined: Sequence, Flowchart, StateMachine.&#xA;&#xA;Arguments:&#xA; - in_Node, XmlNode - the root node container where the variable should be used.&#xA; - in_VariableName, String - the name of the variable to check if it's used.&#xA; - out_UsageFound, Boolean - the result." DisplayName="VariableUsedInScope" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Check if the given variable is used in the scope of the given node, either directly in one of the child activities or in more that one sub-containers on different branches whose minimum parent node is the given root node. &#xA;If the variable is used in an activity that is inside another container, it should be defined in that container, hence the result will be false. But, if it is used in more that one containers, then it should be defined in the common parent container. If that common parent container is the given node, the result is true, otherwise false.&#xA;&quot;Container&quot; means any of the activities were variables can be defined: Sequence, Flowchart, StateMachine.&#xA;&#xA;Arguments:&#xA; - in_Node, XmlNode - the root node container where the variable should be used.&#xA; - in_VariableName, String - the name of the variable to check if it's used.&#xA; - out_UsageFound, Boolean - the result." DisplayName="VariableUsedInScope" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithValue" />
       <Variable x:TypeArguments="scg:List(sx:XmlNode)" Name="NodesUsingVariable" />
@@ -115,11 +115,11 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="VariableIsUsed" />
             </Sequence.Variables>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with values)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with values)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_Value">[node.InnerText]</InArgument>
-                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableIsUsed">[VariableIsUsed]</OutArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[in_VariableName]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_StringValue">[node.InnerText]</InArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableUsed">[VariableIsUsed]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
             <If Condition="[VariableIsUsed]" DisplayName="If Variable is used in node with value" sap2010:WorkflowViewState.IdRef="If_6">
@@ -152,11 +152,11 @@
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="VariableIsUsed" />
                   </Sequence.Variables>
-                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with attributes)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInValue.xaml">
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the given text." DisplayName="Invoke VariableUsedInValue workflow (Nodes with attributes)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Value">[attribute.Value]</InArgument>
-                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableIsUsed">[VariableIsUsed]</OutArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[in_VariableName]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_StringValue">[attribute.Value]</InArgument>
+                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableUsed">[VariableIsUsed]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
                   <If Condition="[VariableIsUsed]" DisplayName="If Variable is used in node with attribute" sap2010:WorkflowViewState.IdRef="If_16">
@@ -274,7 +274,7 @@
       <x:Reference>__ReferenceID5</x:Reference>
       <x:Reference>__ReferenceID6</x:Reference>
     </Flowchart>
-    <sads:DebugSymbol.Symbol>d4kBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXEN1c3RvbVxWYXJpYWJsZU1pbmltdW1TY29wZVxWYXJpYWJsZU1pbmltdW1TY29wZV9WYXJpYWJsZVVzZWRJblNjb3BlLnhhbWxBTQOWAg4CAQFUBVsOAgFUXAVjDgIBT2QFaw4CAUxsBYoBEgIBO4sBBbUBEgIBJrYBBb0BDgIBIr4BBcUBDgIBHsYBBZQCEQIBAlk2WcABAgFXVjdWRwIBVWE2YfoBAgFSXjdeTAIBUGk8aVICAU5mPWZRAgFNbN0BbO8BAgFLcguHARYCATyLAcgBiwHfAQIBOpEBC7IBGAIBJ7sBMbsBNgIBJbgBMrgBQgIBI8MBL8MBSQIBIcABMMABPQIBH8oBngHKAaEBAgEDzQE5zQFgAgEd0AEP1gEnAgEU2AGaAdgBvAECARPkAfYB5AHRAgIBEvMBH/oBKAIBDecBH+4BKAIBCdsBF+IBIAIBBHYNfCUCAUR9DYYBEgIBPZEB8gGRAYUCAgE5lwERrwEcAgEo0gFR0gFsAgEa1AFX1AFuAgEY0wFQ0wFZAgEW0AG9AtABiwMCARX4AUn4AVQCARD1AUr1AVECAQ7sAUvsAU8CAQzpAUzpAVwCAQrgAUTgAVsCAQfdAUXdAVoCAQV4SXhZAgFKelB6YQIBSHaxAnaDAwIBR3lVeWUCAUV9G30tAgE+fxGEASACAUCbAROhASsCATKiAROuARgCASmBAUiBAVwCAUODATyDAUICAUGdAU+dAWACATifAVafAWcCATabAbsCmwGNAwIBNZ4BW54BawIBM6IBIaIBMwIBKqQBF6wBIgIBLKUBGaoBKAIBLqsBGasB2gECAS2nAVCnAWQCATGpAUSpAUoCAS8=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d4kBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXEN1c3RvbVxWYXJpYWJsZU1pbmltdW1TY29wZVxWYXJpYWJsZU1pbmltdW1TY29wZV9WYXJpYWJsZVVzZWRJblNjb3BlLnhhbWxBTQOWAg4CAQFUBVsOAgFUXAVjDgIBT2QFaw4CAUxsBYoBEgIBO4sBBbUBEgIBJrYBBb0BDgIBIr4BBcUBDgIBHsYBBZQCEQIBAlk2WcABAgFXVjdWRwIBVWE2YfoBAgFSXjdeTAIBUGk8aVICAU5mPWZRAgFNbN0BbO8BAgFLcguHARYCATyLAcgBiwHfAQIBOpEBC7IBGAIBJ7sBMbsBNgIBJbgBMrgBQgIBI8MBL8MBSQIBIcABMMABPQIBH8oBngHKAaEBAgEDzQE5zQFgAgEd0AEP1gEnAgEU2AGaAdgBvAECARPkAfYB5AHRAgIBEvMBH/oBKAIBDecBH+4BKAIBCdsBF+IBIAIBBHYNfCUCAUR9DYYBEgIBPZEB8gGRAYUCAgE5lwERrwEcAgEo0gFR0gFsAgEa1AFX1AFuAgEY0wFQ0wFZAgEW0AG9AtABiwMCARX4AUn4AVQCARD1AUr1AVECAQ7sAUvsAU8CAQzpAUzpAVwCAQrgAUTgAVsCAQfdAUXdAVoCAQV6U3pjAgFJeU95XwIBSHhQeGECAUZ2sQJ22gICAUV9G30tAgE+fxGEASACAUCbAROhASsCATKiAROuARgCASmBAUiBAVwCAUODATyDAUICAUGfAVmfAWkCATeeAVWeAWYCATadAVadAWcCATSbAbsCmwHkAgIBM6IBIaIBMwIBKqQBF6wBIgIBLKUBGaoBKAIBLqsBGasB2gECAS2nAVCnAWQCATGpAUSpAUoCAS8=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -399,7 +399,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,129">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="200,108">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -519,7 +519,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="VariableUsedInScope_1" sap:VirtualizedContainerService.HintSize="757,4056" />
+      <sap2010:ViewStateData Id="VariableUsedInScope_1" sap:VirtualizedContainerService.HintSize="757,4856" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
