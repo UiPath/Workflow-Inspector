@@ -1,0 +1,157 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="IsVariableUsedInStringValue"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_VariableName" Type="InArgument(x:String)" />
+    <x:Property Name="in_StringValue" Type="InArgument(x:String)" />
+    <x:Property Name="out_VariableUsed" Type="OutArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>VariableMinimumScope_VariableUsedInValue_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Verifies whether the given variable name is used in a string.&#xD;&#xA;String values that use variables are enclosed in square brackets in workflow files. If there are no brackets, then the string is just a regular text.&#xD;&#xA;&#xD;&#xA;For example, in the following cases the strings contain an actual reference to a variable, so this workflow should return out_VariableUsed as True:&#xA; - [varName]&#xA; - [&quot;AAA&quot; + varName + &quot;BBB&quot;]&#xA; - [&quot;AAA&quot; + varName]&#xA; - [varName+&quot;BBB&quot;]&#xA; - [String.Format(&quot;aaa{0}aaa&quot;, varName)]&#xA;&#xA;On the other hand, the following cases represent situations in which string values do not use the variable name to indicate a variable, so this workflow should return out_Variable as False:&#xA; - varName&#xA; - [varNam]&#xA; - Here I'm mentioning varName but it's not a variable&#xA; - [&quot;AAA varName&quot; + anotherVar + &quot;AAA varName&quot;]" DisplayName="IsVariableUsedInStringValue" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="CheckVariableUsageRegex" />
+    </Sequence.Variables>
+    <Assign sap2010:Annotation.AnnotationText="Regular expression that checks whether a given variable name can be found in a string to represent an actual variable." DisplayName="Assign CheckVariableUsageRegex" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[CheckVariableUsageRegex]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[".*\W+" + in_VariableName + "\W+.*"]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If sap2010:Annotation.AnnotationText="All strings that reference actual variables are enclosed in square brackets.&#xA;It also accounts for the possibility of attributes without values." Condition="[in_StringValue IsNot Nothing AndAlso in_StringValue.StartsWith(&quot;[&quot;)]" DisplayName="If starts with bracket" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="VariableText" />
+          </Sequence.Variables>
+          <ui:Replace sap2010:Annotation.AnnotationText="Removes all text between quotes.&#xD;&#xA;For example, [&quot;AAA&quot; + varName + &quot;BBB&quot;] becomes [+ varName + ]." sap2010:WorkflowViewState.IdRef="Replace_2" Input="[in_StringValue]" Pattern="[&quot;&quot;&quot;.*?&quot;&quot;&quot;]" RegexOption="IgnoreCase, Compiled" Replacement="[String.Empty]" Result="[VariableText]" />
+          <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the variable name is used in the string resulting from the previous step." DisplayName="Is Match" sap2010:WorkflowViewState.IdRef="IsMatch_2" Input="[VariableText]" Pattern="[CheckVariableUsageRegex]" RegexOption="IgnoreCase, Compiled" Result="[out_VariableUsed]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Assign DisplayName="Assign out_VariableUsed (False)" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:Boolean">[out_VariableUsed]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d2BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cSXNWYXJpYWJsZVVzZWRJblN0cmluZ1ZhbHVlLnhhbWwTRwNpDgIBAUsFUg4CARlTBWcKAgECUDBQVQIBHE0xTUoCARpTywFTnAICAQNVCVsUAgEKXgllEgIBBlkLWYsDAgESWgta1QICAQtjNWM6AgEJYDZgSAIBB1nqAVn8AQIBF1ngAlnwAgIBFln4AlmIAwIBFFmFAlmwAgIBE1rfAVrvAQIBEFq+AlrSAgIBDlr4AVqTAgIBDA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="489,132">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Replace_2" sap:VirtualizedContainerService.HintSize="200,109">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="IsMatch_2" sap:VirtualizedContainerService.HintSize="200,94">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="222,367">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="489,557">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="511,1150">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="VariableMinimumScope_VariableUsedInValue_1" sap:VirtualizedContainerService.HintSize="551,1270" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
