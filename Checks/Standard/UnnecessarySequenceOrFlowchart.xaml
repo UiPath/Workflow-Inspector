@@ -151,7 +151,7 @@
                 </ActivityAction>
               </ui:ForEach.Body>
             </ui:ForEach>
-            <If Condition="[UnnecessaryNode]" DisplayName="If node is unnecessary" sap2010:WorkflowViewState.IdRef="If_3">
+            <If sap2010:Annotation.AnnotationText="Skips activities that have annotations, since they might be empty on purpose. The verification for annotation could have been done earlier for a slight performance improvement, but with decreased readability." Condition="[UnnecessaryNode AndAlso Node.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If node is unnecessary" sap2010:WorkflowViewState.IdRef="If_3">
               <If.Then>
                 <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_6">
                   <Sequence.Variables>
@@ -194,7 +194,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5uZWNlc3NhcnlTZXF1ZW5jZU9yRmxvd2NoYXJ0LnhhbWwnYwPGAQ4CAQFnBWe4CwIBMWgFbw4CAS1wBcQBEgIBAmfBAWfaAQIBMm0wbXgCATBqMWpCAgEucJwBcOwBAgEsdgvBARYCAQN6DYEBFgIBKIIBDZkBGgIBHpoBDcABEgIBBH85fz0CASt8OnxLAgEpggGNAYIBoAECASeIAROWARgCAR+aARuaAS4CAQWcARG+ARwCAQeIAd4BiAHxAgIBIIoBF5QBIgIBIaEBE6YBKwIBGKcBE7wBGAIBDr0BE70B2gECAQiLARmSASICASOTARmTAU8CASKkAVikAWYCARyjAVijAV4CARqhAcgCoQHlAgIBGacBfKcBswECAQ+pARewASACARSzARe6ASACARC9AWe9AYABAgEMvQE+vQFcAgEJkAFFkAFKAgEmjQFGjQFXAgEkrgFCrgFSAgEXqwFDqwFPAgEVuAFCuAFoAgETtQFDtQFPAgER</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5uZWNlc3NhcnlTZXF1ZW5jZU9yRmxvd2NoYXJ0LnhhbWwnYwPGAQ4CAQFnBWe4CwIBMGgFbw4CASxwBcQBEgIBAmfBAWfaAQIBMW0wbXgCAS9qMWpCAgEtcJwBcOwBAgErdgvBARYCAQN6DYEBFgIBJ4IBDZkBGgIBHZoBDcABEgIBBH85fz0CASp8OnxLAgEoggGNAYIBoAECASaIAROWARgCAR6aAZACmgH1AgIBBZwBEb4BHAIBBogB3gGIAfECAgEfigEXlAEiAgEgoQETpgErAgEXpwETvAEYAgENvQETvQHaAQIBB4sBGZIBIgIBIpMBGZMBTwIBIaQBWKQBZgIBG6MBWKMBXgIBGaEByAKhAeUCAgEYpwF8pwGzAQIBDqkBF7ABIAIBE7MBF7oBIAIBD70BZ70BgAECAQu9AT69AVwCAQiQAUWQAUoCASWNAUaNAVcCASOuAUKuAVICARarAUOrAU8CARS4AUK4AWgCARK1AUO1AU8CARA=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -258,23 +258,24 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="480,596">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="480,653">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="502,1430">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="502,1487">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="518,1564" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="540,2223">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="518,1621" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="540,2280">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -282,7 +283,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="580,2303" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="580,2440" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
