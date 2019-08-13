@@ -98,17 +98,17 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selector can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. &#xA;For this reason, it is recommended to use selectors or include them in containers that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes&#xA;2 - Check if the Selector attribute contains a selector string&#xA;3 - If it does not have a selector, check if the element is inside another that is a container  (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) and if the container specifies a selector or has a scope specified (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check for hotkey without selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selectors or specified UI elements can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. &#xA;For this reason, it is recommended to use selectors or include them in containers that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes whose targets do not contain selectors or UiElements&#xA;2 - Check if the element is inside another that is a container  (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) and if the container specifies a selector or has a scope specified (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check for hotkey without selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that represent a SendHotkey activity without a selector." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that represent a SendHotkey activity without a selector or an UiElement." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">["//ui:SendHotkey[./ui:SendHotkey.Target/ui:Target[@Selector = '{x:Null}']]"]</InArgument>
+        <InArgument x:TypeArguments="x:String">["//ui:SendHotkey[./ui:SendHotkey.Target/ui:Target[@Selector = '{x:Null}' and @Element = '{x:Null}']]"]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each Send Hotkey activity node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
@@ -239,11 +239,11 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcSG90a2V5V2l0aG91dFNlbGVjdG9yLnhhbWw3ZQPzAQ4CAQFpBWm4CwIBTGoFcQ4CAUhyBfEBEgIBAmnBAWnaAQIBTW8wb30CAUtsMWxCAgFJcpQBcuQBAgFHeAvuARYCAQN7PXtDAgEEfQ2EARYCAUKFAQ3GARUCAR/HAQ3tARICAQWCAUKCAVoCAUV/Q39hAgFDhgEPxQEaAgEhhQGKAoUB9AICASDHARvHATgCAQbJARHrARwCAQiHARG/ARoCASXAARHEASACASLOARPTASsCARnUARPpARgCAQ/qARPqAd0BAgEJhwF2hwGgAQIBJpIBE5kBHAIBPpoBE6EBHAIBOqIBE6kBHAIBNqoBE74BHgIBK4kBFZABHgIBJ8IBRsIBZAIBI9EBWNEBZgIBHdABWNABXgIBG84ByALOAeUCAgEa1AF81AGzAQIBENYBF90BIAIBFeABF+cBIAIBEeoBZ+oBgAECAQ3qAT7qAVwCAQqUAUCUAVsCAT+cAUCcAVsCATunAT+nAYcBAgE5pAFApAFbAgE3rgEVtQEeAgEwtgEVvQEeAgEsjgFBjgFFAgEqiwFCiwFdAgEo2wFC2wFSAgEY2AFD2AFPAgEW5QFC5QFoAgEU4gFD4gFPAgESswFKswG0AQIBM7ABS7ABaAIBMbsBQbsB1QECAS+4AUK4AV0CAS0=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcSG90a2V5V2l0aG91dFNlbGVjdG9yLnhhbWw3ZQPzAQ4CAQFpBWm4CwIBTGoFcQ4CAUhyBfEBEgIBAmnBAWnaAQIBTW8wb5cBAgFLbDFsQgIBSXKUAXLkAQIBR3gL7gEWAgEDez17QwIBBH0NhAEWAgFChQENxgEVAgEfxwEN7QESAgEFggFCggFaAgFFf0N/YQIBQ4YBD8UBGgIBIYUBigKFAfQCAgEgxwEbxwE4AgEGyQER6wEcAgEIhwERvwEaAgElwAERxAEgAgEizgET0wErAgEZ1AET6QEYAgEP6gET6gHdAQIBCYcBdocBoAECASaSAROZARwCAT6aAROhARwCATqiAROpARwCATaqARO+AR4CASuJARWQAR4CASfCAUbCAWQCASPRAVjRAWYCAR3QAVjQAV4CARvOAcgCzgHlAgIBGtQBfNQBswECARDWARfdASACARXgARfnASACARHqAWfqAYABAgEN6gE+6gFcAgEKlAFAlAFbAgE/nAFAnAFbAgE7pwE/pwGHAQIBOaQBQKQBWwIBN64BFbUBHgIBMLYBFb0BHgIBLI4BQY4BRQIBKosBQosBXQIBKNsBQtsBUgIBGNgBQ9gBTwIBFuUBQuUBaAIBFOIBQ+IBTwIBErMBSrMBtAECATOwAUuwAWgCATG7AUG7AdUBAgEvuAFCuAFdAgEt</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="563,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -251,14 +251,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="563,117">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502,117">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_34" sap:VirtualizedContainerService.HintSize="525,60" />
+      <sap2010:ViewStateData Id="Assign_34" sap:VirtualizedContainerService.HintSize="464,60" />
       <sap2010:ViewStateData Id="Assign_35" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_36" sap:VirtualizedContainerService.HintSize="242,60">
         <sap:WorkflowViewStateService.ViewState>
@@ -307,12 +307,12 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="While_3" sap:VirtualizedContainerService.HintSize="525,700">
+      <sap2010:ViewStateData Id="While_3" sap:VirtualizedContainerService.HintSize="464,123">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
@@ -345,7 +345,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="525,590">
+      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="464,590">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -353,7 +353,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="547,1554">
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="486,977">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -361,14 +361,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="563,1688">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1111">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="585,2332">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1755">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -376,7 +376,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="625,2652">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1915">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
