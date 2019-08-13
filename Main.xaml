@@ -12,6 +12,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Location of the project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location to which the report should be saved." Name="in_ReportPath" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -101,9 +102,10 @@
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_Issues">[dt_Issues]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReportPath">[in_ReportPath]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwXRQNrDgIBAUwFVB0CARpVBVsdAgESXAViHQIBCmMFaR0CAQJPS09WAgEkUlRSbAIBIlBVUGoCASBMvAFM1gECAR9RVlFsAgEdTkpOWgIBG1lMWVcCARhXU1doAgEWWEdYVwIBFFWsAVXFAQIBE19MX1cCARBgVGBqAgEOXkdeVwIBDFytAVzHAQIBC2VJZVQCAQhmR2ZXAgEGZ1JnagIBBGOnAWO8AQIBAw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYRgNtDgIBAU0FVR0CARxWBVwdAgEUXQVjHQIBDGQFax0CAQJQS1BWAgEmU1RTbAIBJFFVUWoCASJNvAFN1gECASFSVlJsAgEfT0pPWgIBHVpMWlcCARpYU1hoAgEYWUdZVwIBFlasAVbFAQIBFWBMYFcCARJhVGFqAgEQX0dfVwIBDl2tAV3HAQIBDWlGaVUCAQpmSWZUAgEIZ0dnVwIBBmhSaGoCAQRkpwFkvAECAQM=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -119,7 +121,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1029" />
+      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1789" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
