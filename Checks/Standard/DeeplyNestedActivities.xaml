@@ -110,7 +110,7 @@
       </Assign.Value>
     </Assign>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Get all the elements that have the attribute sap2010:WorkflowViewState.IdRef, which indicates the element is an activity." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Get all the elements that have the attribute sap2010:WorkflowViewState.IdRef, which indicates the element is a visible activity." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -137,7 +137,7 @@
                 <InArgument x:TypeArguments="sx:XmlNode">[Node]</InArgument>
               </Assign.Value>
             </Assign>
-            <While sap2010:Annotation.AnnotationText="Goes up in the node hierarchy until it reaches the root node or until the number of levels is greater than the specified depth threshold.&#xD;&#xA;In the case of a state machine, it also stops when it reaches the parent state, without going further into the transitions between states." sap2010:WorkflowViewState.IdRef="While_1" Condition="[Depth &lt; DepthThreshold AndAlso Node.LocalName &lt;&gt; &quot;Activity&quot; AndAlso Node.LocalName &lt;&gt; &quot;State&quot;]">
+            <While sap2010:Annotation.AnnotationText="Goes up in the node hierarchy until it reaches the root node or until the number of levels is greater than the specified depth threshold.&#xA;In the case of a state machine, it also stops when it reaches the parent state, without going further into the transitions between states." sap2010:WorkflowViewState.IdRef="While_1" Condition="[Depth &lt;= DepthThreshold AndAlso Node.LocalName &lt;&gt; &quot;Activity&quot; AndAlso Node.LocalName &lt;&gt; &quot;State&quot;]">
               <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_5">
                 <If sap2010:Annotation.AnnotationText="Ignores FlowStep nodes and nodes without IdRef because they are not visible on UiPath Studio." Condition="[Node.LocalName &lt;&gt; &quot;FlowStep&quot; AndAlso Node.Attributes(&quot;sap2010:WorkflowViewState.IdRef&quot;) IsNot Nothing]" sap2010:WorkflowViewState.IdRef="If_3">
                   <If.Then>
@@ -161,7 +161,7 @@
                 </Assign>
               </Sequence>
             </While>
-            <If Condition="[DepthThreshold = Depth]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[Depth &gt; DepthThreshold]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_6">
                   <Sequence.Variables>
@@ -204,7 +204,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRGVlcGx5TmVzdGVkQWN0aXZpdGllcy54YW1sLWMD0AEOAgEBaAVvDgIBPHAFcLgLAgE5cQV4DgIBNXkFzgESAgECbS9tYAIBP2owakACAT1wwQFw2gECATp2MHZVAgE4czFzQgIBNnmDAXnTAQIBNH8LywEWAgEDgQE7gQE+AgEEhAENiwEWAgEvjAENowEVAgEgpAENygESAgEFiQE6iQFAAgEyhgE7hgFJAgEwjQEPogEaAgEijAGKA4wBjgQCASGkARukATUCAQamARHIARwCAQmOARGZARYCASiaARGhARoCASOrAROwASsCARqxARPGARgCARDHARPHAeABAgEKjgGhAY4BpAICASmQARWXAR4CASqfAT6fAU8CASacAT+cAUUCASSuAViuAWYCAR6tAVitAWYCARyrAcgCqwHlAgIBG7EBfLEBuwECARGzARe6ASACARa9ARfEASACARLHAWfHAYABAgEOxwE+xwFcAgELlQE/lQFKAgEtkgFAkgFHAgEruAFCuAFaAgEZtQFDtQFPAgEXwgFCwgFwAgEVvwFDvwFPAgET</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRGVlcGx5TmVzdGVkQWN0aXZpdGllcy54YW1sLWMD0AEOAgEBaAVvDgIBPHAFcLgLAgE5cQV4DgIBNXkFzgESAgECbS9tYAIBP2owakACAT1wwQFw2gECATp2MHZVAgE4czFzQgIBNnmDAXnTAQIBNH8LywEWAgEDgQE7gQE+AgEEhAENiwEWAgEvjAENowEVAgEgpAENygESAgEFiQE6iQFAAgEyhgE7hgFJAgEwjQEPogEaAgEijAGFA4wBigQCASGkARukATgCAQamARHIARwCAQmOARGZARYCASiaARGhARoCASOrAROwASsCARqxARPGARgCARDHARPHAeABAgEKjgGhAY4BpAICASmQARWXAR4CASqfAT6fAU8CASacAT+cAUUCASSuAViuAWYCAR6tAVitAWYCARyrAcgCqwHlAgIBG7EBfLEBuwECARGzARe6ASACARa9ARfEASACARLHAWfHAYABAgEOxwE+xwFcAgELlQE/lQFKAgEtkgFAkgFHAgEruAFCuAFaAgEZtQFDtQFPAgEXwgFCwgFwAgEVvwFDvwFPAgET</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -243,7 +243,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="While_1" sap:VirtualizedContainerService.HintSize="512,704">
+      <sap2010:ViewStateData Id="While_1" sap:VirtualizedContainerService.HintSize="512,703">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -288,7 +288,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="534,1564">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="534,1563">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -296,14 +296,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="550,1698">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="550,1697">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="572,2434">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="572,2433">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -311,7 +311,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="612,2514">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="612,2633">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
