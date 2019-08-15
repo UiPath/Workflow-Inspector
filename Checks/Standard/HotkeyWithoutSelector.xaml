@@ -13,12 +13,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -98,12 +98,12 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selectors or specified UI elements can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. &#xA;For this reason, it is recommended to use selectors or include them in containers that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes whose targets do not contain selectors or UiElements&#xA;2 - Check if the element is inside another that is a container  (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) and if the container specifies a selector or has a scope specified (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check for hotkey without selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Send Hotkey activities without selectors or specified UI elements can be intercepted by any application that comes to the foreground (for example, Windows notifications and antivirus popups), which will prevent the intended execution. &#xA;For this reason, it is recommended to use selectors or include them in parent activities that have selectors (for example, Attach Window or Attach Browser).&#xA;&#xA;The steps to find hotkey without selector are as follows:&#xA;1 - Look for Send Hotkey activity nodes whose targets do not contain selectors or UiElements&#xA;2 - Check if the activity is inside another one (i.e., Open Browser, Open Application, Attach Browser, Attach Window, Element Scope) that specifies a selector or has a scope (i.e., UiBrowser property in Attach Browser, Window in Attach Window or Element in Element Scope)." DisplayName="Check For Hotkey Without Selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that represent a SendHotkey activity without a selector or an UiElement." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that represent a SendHotkey activity without a selector or an UiElement." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -119,20 +119,20 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_39">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sxx:XPathNavigator" Name="SendHotkeyContainerNavigator" />
+              <Variable x:TypeArguments="sxx:XPathNavigator" Name="SendHotkeyNavigator" />
               <Variable x:TypeArguments="x:Boolean" Default="True" Name="SendHotKeyWithoutSelector" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign SendHotkeyContainerNavigator" sap2010:WorkflowViewState.IdRef="Assign_34">
+            <Assign DisplayName="Assign: SendHotkeyNavigator" sap2010:WorkflowViewState.IdRef="Assign_34">
               <Assign.To>
-                <OutArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyContainerNavigator]</OutArgument>
+                <OutArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyNavigator]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="sxx:XPathNavigator">[Node.CreateNavigator()]</InArgument>
               </Assign.Value>
             </Assign>
-            <While sap2010:Annotation.AnnotationText="Goes up the activity hierachy until it reaches an activity container or the root of the workflow." DisplayName="While container or workflow root is not found" sap2010:WorkflowViewState.IdRef="While_3" Condition="[SendHotKeyWithoutSelector AndAlso SendHotkeyContainerNavigator.LocalName &lt;&gt; &quot;Activity&quot;]">
+            <While sap2010:Annotation.AnnotationText="Goes up the activity hierachy until it reaches an activity container or the root of the workflow." DisplayName="While container or workflow root is not found" sap2010:WorkflowViewState.IdRef="While_3" Condition="[SendHotKeyWithoutSelector AndAlso SendHotkeyNavigator.LocalName &lt;&gt; &quot;Activity&quot;]">
               <Sequence DisplayName="Verify if container is found and go to parent node" sap2010:WorkflowViewState.IdRef="Sequence_37">
-                <Switch x:TypeArguments="x:String" DisplayName="Switch SendHotkeyContainerNode.LocalName" Expression="[SendHotkeyContainerNavigator.LocalName]" sap2010:WorkflowViewState.IdRef="Switch`1_4">
+                <Switch x:TypeArguments="x:String" DisplayName="Switch SendHotkeyContainerNode.LocalName" Expression="[SendHotkeyNavigator.LocalName]" sap2010:WorkflowViewState.IdRef="Switch`1_4">
                   <Switch.Default>
                     <Assign DisplayName="Assign HotKeyWithoutSelector (Not a container activity)" sap2010:WorkflowViewState.IdRef="Assign_35">
                       <Assign.To>
@@ -148,7 +148,7 @@
                       <OutArgument x:TypeArguments="x:Boolean">[SendHotKeyWithoutSelector]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[SendHotkeyContainerNavigator.GetAttribute("Selector", "") = "{x:Null}" AndAlso SendHotkeyContainerNavigator.GetAttribute("Window", "")  = "{x:Null}"]</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[SendHotkeyNavigator.GetAttribute("Selector", "") = "{x:Null}" AndAlso SendHotkeyNavigator.GetAttribute("Window", "")  = "{x:Null}"]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <Assign x:Key="BrowserScope" sap2010:Annotation.AnnotationText="Send Hotkey is inside an Attach Browser activity. The selector can be defined via the Selector attribute or the browser can be passed as a UiBrowser variable." DisplayName="Assign HotKeyWithoutSelector (Send Hotkey inside Attach Browser)" sap2010:WorkflowViewState.IdRef="Assign_37">
@@ -156,7 +156,7 @@
                       <OutArgument x:TypeArguments="x:Boolean">[SendHotKeyWithoutSelector]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[SendHotkeyContainerNavigator.GetAttribute("Selector", "")  = "{x:Null}" AndAlso SendHotkeyContainerNavigator.GetAttribute("Browser", "")  = "{x:Null}"]</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[SendHotkeyNavigator.GetAttribute("Selector", "")  = "{x:Null}" AndAlso SendHotkeyNavigator.GetAttribute("Browser", "")  = "{x:Null}"]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <Assign x:Key="OpenApplication" sap2010:Annotation.AnnotationText="Send Hotkey is inside an Open Application activity. The selector can be defined via the Selector attribute." DisplayName="Assign HotKeyWithoutSelector (Send Hotkey inside Open Application)" sap2010:WorkflowViewState.IdRef="Assign_38">
@@ -164,7 +164,7 @@
                       <OutArgument x:TypeArguments="x:Boolean">[SendHotKeyWithoutSelector]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Boolean">[SendHotkeyContainerNavigator.GetAttribute("Selector", "") = "{x:Null}"]</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean">[SendHotkeyNavigator.GetAttribute("Selector", "") = "{x:Null}"]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <Sequence x:Key="ElementScope" DisplayName="Search for selector in target of Element Scope" sap2010:WorkflowViewState.IdRef="Sequence_36">
@@ -176,7 +176,7 @@
                         <OutArgument x:TypeArguments="sxx:XPathNavigator">[ElementScopeTargetNavigator]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
-                        <InArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyContainerNavigator.SelectSingleNode("./ui:ElementScope.Target/ui:Target", in_NamespaceManager)]</InArgument>
+                        <InArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyNavigator.SelectSingleNode("./ui:ElementScope.Target/ui:Target", in_NamespaceManager)]</InArgument>
                       </Assign.Value>
                     </Assign>
                     <Assign DisplayName="Assign HotKeyWithoutSelector (Send Hotkey inside Element Scope)" sap2010:WorkflowViewState.IdRef="Assign_40">
@@ -191,7 +191,7 @@
                 </Switch>
                 <InvokeMethod DisplayName="Invoke method MoveToParent" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="MoveToParent">
                   <InvokeMethod.TargetObject>
-                    <InArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyContainerNavigator]</InArgument>
+                    <InArgument x:TypeArguments="sxx:XPathNavigator">[SendHotkeyNavigator]</InArgument>
                   </InvokeMethod.TargetObject>
                 </InvokeMethod>
               </Sequence>
@@ -211,7 +211,7 @@
                   </ui:InvokeWorkflowFile>
                   <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[Node.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_15">
                     <If.Then>
-                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_41">
+                      <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_41">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -221,7 +221,7 @@
                       </Assign>
                     </If.Then>
                     <If.Else>
-                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_42">
+                      <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_42">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -231,7 +231,7 @@
                       </Assign>
                     </If.Else>
                   </If>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_6" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_6" />
                 </Sequence>
               </If.Then>
             </If>
@@ -239,7 +239,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcSG90a2V5V2l0aG91dFNlbGVjdG9yLnhhbWw3ZQPzAQ4CAQFpBWm4CwIBTGoFcQ4CAUhyBfEBEgIBAmnBAWnaAQIBTW8wb5cBAgFLbDFsQgIBSXKUAXLkAQIBR3gL7gEWAgEDez17QwIBBH0NhAEWAgFChQENxgEVAgEfxwEN7QESAgEFggFCggFaAgFFf0N/YQIBQ4YBD8UBGgIBIYUBigKFAfQCAgEgxwEbxwE4AgEGyQER6wEcAgEIhwERvwEaAgElwAERxAEgAgEizgET0wErAgEZ1AET6QEYAgEP6gET6gHdAQIBCYcBdocBoAECASaSAROZARwCAT6aAROhARwCATqiAROpARwCATaqARO+AR4CASuJARWQAR4CASfCAUbCAWQCASPRAVjRAWYCAR3QAVjQAV4CARvOAcgCzgHlAgIBGtQBfNQBswECARDWARfdASACARXgARfnASACARHqAWfqAYABAgEN6gE+6gFcAgEKlAFAlAFbAgE/nAFAnAFbAgE7pwE/pwGHAQIBOaQBQKQBWwIBN64BFbUBHgIBMLYBFb0BHgIBLI4BQY4BRQIBKosBQosBXQIBKNsBQtsBUgIBGNgBQ9gBTwIBFuUBQuUBaAIBFOIBQ+IBTwIBErMBSrMBtAECATOwAUuwAWgCATG7AUG7AdUBAgEvuAFCuAFdAgEt</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2NDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcSG90a2V5V2l0aG91dFNlbGVjdG9yLnhhbWw3ZQPzAQ4CAQFpBWm1CwIBTGoFcQ4CAUhyBfEBEgIBAmnBAWnXAQIBTW8wb5cBAgFLbDFsQgIBSXKUAXLkAQIBR3gL7gEWAgEDez17QwIBBH0NhAEWAgFChQENxgEVAgEfxwEN7QESAgEFggFCggFaAgFFf0N/WAIBQ4YBD8UBGgIBIYUBigKFAesCAgEgxwEbxwE4AgEGyQER6wEcAgEIhwERvwEaAgElwAERxAEgAgEizgET0wErAgEZ1AET6QEYAgEP6gET6gHdAQIBCYcBdocBlwECASaSAROZARwCAT6aAROhARwCATqiAROpARwCATaqARO+AR4CASuJARWQAR4CASfCAUbCAVsCASPRAVjRAWYCAR3QAVjQAV4CARvOAcgCzgHlAgIBGtQBfNQBswECARDWARfdASACARXgARfnASACARHqAWfqAX0CAQ3qAT7qAVwCAQqUAUCUAVsCAT+cAUCcAVsCATunAT+nAX4CATmkAUCkAVsCATeuARW1AR4CATC2ARW9AR4CASyOAUGOAUUCASqLAUKLAV0CASjbAULbAVICARjYAUPYAU8CARblAULlAWgCARTiAUPiAU8CARKzAUqzAasBAgEzsAFLsAFoAgExuwFBuwHVAQIBL7gBQrgBXQIBLQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -316,28 +316,28 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="200,123">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_41" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_42" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_15" sap:VirtualizedContainerService.HintSize="200,93">
+      <sap2010:ViewStateData Id="If_15" sap:VirtualizedContainerService.HintSize="314,93">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AddDataRow_6" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Sequence_38" sap:VirtualizedContainerService.HintSize="222,442">
+      <sap2010:ViewStateData Id="AddDataRow_6" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_38" sap:VirtualizedContainerService.HintSize="336,448">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -345,7 +345,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="464,590">
+      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="464,596">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -353,7 +353,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="486,977">
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="486,983">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -361,14 +361,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1111">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1117">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1755">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1761">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -376,7 +376,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1915">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1841">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>

@@ -10,9 +10,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_VariableName" Type="InArgument(x:String)" />
-    <x:Property Name="in_StringValue" Type="InArgument(x:String)" />
-    <x:Property Name="out_VariableUsed" Type="OutArgument(x:Boolean)" />
+    <x:Property sap2010:Annotation.AnnotationText="Name of variable to be checked." Name="in_VariableName" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="String that might contain the specified variable." Name="in_StringValue" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Result of the check whether the given variable is used in the specified string." Name="out_VariableUsed" Type="OutArgument(x:Boolean)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -68,11 +68,11 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Verifies whether the given variable name is used in a string.&#xA;String values that use variables are enclosed in square brackets in workflow files. If there are no brackets, then the string is just a regular text.&#xA;&#xA;For example, in the following cases the strings contain an actual reference to a variable, so this workflow should return out_VariableUsed as True:&#xA; - [varName]&#xA; - [&quot;AAA&quot; + varName + &quot;BBB&quot;]&#xA; - [&quot;AAA&quot; + varName]&#xA; - [varName+&quot;BBB&quot;]&#xA; - [String.Format(&quot;aaa{0}aaa&quot;, varName)]&#xA;&#xA;On the other hand, the following cases represent situations in which string values do not use the variable name to indicate a variable, so this workflow should return out_Variable as False:&#xA; - varName&#xA; - [varNam]&#xA; - Here I'm mentioning varName but it's not a variable&#xA; - [&quot;AAA varName&quot; + anotherVar + &quot;AAA varName&quot;]" DisplayName="IsVariableUsedInStringValue" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="Verifies whether the given variable name is used in a string.&#xA;String values that use variables are enclosed in square brackets in workflow files. If there are no brackets, then the string is just a regular text.&#xA;&#xA;For example, in the following cases the strings contain an actual reference to a variable, so this workflow should return out_VariableUsed as True:&#xA; - [varName]&#xA; - [&quot;AAA&quot; + varName + &quot;BBB&quot;]&#xA; - [&quot;AAA&quot; + varName]&#xA; - [varName+&quot;BBB&quot;]&#xA; - [String.Format(&quot;aaa{0}aaa&quot;, varName)]&#xA;&#xA;On the other hand, the following cases represent situations in which string values do not use the variable name to indicate a variable, so this workflow should return out_Variable as False:&#xA; - varName&#xA; - [varNam]&#xA; - Here I'm mentioning varName but it's not a variable&#xA; - [&quot;AAA varName&quot; + anotherVar + &quot;AAA varName&quot;]" DisplayName="Is Variable Used In String Value" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="CheckVariableUsageRegex" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Regular expression that checks whether a given variable name can be found in a string to represent an actual variable." DisplayName="Assign CheckVariableUsageRegex" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Regular expression that checks whether a given variable name can be found in a string to represent an actual variable." DisplayName="Assign: CheckVariableUsageRegex" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[CheckVariableUsageRegex]</OutArgument>
       </Assign.To>
@@ -87,11 +87,11 @@
             <Variable x:TypeArguments="x:String" Name="VariableText" />
           </Sequence.Variables>
           <ui:Replace sap2010:Annotation.AnnotationText="Removes all text between quotes.&#xA;For example, [&quot;AAA&quot; + varName + &quot;BBB&quot;] becomes [+ varName + ]." sap2010:WorkflowViewState.IdRef="Replace_2" Input="[in_StringValue]" Pattern="[&quot;&quot;&quot;.*?&quot;&quot;&quot;]" RegexOption="IgnoreCase, Compiled" Replacement="[String.Empty]" Result="[VariableText]" />
-          <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the variable name is used in the string resulting from the previous step." DisplayName="Is Match" sap2010:WorkflowViewState.IdRef="IsMatch_2" Input="[VariableText]" Pattern="[CheckVariableUsageRegex]" RegexOption="IgnoreCase, Compiled" Result="[out_VariableUsed]" />
+          <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the variable name is used in the string resulting from the previous step." DisplayName="Is match" sap2010:WorkflowViewState.IdRef="IsMatch_2" Input="[VariableText]" Pattern="[CheckVariableUsageRegex]" RegexOption="IgnoreCase, Compiled" Result="[out_VariableUsed]" />
         </Sequence>
       </If.Then>
       <If.Else>
-        <Assign DisplayName="Assign out_VariableUsed (False)" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign DisplayName="Assign: out_VariableUsed (false)" sap2010:WorkflowViewState.IdRef="Assign_2">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Boolean">[out_VariableUsed]</OutArgument>
           </Assign.To>
@@ -151,7 +151,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="VariableMinimumScope_VariableUsedInValue_1" sap:VirtualizedContainerService.HintSize="551,1310" />
+      <sap2010:ViewStateData Id="VariableMinimumScope_VariableUsedInValue_1" sap:VirtualizedContainerService.HintSize="551,1350" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -12,12 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,12 +96,12 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The Open Browser activity provides a convenient way to open a browser tab or window, and it also serves as a container for activities related to web automation. &#xD;&#xA;For this reason, it should be the preferred way to work with browsers, instead of Open Application or Start Process.&#xA;&#xA;The steps to find Open Browser not being used are as follows:&#xA;1 - Get elements that represent Open Application and Start Process&#xA;2 - Check if they reference browser supported by UiPath Studio (IE, Firefox, Chrome)" DisplayName="Check for Open Browser not Used" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The Open Browser activity provides a convenient way to open a browser tab or window, and it also serves as a container for activities related to web automation. &#xA;For this reason, it is the preferred way to work with browsers, instead of Open Application or Start Process.&#xA;&#xA;The steps to find Open Browser not being used are as follows:&#xA;1 - Get elements that represent Open Application and Start Process&#xA;2 - Check whether they reference browser supported by UiPath Studio (IE, Firefox, Chrome, Edge)" DisplayName="Check For Open Browser Not Used" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieve all nodes representing OpenApplication and StartProcess activities." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieve all nodes representing OpenApplication and StartProcess activities." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -109,13 +109,13 @@
         <InArgument x:TypeArguments="x:String">//ui:OpenApplication | //ui:StartProcess</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
+    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="Node" />
           </ActivityAction.Argument>
-          <If Condition="[Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;chrome.exe&quot;) OrElse Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;iexplore.exe&quot;) OrElse Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;firefox.exe&quot;)]" DisplayName="If the target of OpenApplication or StartProcess is a browser application" sap2010:WorkflowViewState.IdRef="If_4">
+          <If Condition="[Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;chrome.exe&quot;) OrElse Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;iexplore.exe&quot;) OrElse Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;firefox.exe&quot;) OrElse Node.Attributes(&quot;FileName&quot;).Value.Contains(&quot;MicrosoftEdge.exe&quot;)]" DisplayName="If the target of OpenApplication or StartProcess is a browser application" sap2010:WorkflowViewState.IdRef="If_4">
             <If.Then>
               <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_6">
                 <Sequence.Variables>
@@ -130,7 +130,7 @@
                 </ui:InvokeWorkflowFile>
                 <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[Node.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_3">
                   <If.Then>
-                    <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_4">
+                    <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_4">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                       </Assign.To>
@@ -140,7 +140,7 @@
                     </Assign>
                   </If.Then>
                   <If.Else>
-                    <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_5">
+                    <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_5">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                       </Assign.To>
@@ -150,14 +150,14 @@
                     </Assign>
                   </If.Else>
                 </If>
-                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
               </Sequence>
             </If.Then>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcT3BlbkJyb3dzZXJOb3RVc2VkLnhhbWwaYwOhAQ4CAQFnBWe4CwIBIWgFbw4CAR1wBZ8BEgIBAmfBAWfaAQIBIm0wbVgCASBqMWpCAgEecIMBcNMBAgEcdgucARACAQN2GXaUAgIBBHgPmgEaAgEFfRGCASkCARaDARGYARYCAQyZARGZAdsBAgEGgAFWgAFkAgEaf1Z/XAIBGH3GAn3jAgIBF4MBeoMBsQECAQ2FARWMAR4CARKPARWWAR4CAQ6ZAWWZAX4CAQqZATyZAVoCAQeKAUCKAVACARWHAUGHAU0CAROUAUCUAWYCARGRAUGRAU0CAQ8=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcT3BlbkJyb3dzZXJOb3RVc2VkLnhhbWwaYwOhAQ4CAQFnBWe1CwIBIWgFbw4CAR1wBZ8BEgIBAmfBAWfXAQIBIm0wbVgCASBqMWpCAgEecH9wzwECARx2C5wBEAIBA3YZdu8CAgEEeA+aARoCAQV9EYIBKQIBFoMBEZgBFgIBDJkBEZkB2wECAQaAAVaAAWQCARp/Vn9cAgEYfcYCfeMCAgEXgwF6gwGxAQIBDYUBFYwBHgIBEo8BFZYBHgIBDpkBZZkBewIBCpkBPJkBWgIBB4oBQIoBUAIBFYcBQYcBTQIBE5QBQJQBZgIBEZEBQZEBTQIBDw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -212,7 +212,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480,730" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1299">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1314">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -220,7 +220,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1419" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1394" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

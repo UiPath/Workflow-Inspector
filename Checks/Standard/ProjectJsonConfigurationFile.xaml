@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_ProjectIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at project level." Name="out_ProjectIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -91,18 +91,18 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The project.json file contains important information about the project and it is used by UiPath Studio when loading the project. &#xD;&#xA;For more information about this file, refer to https://studio.uipath.com/docs/about-the-projectjson-file&#xA;&#xA;The project.json file should be located in the root folder of the project." DisplayName="Check for project.json configuration file" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The project.json file contains important information about the project and it is used by UiPath Studio when loading the project. &#xA;For more information about this file, refer to https://studio.uipath.com/docs/about-the-projectjson-file.&#xA;&#xA;The project.json file should be located in the root folder of the project." DisplayName="Check For project.json Configuration File" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="ProjectJsonExists" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold issues related to this check. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_ProjectIssues]" DisplayName="Build data table with project issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <ui:PathExists sap2010:Annotation.AnnotationText="Verifies whether the project.json file exists in the root folder of the project." DisplayName="Path Exists" Exists="[ProjectJsonExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_ProjectPath + &quot;\project.json&quot;]" PathType="File" />
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold issues related to this check. It'll be merged to the table containing all issues in the project." DataTable="[out_ProjectIssues]" DisplayName="Build data table with project issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:PathExists sap2010:Annotation.AnnotationText="Verifies whether the project.json file exists in the root folder of the project." DisplayName="Path exists" Exists="[ProjectJsonExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_ProjectPath + &quot;\project.json&quot;]" PathType="File" />
     <If Condition="[Not ProjectJsonExists]" DisplayName="If project.json is not found" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
-        <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="This check does not yield any additional information." ArrayRow="[{&quot;-&quot;, &quot;-&quot;}]" DataTable="[out_dt_ProjectIssues]" DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+        <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="This check does not yield any additional information." ArrayRow="[{&quot;-&quot;, &quot;-&quot;}]" DataTable="[out_ProjectIssues]" DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d2pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUHJvamVjdEpzb25Db25maWd1cmF0aW9uRmlsZS54YW1sC14Dag4CAQFiBWK9CwIBDmMFY7UCAgEJZAVoCgIBAmLIAWLgAQIBD2OqAWO/AQIBDGP0AWOiAgIBCmQTZCwCAQNmCWadAgIBBWa7AWbTAQIBB2aOAWawAQIBBg==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2pDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUHJvamVjdEpzb25Db25maWd1cmF0aW9uRmlsZS54YW1sC14Dag4CAQFiBWK6CwIBDmMFY7UCAgEJZAVoCgIBAmLIAWLdAQIBD2OqAWO/AQIBDGP0AWOiAgIBCmQTZCwCAQNmCWaaAgIBBWa7AWbQAQIBB2aOAWawAQIBBg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

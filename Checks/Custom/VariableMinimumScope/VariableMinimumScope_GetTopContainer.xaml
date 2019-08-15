@@ -71,12 +71,12 @@
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Retrieved the second top most container (Sequence, Flowchart, StateMachine) for a given node, until a given root node." DisplayName="GetTopContainer" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Retrieved the second top most container (Sequence, Flowchart, StateMachine) for a given node, until a given root node." DisplayName="Get Top Container" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNode" Name="CurrentNode" />
       <Variable x:TypeArguments="sx:XmlNode" Name="LastContainer" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Start from start node :)" DisplayName="Assign CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign sap2010:Annotation.AnnotationText="Start from start node :)" DisplayName="Assign: CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[CurrentNode]</OutArgument>
       </Assign.To>
@@ -88,7 +88,7 @@
       <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
         <If Condition="[{&quot;Sequence&quot;, &quot;Flowchart&quot;, &quot;StateMachine&quot;}.Contains(CurrentNode.Name)]" DisplayName="If current node is container" sap2010:WorkflowViewState.IdRef="If_1">
           <If.Then>
-            <Assign DisplayName="Assign LastContainer as CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign DisplayName="Assign: LastContainer (CurrentNode)" sap2010:WorkflowViewState.IdRef="Assign_1">
               <Assign.To>
                 <OutArgument x:TypeArguments="sx:XmlNode">[LastContainer]</OutArgument>
               </Assign.To>
@@ -98,7 +98,7 @@
             </Assign>
           </If.Then>
         </If>
-        <Assign DisplayName="Assign ParentNode to CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign DisplayName="Assign: CurrentNode (parent)" sap2010:WorkflowViewState.IdRef="Assign_2">
           <Assign.To>
             <OutArgument x:TypeArguments="sx:XmlNode">[CurrentNode]</OutArgument>
           </Assign.To>
@@ -108,7 +108,7 @@
         </Assign>
       </Sequence>
     </While>
-    <Assign DisplayName="Assign out_ContainerNode" sap2010:WorkflowViewState.IdRef="Assign_4">
+    <Assign DisplayName="Assign: out_ContainerNode" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[out_ContainerNode]</OutArgument>
       </Assign.To>
@@ -116,7 +116,7 @@
         <InArgument x:TypeArguments="sx:XmlNode">[LastContainer]</InArgument>
       </Assign.Value>
     </Assign>
-    <sads:DebugSymbol.Symbol>d4oBQzpcVXNlcnNcU2lsdml1XERlc2t0b3BcVG95b3RhXFdvcmtmbG93LUluc3BlY3RvclxDaGVja0Jlc3RQcmFjdGljZXNcQ2hlY2tzXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlX0dldFRvcENvbnRhaW5lci54YW1sEkoDeA4CAQFPBVYOAgEWVwVuDQIBB28Fdg4CAQJUMlRAAgEZUTNRQAIBF1gHbRICAQlXYVeCAQIBCHQydEECAQVxM3FGAgEDWQlkDgIBD2UJbBICAQpZF1l9AgEQWw1iFgIBEWo2ak4CAQ1nN2dEAgELYDpgRwIBFF07XUoCARI=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d4UBQzpcVXNlcnNcTWF0ZXVzIENydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXEN1c3RvbVxWYXJpYWJsZU1pbmltdW1TY29wZVxWYXJpYWJsZU1pbmltdW1TY29wZV9HZXRUb3BDb250YWluZXIueGFtbBJKA3gOAgEBTwVWDgIBFlcFbg0CAQdvBXYOAgECVDJUQAIBGVEzUUACARdYB20SAgEJV2FXggECAQh0MnRBAgEFcTNxRgIBA1kJZA4CAQ9lCWwSAgEKWRdZfQIBEFsNYhYCARFqNmpOAgENZzdnRAIBC2A6YEcCARRdO11KAgES</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

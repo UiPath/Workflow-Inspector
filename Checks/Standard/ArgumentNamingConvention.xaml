@@ -12,14 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_Suggestion" Type="InArgument(x:String)" />
-    <x:Property Name="in_Issue" Type="InArgument(x:String)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -98,21 +96,13 @@
       <AssemblyReference>UiPath.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Arguments in a project should follow a specified naming convention, since it makes it easier to understand the project and maintain it. &#xA;This check receives a regular expression that dictates the naming convention for arguments. For more information about naming conventions, refer to https://studio.uipath.com/docs/workflow-design#section-naming-conventions&#xA;&#xA;The steps to check for arguments that do not follow the specified convention are as follows:&#xA;1 - Get the list of arguments&#xA;2 - Compare each name with an input pattern using regular expressions" DisplayName="Check for argument naming convention compliance" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Arguments in a project should follow a specified naming convention, since it makes it easier to understand and maintain the project. &#xA;This check receives a regular expression that dictates the naming convention for arguments. For more information about naming conventions, refer to https://studio.uipath.com/docs/workflow-design#section-naming-conventions.&#xA;&#xA;The steps to check for arguments that do not follow the specified convention are as follows:&#xA;1 - Get the list of arguments&#xA;2 - Compare each name with an input pattern" DisplayName="Check For Argument Naming Convention Compliance" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
       <Variable x:TypeArguments="x:String" Name="ArgumentNamingPattern" />
     </Sequence.Variables>
-    <Assign DisplayName="Assign ArgumentNamingPattern" sap2010:WorkflowViewState.IdRef="Assign_3">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[ArgumentNamingPattern]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[in_CheckArguments("NamingPattern")]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieve all nodes that specify arguments." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes that specify arguments." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -120,7 +110,15 @@
         <InArgument x:TypeArguments="x:String">//x:Property</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
+    <Assign DisplayName="Assign: ArgumentNamingPattern" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ArgumentNamingPattern]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_CheckArguments("NamingPattern")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each argument node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
@@ -131,8 +129,8 @@
               <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:Boolean" Name="ArgumentFollowsConvention" />
             </Sequence.Variables>
-            <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the argument name matches the pattern specified in the configuration file." DisplayName="Is Match" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[ArgumentNode.Attributes(&quot;Name&quot;).Value]" Pattern="[ArgumentNamingPattern]" RegexOption="Compiled" Result="[ArgumentFollowsConvention]" />
-            <Assign DisplayName="Assign InternalPath" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the argument name matches the pattern specified in the configuration file." DisplayName="Is match" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[ArgumentNode.Attributes(&quot;Name&quot;).Value]" Pattern="[ArgumentNamingPattern]" RegexOption="Compiled" Result="[ArgumentFollowsConvention]" />
+            <Assign DisplayName="Assign: InternalPath" sap2010:WorkflowViewState.IdRef="Assign_2">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[InternalPath]</OutArgument>
               </Assign.To>
@@ -142,18 +140,17 @@
             </Assign>
             <If Condition="[Not ArgumentFollowsConvention]" DisplayName="If argument does not follow naming convention" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, ArgumentNode.Attributes(&quot;Name&quot;).Value}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, ArgumentNode.Attributes(&quot;Name&quot;).Value}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
               </If.Then>
             </If>
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcQXJndW1lbnROYW1pbmdDb252ZW50aW9uLnhhbWwYZQOZAQ4CAQFqBXEOAgEdcgVyuAsCARpzBXoOAgEWewWXARICAQJvMG9UAgEgbDFsSAIBHnLBAXLaAQIBG3gweDwCARl1MXVCAgEXe4MBe9MBAgEVgQELlAEWAgEDhgENhgH2AgIBD4cBDY4BFgIBC48BDZMBEgIBBIYB4gGGAZUCAgEUhgHWAoYB8wICARKGAZ4ChgG3AgIBEIwBOIwBOQIBDokBOYkBRwIBDI8BG48BPAIBBZEBEZEBgwICAQeRAYoBkQGjAQIBCZEBPJEBfwIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcQXJndW1lbnROYW1pbmdDb252ZW50aW9uLnhhbWwYYwOXAQ4CAQFoBWi1CwIBH2kFcA4CARtxBXgOAgEWeQWVARICAQJowQFo1wECASBuMG48AgEeazFrQgIBHHYwdlQCARlzMXNIAgEXeYgBedgBAgEVfwuSARYCAQOEAQ2EAfYCAgEPhQENjAEWAgELjQENkQESAgEEhAHiAYQBlQICARSEAdYChAHzAgIBEoQBngKEAbcCAgEQigE4igE5AgEOhwE5hwFHAgEMjQEbjQE8AgEFjwERjwGAAgIBB48BigGPAaABAgEJjwE8jwF/AgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="502,60" />
       <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -168,6 +165,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="502,60" />
       <sap2010:ViewStateData Id="IsMatch_1" sap:VirtualizedContainerService.HintSize="464,94">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -194,7 +192,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1529" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1489" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

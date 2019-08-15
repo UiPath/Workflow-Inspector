@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Variable_Overrides_Argument"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="VariableOverridesArgument"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -12,12 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,12 +96,12 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xA;&#xA;Author: Silviu Predan" DisplayName="Check for VariableOverridesArgument" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Check if we have variables with the same name as arguments. The problem is that the variable will override the argument with the same name. The value that we set to the argument will not be used, instead, the variable value will be used. &#xA;The varaible names are case-insensitive, so the equality comparision is done ignoring the case.&#xA;&#xA;The steps to find Variables that Overrides Arguments are as follows:&#xA;1 - Build a list with the names of all arguments in the workflow.&#xA;2 - Get all variables defined in the workflow.&#xA;3 - Check for each variable if its name can be found in the list of arguments' names.&#xA;&#xA;Author: Silviu Predan" DisplayName="Check For Variable Overrides Argument" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Name="ArgumentsNames" />
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Sequence sap2010:Annotation.AnnotationText="ArgumentsNames is a list with the name of the arguments in the workflow. We build this list of strings so that we can use the String.Contains method for faster searching of duplicates." DisplayName="Build Arguments list" sap2010:WorkflowViewState.IdRef="Sequence_5">
       <Assign DisplayName="Initialize ArgumentsNames array" sap2010:WorkflowViewState.IdRef="Assign_3">
         <Assign.To>
@@ -122,7 +122,7 @@
         </ui:ForEach.Body>
       </ui:ForEach>
     </Sequence>
-    <Assign sap2010:Annotation.AnnotationText="Get all the Variable nodes from the document." DisplayName="Assign VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
+    <Assign sap2010:Annotation.AnnotationText="Get all the Variable nodes from the document." DisplayName="Assign: VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[VariableNodes]</OutArgument>
       </Assign.To>
@@ -130,7 +130,7 @@
         <InArgument x:TypeArguments="sx:XmlNodeList">[in_XMLTree.DocumentElement.SelectNodes("//*/xaml:Variable", in_NamespaceManager)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="All &quot;Variable&quot; nodes defined in the workflow." DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[VariableNodes]">
+    <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="All &quot;Variable&quot; nodes defined in the workflow." DisplayName="For each variable node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[VariableNodes]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
@@ -140,7 +140,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="VariableName" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign DisplayName="Assign: VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[VariableName]</OutArgument>
               </Assign.To>
@@ -148,9 +148,9 @@
                 <InArgument x:TypeArguments="x:String">[Variable.Attributes("Name").Value]</InArgument>
               </Assign.Value>
             </Assign>
-            <If sap2010:Annotation.AnnotationText="[If the check fails, add the issue to the issues table]&#xA;&#xA;The variable's names are case-insentive. Perform the &quot;Contains&quot; search using case-insentive mode." Condition="[ArgumentsNames.Contains(VariableName, StringComparer.OrdinalIgnoreCase)]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="The variable's names are case-insentive. Perform the &quot;Contains&quot; search using case-insentive mode." Condition="[ArgumentsNames.Contains(VariableName, StringComparer.OrdinalIgnoreCase)]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence DisplayName="Sequence" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_7">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="InternalPath" />
                   </Sequence.Variables>
@@ -160,7 +160,7 @@
                       <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, VariableName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, VariableName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -168,7 +168,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlT3ZlcnJpZGVzQXJndW1lbnQueGFtbB9jA6wBDgIBAWgFaLgLAgEpaQV8EAIBHn0FhAEOAgEYhQEFqgESAgECaMEBaNoBAgEqagdxEAIBJXIHexQCAR+CATaCAYgBAgEbfzd/RgIBGYUB3wGFAfABAgEXiwELpwEWAgEDbzxvUQIBKGw9bE0CASZyfHLeAQIBJHgNeMMBAgEgjwENlgEWAgETlwENpgESAgEEeER4VgIBIniyAXjAAQIBIZQBOJQBWwIBFpEBOZEBRwIBFJcB7AGXAbcCAgEFmQERpAEcAgEGnQETogErAgENowETowHfAQIBB6ABWKABZgIBEZ8BWJ8BYgIBD50ByAKdAeUCAgEOowFpowGCAQIBC6MBPqMBXgIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlT3ZlcnJpZGVzQXJndW1lbnQueGFtbB9jA6wBDgIBAWgFaLULAgEpaQV8EAIBHn0FhAEOAgEYhQEFqgESAgECaMEBaNcBAgEqagdxEAIBJXIHexQCAR+CATaCAYgBAgEbfzd/RgIBGYUB5AGFAfUBAgEXiwELpwEWAgEDbzxvUQIBKGw9bE0CASZyfHLeAQIBJHgNeMMBAgEgjwENlgEWAgETlwENpgESAgEEeER4VgIBIniyAXjAAQIBIZQBOJQBWwIBFpEBOZEBRwIBFJcBqwGXAfYBAgEFmQERpAEcAgEGnQETogErAgENowETowHfAQIBB6ABWKABZgIBEZ8BWJ8BYgIBD50ByAKdAeUCAgEOowFpowF/AgELowE+owFeAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -215,28 +215,28 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,535">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,505">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,759">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,729">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,920">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,890">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,2064">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,2034">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -244,7 +244,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2144" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2114" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

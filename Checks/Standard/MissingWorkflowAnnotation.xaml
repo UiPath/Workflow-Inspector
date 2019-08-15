@@ -12,12 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -95,13 +95,13 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The top level activity (usually a flowchart or sequence) of a workflow should have a brief textual description giving an overview of its purpose. &#xA;This helps developers to quickly understand the workflow's goal, inputs, outputs, preconditions and outcomes.&#xA;&#xA;The steps to find the workflow annotation are as follows:&#xA;1 - Get the first child of the node of the root element that is an activity&#xA;2 - Check whether that node has an annotation by looking for the attribute Annotation.AnnotationText" DisplayName="Check for missing workflow annotation" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The top level activity (usually a flowchart or sequence) of a workflow should have a brief textual description giving an overview of its purpose. &#xA;This helps developers to quickly understand the workflow's goal, inputs, outputs, preconditions and outcomes.&#xA;&#xA;The steps to find the workflow annotation are as follows:&#xA;1 - Get the first child of the node of the root element that is an activity&#xA;2 - Check whether that node has an annotation by looking for the attribute Annotation.AnnotationText" DisplayName="Check For Missing Workflow Annotation" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNode" Name="TopLevelActivity" />
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves the first activity that is a child of Activity (the root element)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves the first activity that is a child of Activity (the root element)." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -109,7 +109,7 @@
         <InArgument x:TypeArguments="x:String">["/xaml:Activity/xaml:Sequence | /xaml:Activity/xaml:Flowchart | /xaml:Activity/xaml:StateMachine | /xaml:Activity/*[@sap2010:WorkflowViewState.IdRef]"]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign TopLevelActivity" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign: TopLevelActivity" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[TopLevelActivity]</OutArgument>
       </Assign.To>
@@ -117,14 +117,14 @@
         <InArgument x:TypeArguments="sx:XmlNode">[in_XMLTree.DocumentElement.SelectSingleNode(XPathExpression, in_NamespaceManager)]</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[TopLevelActivity IsNot Nothing AndAlso TopLevelActivity.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" sap2010:WorkflowViewState.IdRef="If_3">
+    <If Condition="[TopLevelActivity IsNot Nothing AndAlso TopLevelActivity.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If top level activity has no annotation" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
         <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_4">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:String" Name="InternalPath" />
             <Variable x:TypeArguments="x:String" Name="TargetName" />
           </Sequence.Variables>
-          <Assign sap2010:Annotation.AnnotationText="The top level activity does not have an internal path, since it is the first activity in the workflow." DisplayName="Assign InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign sap2010:Annotation.AnnotationText="The top level activity does not have an internal path, since it is the first activity in the workflow." DisplayName="Assign: InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[InternalPath]</OutArgument>
             </Assign.To>
@@ -134,7 +134,7 @@
           </Assign>
           <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[TopLevelActivity.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_4">
             <If.Then>
-              <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_4">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                 </Assign.To>
@@ -144,7 +144,7 @@
               </Assign>
             </If.Then>
             <If.Else>
-              <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_5">
+              <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_5">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                 </Assign.To>
@@ -154,11 +154,11 @@
               </Assign>
             </If.Else>
           </If>
-          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
         </Sequence>
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d2dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTWlzc2luZ1dvcmtmbG93QW5ub3RhdGlvbi54YW1sGmIDogEOAgEBZwVnuAsCASRoBW8OAgEgcAV3DgIBGXgFoAEKAgECZ8EBZ9oBAgElbTBtyAECASNqMWpCAgEhdTJ1hQECARxyM3JFAgEaeBN4kwECAQN6CZ4BFAIBBH8LhgEUAgEVhwELnAEQAgELnQELnQHYAQIBBYQBNoQBNwIBGIEBN4EBRQIBFocBdIcBtwECAQyJAQ+QARgCARGTAQ+aARgCAQ2dAV+dAXgCAQmdATadAVQCAQaOATqOAVYCARSLATuLAUcCARKYATqYAWwCARCVATuVAUcCAQ4=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTWlzc2luZ1dvcmtmbG93QW5ub3RhdGlvbi54YW1sGmIDogEOAgEBZwVntQsCASRoBW8OAgEgcAV3DgIBGXgFoAEKAgECZ8EBZ9cBAgElbTBtyAECASNqMWpCAgEhdTJ1hQECARxyM3JFAgEaeBN4kwECAQN6CZ4BFAIBBH8LhgEUAgEVhwELnAEQAgELnQELnQHVAQIBBYQBNoQBNwIBGIEBN4EBRQIBFocBdIcBtwECAQyJAQ+QARgCARGTAQ+aARgCAQ2dAV+dAXUCAQmdATadAVQCAQaOATqOAVYCARSLATuLAUcCARKYATqYAWwCARCVATuVAUcCAQ4=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

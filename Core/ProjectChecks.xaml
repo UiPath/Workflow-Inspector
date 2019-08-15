@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property sap2010:Annotation.AnnotationText="Data about project checks: issue name, check filename, argument and suggestion" Name="in_dt_ProjectChecklist" Type="InArgument(sd:DataTable)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Datatable that will be used to store the found issues" Name="io_dt_Issues" Type="InOutArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Data about checks to be performed at project level." Name="in_ProjectChecklist" Type="InArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="All the issues found in project." Name="io_Issues" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -81,8 +81,8 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Performs the project-wide checks using the specified project." DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <ui:ForEachRow DataTable="[in_dt_ProjectChecklist]" DisplayName="For Each Project Check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+  <Sequence sap2010:Annotation.AnnotationText="Performs the project-wide checks and adds eventual issues to the Issues table." DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <ui:ForEachRow DataTable="[in_ProjectChecklist]" DisplayName="For each project check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
@@ -90,29 +90,29 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectIssues" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ProjectIssues" />
               <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="CheckArguments" />
             </Sequence.Variables>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Converts the JSON representation of arguments into a dictionary for easier manipulation." DisplayName="Invoke Parse Arguments" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\ParseArguments.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Converts the JSON representation of arguments into a dictionary for easier manipulation." DisplayName="Parse Arguments" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\ParseArguments.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="in_ArgumentsJSONString">[ProjectCheck(2).ToString]</InArgument>
                 <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_CheckArguments">[CheckArguments]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic filename that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Invoke Project Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="[ProjectCheck(1).ToString]">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic path that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Project Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="[ProjectCheck(1).ToString]">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_CheckArguments">[CheckArguments]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_ProjectIssues">[dt_ProjectIssues]</OutArgument>
+                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ProjectIssues">[ProjectIssues]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <ui:ForEachRow sap2010:Annotation.AnnotationText="Add a particular project's issues to the overall issues table." DataTable="[dt_ProjectIssues]" DisplayName="For each project issue found" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+            <ui:ForEachRow sap2010:Annotation.AnnotationText="Add a particular project's issues to the overall issues table." DataTable="[ProjectIssues]" DisplayName="For each project issue found" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="ProjectIssue" />
                   </ActivityAction.Argument>
-                  <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about a project issue." ArrayRow="[{&quot;Project&quot;, ProjectIssue(&quot;InternalPath&quot;), ProjectIssue(&quot;NodeName&quot;), ProjectCheck(0).ToString, ProjectCheck(3).ToString, ProjectCheck(5).ToString}]" DataTable="[io_dt_Issues]" DisplayName="Add project issue to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about a project issue." ArrayRow="[{&quot;Project&quot;, ProjectIssue(&quot;InternalPath&quot;), ProjectIssue(&quot;NodeName&quot;), ProjectCheck(0).ToString, ProjectCheck(3).ToString, ProjectCheck(5).ToString}]" DataTable="[io_Issues]" DisplayName="Add project issue to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </ActivityAction>
               </ui:ForEachRow.Body>
             </ui:ForEachRow>
@@ -120,7 +120,7 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbBJUA3wOAgEBVQV6FQIBAlUeVTgCARhbC3cWAgEDYA1lJQIBE2YNbCUCAQttDXYdAgEEYldicQIBF2NuY34CARVguAJg1AICARRobGh8AgERalpqbAIBD2lPaV8CAQ1m0ANm7AMCAQxtiQFtnQECAQlzE3PBAwIBBXPHAnPXAgIBB3OJAXO8AgIBBg==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbBJUA3wOAgEBVQV6FQIBAlUeVTUCARhbC3cWAgEDYA1lJQIBE2YNbCUCAQttDXYdAgEEYldicQIBF2NuY34CARVgsQJgzQICARRobGh8AgERaldqZgIBD2lPaV8CAQ1mxQNm4QMCAQxtiQFtmgECAQlzE3O+AwIBBXPHAnPUAgIBB3OJAXO8AgIBBg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -167,7 +167,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="388,1075">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="388,1090">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -175,7 +175,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="428,1195" />
+      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="428,1210" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

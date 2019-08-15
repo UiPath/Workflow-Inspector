@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property sap2010:Annotation.AnnotationText="XAML file content" Name="in_XAMLContents" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file" Name="out_XMLTree" Type="OutArgument(sx:XmlDocument)" />
-    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the tree" Name="out_NamespaceManager" Type="OutArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="String representation the XAML file." Name="in_XAMLContents" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="out_XMLTree" Type="OutArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="out_NamespaceManager" Type="OutArgument(sx:XmlNamespaceManager)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -74,8 +74,8 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Parses a XAML file into a tree representation, returning the tree and the associated namespace manager. The namespace manager is required to make correct XPath queries in the checks." DisplayName="ParseXAML" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Assign DisplayName="Assign out_XMLTree" sap2010:WorkflowViewState.IdRef="Assign_1">
+  <Sequence sap2010:Annotation.AnnotationText="Parses a XAML file's string representation into a tree returning the tree and the associated namespace manager. &#xA;The namespace manager is required to make correct XPath queries in check files." DisplayName="Parse XAML" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Assign DisplayName="Assign: out_XMLTree (Initialization)" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlDocument">[out_XMLTree]</OutArgument>
       </Assign.To>
@@ -83,7 +83,7 @@
         <InArgument x:TypeArguments="sx:XmlDocument">[New XmlDocument()]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign out_NamespaceManager" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign DisplayName="Assign: out_NamespaceManager (Initialization)" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</OutArgument>
       </Assign.To>
@@ -91,13 +91,13 @@
         <InArgument x:TypeArguments="sx:XmlNamespaceManager">[New XmlNamespaceManager(out_XMLTree.NameTable)]</InArgument>
       </Assign.Value>
     </Assign>
-    <InvokeMethod DisplayName="Create XML tree" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
+    <InvokeMethod sap2010:Annotation.AnnotationText="Creates XML tree based on the contents of the XAML file." DisplayName="Invoke method: LoadXml" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
       <InvokeMethod.TargetObject>
         <InArgument x:TypeArguments="sx:XmlDocument">[out_XMLTree]</InArgument>
       </InvokeMethod.TargetObject>
       <InArgument x:TypeArguments="x:String">[in_XAMLContents]</InArgument>
     </InvokeMethod>
-    <InvokeMethod sap2010:Annotation.AnnotationText="The default namespace needs to be specified for later usage of XPath queries: https://docs.microsoft.com/en-us/dotnet/standard/data/xml/xpath-queries-and-namespaces#the-default-namespace&#xA;&#xA;In this case, the default namespace can be referenced by the prefix &quot;xaml&quot;." DisplayName="Add the default namespace" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="AddNamespace">
+    <InvokeMethod sap2010:Annotation.AnnotationText="The default namespace needs to be specified for later usage in XPath queries: https://docs.microsoft.com/en-us/dotnet/standard/data/xml/xpath-queries-and-namespaces#the-default-namespace&#xA;&#xA;In this case, the default namespace can be referenced by the prefix &quot;xaml&quot;." DisplayName="Invoke method: AddNamespace (default)" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="AddNamespace">
       <InvokeMethod.TargetObject>
         <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
       </InvokeMethod.TargetObject>
@@ -105,14 +105,14 @@
       <InArgument x:TypeArguments="x:String">http://schemas.microsoft.com/netfx/2009/xaml/activities</InArgument>
     </InvokeMethod>
     <Sequence sap2010:Annotation.AnnotationText="These namespaces are explicitly added to prevent errors when a particular check searches for elements in a namespace, but one of the workflows checked does not declare that namespace." DisplayName="Add commonly used namespaces" sap2010:WorkflowViewState.IdRef="Sequence_3">
-      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used UI namespace: &#xA;xmlns:ui=&quot;http://schemas.uipath.com/workflow/activities&quot;" DisplayName="Add UI namespace" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="AddNamespace">
+      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used UI namespace: &#xA;xmlns:ui=&quot;http://schemas.uipath.com/workflow/activities&quot;" DisplayName="Invoke method: AddNamespace (UI)" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="AddNamespace">
         <InvokeMethod.TargetObject>
           <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
         </InvokeMethod.TargetObject>
         <InArgument x:TypeArguments="x:String">ui</InArgument>
         <InArgument x:TypeArguments="x:String">http://schemas.uipath.com/workflow/activities</InArgument>
       </InvokeMethod>
-      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used SAP namespace: &#xA;xmlns:sap2010=&quot;http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation&quot;" DisplayName="Add SAP2010 namespace" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="AddNamespace">
+      <InvokeMethod sap2010:Annotation.AnnotationText="Add the commonly used SAP namespace: &#xA;xmlns:sap2010=&quot;http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation&quot;" DisplayName="Invoke method: AddNamespace (SAP2010)" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="AddNamespace">
         <InvokeMethod.TargetObject>
           <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
         </InvokeMethod.TargetObject>
@@ -120,7 +120,7 @@
         <InArgument x:TypeArguments="x:String">http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation</InArgument>
       </InvokeMethod>
     </Sequence>
-    <ui:ForEach x:TypeArguments="sx:XmlAttribute" sap2010:Annotation.AnnotationText="Add other namespaces defined in the workflow file." DisplayName="For each attribute in root element" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
+    <ui:ForEach x:TypeArguments="sx:XmlAttribute" sap2010:Annotation.AnnotationText="Adds other namespaces defined in the workflow file." DisplayName="For each attribute in root element" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_XMLTree.DocumentElement.Attributes]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlAttribute">
           <ActivityAction.Argument>
@@ -128,7 +128,7 @@
           </ActivityAction.Argument>
           <If Condition="[Attribute.Name.StartsWith(&quot;xmlns:&quot;)]" DisplayName="If attribute defines a namespace" sap2010:WorkflowViewState.IdRef="If_1">
             <If.Then>
-              <InvokeMethod DisplayName="Add namespaces to manager" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="AddNamespace">
+              <InvokeMethod DisplayName="Invoke method: AddNamespace (other namespaces)" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="AddNamespace">
                 <InvokeMethod.TargetObject>
                   <InArgument x:TypeArguments="sx:XmlNamespaceManager">[out_NamespaceManager]</InArgument>
                 </InvokeMethod.TargetObject>
@@ -140,13 +140,19 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d05DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VYQU1MLnhhbWwfTQOQAQ4CAQFOBVUOAgEkVgVdDgIBIF4FYxQCARtkBWoUAgEWawV6EAIBC3sFjgESAgECUzZTSQIBJ1A3UEQCASVbPltuAgEjWD9YVQIBIWIuYj8CAR5gNmBDAgEcaS5pZQIBGmguaDICARlmPmZUAgEXbAdyFgIBEXMHeRYCAQx78AF7mgICAQqBAQuLARACAQNxMHFdAgEVcDBwMgIBFG5AblYCARJ4MHh0AgEQdzB3NwIBD3VAdVYCAQ2BARmBAUoCAQSDAQ+JAR4CAQWIATiIAUkCAQmHATiHAXECAQiFAUiFAV4CAQY=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d05DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cUGFyc2VYQU1MLnhhbWwfTQOQAQ4CAQFOBVUOAgEkVgVdDgIBIF4FYxQCARtkBWoUAgEWawV6EAIBC3sFjgESAgECUzZTSQIBJ1A3UEQCASVbPltuAgEjWD9YVQIBIWIuYj8CAR5gNmBDAgEcaS5pZQIBGmguaDICARlmPmZUAgEXbAdyFgIBEXMHeRYCAQx78QF7mwICAQqBAQuLARACAQNxMHFdAgEVcDBwMgIBFG5AblYCARJ4MHh0AgEQdzB3NwIBD3VAdVYCAQ2BARmBAUoCAQSDAQ+JAR4CAQWIATiIAUkCAQmHATiHAXECAQiFAUiFAV4CAQY=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="480,60" />
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="480,60" />
-      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="480,132" />
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="480,174">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="InvokeMethod_3" sap:VirtualizedContainerService.HintSize="480,324">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -168,11 +174,12 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="480,719">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="480,168">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
@@ -185,7 +192,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="502,2117">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="502,1608">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -193,7 +200,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ParseXAML_1" sap:VirtualizedContainerService.HintSize="542,2197" />
+      <sap2010:ViewStateData Id="ParseXAML_1" sap:VirtualizedContainerService.HintSize="542,1728" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

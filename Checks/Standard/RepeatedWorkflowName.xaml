@@ -11,9 +11,9 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_ProjectIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at project level." Name="out_ProjectIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -91,11 +91,11 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows in a project should have unique names (even if they are in different folders) to facilitate project organization and debugging.&#xA;&#xA;The steps to find repeated workflow names are as follows:&#xA;1 - Retrieve all workflow paths&#xA;2 - Checks whether the workflow filename has been found previously" DisplayName="Check for repeated workflow name" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows in a project should have unique names (even if they are in different folders) to facilitate project organization and debugging.&#xA;&#xA;The steps to find repeated workflow names are as follows:&#xA;1 - Retrieve all workflow paths&#xA;2 - Checks whether any workflow filename is duplicated" DisplayName="Check For Repeated Workflow Name" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" Default="[New Dictionary(Of String, List(Of String))]" Name="WorkflowsNamesIndex" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold issues related to this check. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_ProjectIssues]" DisplayName="Build data table with project issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold issues related to this check. It'll be merged to the table containing all issues in the project." DataTable="[out_ProjectIssues]" DisplayName="Build data table with project issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <ui:ForEach x:TypeArguments="x:String" DisplayName="For each workflow in project" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
@@ -107,7 +107,7 @@
               <AddToCollection x:TypeArguments="x:String" Collection="[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]" DisplayName="Add path of workflow with repeated name" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[WorkflowFilepath]" />
             </If.Then>
             <If.Else>
-              <Assign sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign DisplayName="Assign: WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath)) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_6">
                 <Assign.To>
                   <OutArgument x:TypeArguments="scg:List(x:String)">[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]</OutArgument>
                 </Assign.To>
@@ -128,13 +128,13 @@
           </ActivityAction.Argument>
           <If Condition="[WorkflowNameAndPaths.Value.Count &gt; 1]" DisplayName="If workflow name is repeated" sap2010:WorkflowViewState.IdRef="If_5">
             <If.Then>
-              <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;-&quot;, String.Join(&quot;&lt;-&gt;&quot;, WorkflowNameAndPaths.Value)}]" DataTable="[out_dt_ProjectIssues]" DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+              <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;-&quot;, String.Join(&quot;&lt;-&gt;&quot;, WorkflowNameAndPaths.Value)}]" DataTable="[out_ProjectIssues]" DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
             </If.Then>
           </If>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgVivQsCARljBXoSAgEOewWIARICAQNiyAFi4AECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH6AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGwAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgViugsCARljBXoSAgEOewWIARICAQNiyAFi3QECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH3AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGtAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -174,7 +174,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1270" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1430" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

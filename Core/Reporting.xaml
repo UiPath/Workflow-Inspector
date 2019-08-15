@@ -11,10 +11,10 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property sap2010:Annotation.AnnotationText="Datatable that stores the found issues" Name="in_dt_Issues" Type="InArgument(sd:DataTable)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location of the project folder" Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location of the report template file" Name="in_ReportTemplateFilename" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location to which the report should be saved." Name="in_ReportPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ReportPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Path to report template to be used. This depends on the system's culture settings." Name="in_ReportTemplatePath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="All the issues found in project." Name="in_Issues" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -83,83 +83,82 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Outputs the issues table to a report based on a template." DisplayName="Reporting" sap2010:WorkflowViewState.IdRef="Sequence_4">
-    <If Condition="[in_dt_Issues.Rows.Count &gt; 0]" DisplayName="If any issues were found" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[in_Issues.Rows.Count &gt; 0]" DisplayName="If any issues were found" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Sequence DisplayName="Report the found issues" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence DisplayName="Report found issues" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
-            <Variable x:TypeArguments="x:String" Name="ReportFilename" />
-            <Variable x:TypeArguments="ui:GenericValue" Name="ReportPath" />
+            <Variable x:TypeArguments="x:String" Name="ReportPath" />
           </Sequence.Variables>
           <If sap2010:Annotation.AnnotationText="Uses default Reports folder if report path was not specified." Condition="[String.IsNullOrWhiteSpace(in_ReportPath)]" DisplayName="If report path was specified" sap2010:WorkflowViewState.IdRef="If_2">
             <If.Then>
-              <Assign DisplayName="Assign: ReportPath (Default)" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign DisplayName="Assign: ReportPath (default)" sap2010:WorkflowViewState.IdRef="Assign_3">
                 <Assign.To>
-                  <OutArgument x:TypeArguments="ui:GenericValue">[ReportPath]</OutArgument>
+                  <OutArgument x:TypeArguments="x:String">[ReportPath]</OutArgument>
                 </Assign.To>
                 <Assign.Value>
-                  <InArgument x:TypeArguments="ui:GenericValue">["Reports"]</InArgument>
+                  <InArgument x:TypeArguments="x:String">Reports</InArgument>
                 </Assign.Value>
               </Assign>
             </If.Then>
             <If.Else>
               <Assign DisplayName="Assign: ReportPath" sap2010:WorkflowViewState.IdRef="Assign_4">
                 <Assign.To>
-                  <OutArgument x:TypeArguments="ui:GenericValue">[ReportPath]</OutArgument>
+                  <OutArgument x:TypeArguments="x:String">[ReportPath]</OutArgument>
                 </Assign.To>
                 <Assign.Value>
-                  <InArgument x:TypeArguments="ui:GenericValue">[in_ReportPath]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[in_ReportPath]</InArgument>
                 </Assign.Value>
               </Assign>
             </If.Else>
           </If>
-          <Assign sap2010:Annotation.AnnotationText="Defines the report filename." DisplayName="Assign: Report Filename" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign sap2010:Annotation.AnnotationText="Defines the report filename." DisplayName="Assign: ReportPath (formatted path)" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[ReportFilename]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[ReportPath]</OutArgument>
             </Assign.To>
             <Assign.Value>
               <InArgument x:TypeArguments="x:String">[String.Format("{0}\Report-{1}-{2:yyyyMMddHHmmss}.xlsx", ReportPath, Path.GetFileName(in_ProjectPath), DateTime.Now)]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:CopyFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Makes a working copy of the report template." Destination="[ReportFilename]" DisplayName="Copy Report Template File" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_ReportTemplateFilename]" />
-          <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Outputs results to report file." DisplayName="Excel Application Scope: Report" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[ReportFilename]">
+          <ui:CopyFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Makes a working copy of the report template." Destination="[ReportPath]" DisplayName="Copy file (report template)" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_ReportTemplatePath]" />
+          <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Outputs results to report file." DisplayName="Excel application scope (report)" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[ReportPath]">
             <ui:ExcelApplicationScope.Body>
               <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
                 </ActivityAction.Argument>
-                <ui:ExcelAppendRange sap2010:Annotation.AnnotationText="Append Range is used intead of Write Range to preserve the formatting of the Issues table." DataTable="[in_dt_Issues]" DisplayName="Append Range" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="Sheet1" />
+                <ui:ExcelAppendRange sap2010:Annotation.AnnotationText="Append Range is used intead of Write Range to preserve the formatting of the Issues table." DataTable="[in_Issues]" DisplayName="Append Range" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="Sheet1" />
               </ActivityAction>
             </ui:ExcelApplicationScope.Body>
           </ui:ExcelApplicationScope>
         </Sequence>
       </If.Then>
       <If.Else>
-        <ui:LogMessage DisplayName="Log Message: No Issues Found" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="No issues found in the project." />
+        <ui:LogMessage DisplayName="Log message (no issues found)" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="No issues found in the project." />
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sGVUDjQEOAgEBVgWLAQoCAQJWE1Y1AgEDWAmGARQCAQaJAQmJAasBAgEEXQtyEAIBF3MLehQCARN7C3uuAgIBDnwLhQEmAgEHiQGHAYkBqAECAQVde12nAQIBGF8PZhgCAR9pD3AYAgEaeDZ4qwECARZ1N3VHAgEUe5ABe6IBAgERe44Ce6sCAgEPfPIBfIQCAgEMggERggGlAgIBCGRBZEwCASJhQmFOAgEgbkFuUAIBHWtCa04CARuCAa8BggG/AQIBCoIBmgKCAaICAgEJ</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sGVUDjAEOAgEBVgWKAQoCAQJWE1YyAgEDWAmFARQCAQaIAQmIAawBAgEEXAtxEAIBF3ILeRQCARN6C3qoAgIBDnsLhAEmAgEHiAGIAYgBqQECAQVce1ynAQIBGF4PZRgCAR9oD28YAgEadzZ3qwECARZ0N3RDAgEUepABep4BAgEReowCeqUCAgEPe/MBe4ECAgEMgQERgQGiAgIBCGM6Y0ECASJgO2BHAgEgbTptSQIBHWo7akcCARuBAa8BgQG8AQIBCoEBlwKBAZ8CAgEJ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="509,235">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="242,93">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="509,87">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CopyFile_1" sap:VirtualizedContainerService.HintSize="509,64">
+      <sap2010:ViewStateData Id="CopyFile_1" sap:VirtualizedContainerService.HintSize="242,64">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -182,7 +181,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="531,708">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,566">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -197,8 +196,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="756,856" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="778,1007">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="489,714" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="511,865">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -207,7 +206,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Reporting_1" sap:VirtualizedContainerService.HintSize="818,1087" />
+      <sap2010:ViewStateData Id="Reporting_1" sap:VirtualizedContainerService.HintSize="551,945" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -12,12 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -95,12 +95,12 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Other than textual descriptions, screenshots are helpful in explaining what the activity does and with what elements it interacts. &#xD;&#xA;The default location for screenshot files is the .screenshots folder of the project.&#xA;&#xA;The steps to find missing screenshots are as follows:&#xA;1 - Find all XML nodes that have the attribute InformativeScreenshot&#xA;2 - Checks whether the attributes specifiy screenshot files&#xA;3 - Checks whether screenshot files are in the .screenshot folder of the project" DisplayName="Check for missing screenshot" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Other than textual descriptions, screenshots are helpful in explaining what the activity does and with what elements it interacts. &#xA;The default location for screenshot files is the .screenshots folder of the project.&#xA;&#xA;The steps to find missing screenshots are as follows:&#xA;1 - Find all nodes that have the attribute InformativeScreenshot&#xA;2 - Check whether the InformativeScreenshot attribute specifiy screenshot files&#xA;3 - Check whether screenshot files are in the .screenshot folder of the project" DisplayName="Check For Missing Screenshot" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. This data table wil later be merged to the one containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_12">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. This data table wil later be merged to the one containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_12">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -108,7 +108,7 @@
         <InArgument x:TypeArguments="x:String">//*[@InformativeScreenshot]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML node referencing a screenshot" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
+    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each node referencing a screenshot" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
@@ -119,7 +119,7 @@
               <Variable x:TypeArguments="x:Boolean" Name="ScreenshotExists" />
               <Variable x:TypeArguments="x:String" Name="ScreenshotReference" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign ScreenshotReference" sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign DisplayName="Assign: ScreenshotReference" sap2010:WorkflowViewState.IdRef="Assign_11">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[ScreenshotReference]</OutArgument>
               </Assign.To>
@@ -127,17 +127,17 @@
                 <InArgument x:TypeArguments="x:String">[NodeWithScreenshot.Attributes("InformativeScreenshot").Value]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:PathExists sap2010:Annotation.AnnotationText="Checks whether the screenshot file exits." DisplayName="Path Exists" Exists="[ScreenshotExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_ProjectPath + &quot;\.screenshots\&quot; + ScreenshotReference + &quot;.png&quot;]" PathType="File" />
+            <ui:PathExists sap2010:Annotation.AnnotationText="Checks whether the screenshot file exits." DisplayName="Path exists" Exists="[ScreenshotExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_ProjectPath + &quot;\.screenshots\&quot; + ScreenshotReference + &quot;.png&quot;]" PathType="File" />
             <If Condition="[Not ScreenshotExists]" DisplayName="If no screenshot file was found" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="InternalPath" />
                     <Variable x:TypeArguments="x:String" Name="TargetName" />
                   </Sequence.Variables>
-                  <If sap2010:Annotation.AnnotationText="In some activities, the screenshot is located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithScreenshot.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the screenshot was found in the Target node" sap2010:WorkflowViewState.IdRef="If_2">
+                  <If sap2010:Annotation.AnnotationText="The screenshot can be located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithScreenshot.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the screenshot was found in the Target node" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <Assign DisplayName="Assign NodeWithScreenshot" sap2010:WorkflowViewState.IdRef="Assign_9">
+                      <Assign DisplayName="Assign: NodeWithScreenshot" sap2010:WorkflowViewState.IdRef="Assign_9">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[NodeWithScreenshot]</OutArgument>
                         </Assign.To>
@@ -155,7 +155,7 @@
                   </ui:InvokeWorkflowFile>
                   <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[NodeWithScreenshot.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_3">
                     <If.Then>
-                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_13">
+                      <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_13">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -165,7 +165,7 @@
                       </Assign>
                     </If.Then>
                     <If.Else>
-                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_14">
+                      <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_14">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -175,7 +175,7 @@
                       </Assign>
                     </If.Else>
                   </If>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -183,26 +183,26 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d19DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTWlzc2luZ1NjcmVlbnNob3QueGFtbCZiA7sBDgIBAWYFZsoLAgE0ZwVuDgIBMG8FuQESAgECZtMBZuwBAgE1bDBsSwIBM2kxaUICATFvnAFv7AECAS91C7YBFgIBA3oNgQEWAgErggENggG/AgIBJYMBDbUBEgIBBH84f3YCAS58OXxOAgEsggGLAYIBnwECASmCAdQBggGsAgIBJoMBG4MBMwIBBYUBEbMBHAIBB4oBE5UBGAIBHpYBE5sBKwIBGJwBE7EBGAIBDrIBE7IB4AECAQiKAZ4CigHbAgIBH4wBF5MBIAIBIJkBWJkBZgIBHJgBWJgBbAIBGpYByAKWAeUCAgEZnAF8nAHBAQIBD54BF6UBIAIBFKgBF68BIAIBELIBZ7IBgAECAQyyAT6yAVwCAQmRAUSRAW4CASOOAUWOAVkCASGjAUKjAWACARegAUOgAU8CARWtAUKtAXYCAROqAUOqAU8CARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d19DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTWlzc2luZ1NjcmVlbnNob3QueGFtbCZiA7sBDgIBAWYFZscLAgE0ZwVuDgIBMG8FuQESAgECZtMBZukBAgE1bDBsSwIBM2kxaUICATFvmAFv6AECAS91C7YBFgIBA3oNgQEWAgErggENggG/AgIBJYMBDbUBEgIBBH84f3YCAS58OXxOAgEsggGLAYIBnwECASmCAdQBggGsAgIBJoMBG4MBMwIBBYUBEbMBHAIBB4oBE5UBGAIBHpYBE5sBKwIBGJwBE7EBGAIBDrIBE7IB3QECAQiKAY4CigHLAgIBH4wBF5MBIAIBIJkBWJkBZgIBHJgBWJgBbAIBGpYByAKWAeUCAgEZnAF8nAHBAQIBD54BF6UBIAIBFKgBF68BIAIBELIBZ7IBfQIBDLIBPrIBXAIBCZEBRJEBbgIBI44BRY4BWQIBIaMBQqMBYAIBF6ABQ6ABTwIBFa0BQq0BdgIBE6oBQ6oBTwIBEQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="649,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="649,102">
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="502,102">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="611,60" />
-      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="611,116">
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="464,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -210,16 +210,16 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,280">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="314,183">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="464,129">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -230,7 +230,7 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,93">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="314,93">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -239,24 +239,24 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="464,22" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="486,768">
+      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,671">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="611,916" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="633,1296">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,819" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,1199">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="649,1430" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="671,1984">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1333" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1887">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -264,7 +264,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="711,2064" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1967" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

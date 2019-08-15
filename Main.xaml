@@ -11,8 +11,8 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property sap2010:Annotation.AnnotationText="Location of the project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Location to which the report should be saved." Name="in_ReportPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location to which the generated report should be saved." Name="in_ReportPath" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -41,6 +41,7 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -65,47 +66,48 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xA;&#xA;The architecture is composed by three main components:&#xA;-Initialization: Reads configuration files and initializes the issues table&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Worklfow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow Inspector - A tool for evaluating UiPath Studio projects according to the best practices of workflow development.&#xA;&#xA;The architecture is composed by three main components:&#xA;-Initialization: Reads configuration files and initializes the issues table&#xA;-Checks: Performs project and workflow checks, based on the checks defined in the checklist file&#xA;-Reporting: Outputs the issues to a report file using a defined report template&#xA;&#xA;Paths to the project to be checked and to the report folder can be defined using arguments. &#xA;If the project path is not specified via argument, the user will be prompted to select the project folder.&#xA;&#xA;For more information, refer to the manual located in the Documentation folder." DisplayName="Worklfow Inspector" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="dt_Issues" />
-      <Variable x:TypeArguments="sd:DataTable" Name="dt_ProjectChecklist" />
-      <Variable x:TypeArguments="x:String" Name="ReportTemplateFilename" />
-      <Variable x:TypeArguments="sd:DataTable" Name="dt_WorkflowChecklist" />
+      <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="All the issues found in project." Name="Issues" />
+      <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Data about checks to be performed at project level." Name="ProjectChecklist" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Path to report template to be used. This depends on the system's culture settings." Name="ReportTemplatePath" />
+      <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Data about checks to be performed at workflow level." Name="WorkflowChecklist" />
     </Sequence.Variables>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Initialization workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Core\Initialization.xaml">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Core\Initialization.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InOutArgument x:TypeArguments="x:String" x:Key="io_ProjectPath">[in_ProjectPath]</InOutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Issues">[dt_Issues]</OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_ProjectChecklist">[dt_ProjectChecklist]</OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkflowChecklist">[dt_WorkflowChecklist]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplateFilename">[ReportTemplateFilename]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_Issues">[Issues]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ProjectChecklist">[ProjectChecklist]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_WorkflowChecklist">[WorkflowChecklist]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ReportTemplatePath">[ReportTemplatePath]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Project Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Core\ProjectChecks.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_ProjectChecklist">[dt_ProjectChecklist]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_ProjectChecklist">[ProjectChecklist]</InArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Issues">[Issues]</InOutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Core\WorkflowChecks.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Issues">[dt_Issues]</InOutArgument>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_WorkflowChecklist">[dt_WorkflowChecklist]</InArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Issues">[Issues]</InOutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_WorkflowChecklist">[WorkflowChecklist]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Reporting" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Core\Reporting.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_Issues">[dt_Issues]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplateFilename">[ReportTemplateFilename]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_ReportPath">[in_ReportPath]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReportTemplatePath">[ReportTemplatePath]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_Issues">[Issues]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYRgNtDgIBAU0FVR0CARxWBVwdAgEUXQVjHQIBDGQFax0CAQJQS1BWAgEmU1RTbAIBJFFVUWoCASJNvAFN1gECASFSVlJsAgEfT0pPWgIBHVpMWlcCARpYU1hoAgEYWUdZVwIBFlasAVbFAQIBFWBMYFcCARJhVGFqAgEQX0dfVwIBDl2tAV3HAQIBDWlGaVUCAQpmSWZUAgEIZ0dnVwIBBmhSaGoCAQRkpwFkvAECAQM=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxNYWluLnhhbWwYSANvDgIBAU8FVx0CARxYBV4dAgEUXwVlHQIBDGYFbR0CAQJUU1RmAgEmU1JTZAIBJFVQVWQCASJPrAFPxgECASFRSlFaAgEfUkhSUAIBHVtQW2ICARpcSVxRAgEYWkdaVwIBFlisAVjFAQIBFWJJYlECARJhR2FXAgEQY1FjZAIBDl+tAV/HAQIBDWlGaVUCAQpqTmpiAgEIa0ZrTgIBBmhHaFcCAQRmpwFmvAECAQM=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -113,7 +115,7 @@
       <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_11" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_12" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,829">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,904">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -121,7 +123,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,1789" />
+      <sap2010:ViewStateData Id="MainTmp_1" sap:VirtualizedContainerService.HintSize="376,3784" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

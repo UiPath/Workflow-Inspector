@@ -12,12 +12,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -96,12 +96,12 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows should only contain sequences that are being used for a specific purpose. Empty sequences should not be used, since they only make the workflow cluttered. &#xA;In addition, sequences or workflows that contain only one internal activity (even if it is another sequence) can usually be removed without any impact on the functionality of the project. &#xA;For removing sequences, use the Remove Sequence option of the Context Menu in UiPath Studio (https://studio.uipath.com/docs/the-user-interface#section-the-context-menu).&#xA;&#xA;The steps to find unnecessary sequences or flowcharts are as follows:&#xA;1 - Get all sequence nodes that have less than two children (i.e., empty sequences or sequences with only one child)&#xA;2 - Get all flowchart nodes in which the child of the start node (Flowchart.StartNode) does not have a FlowStep.Next child, which means that it is the only activity in the flowchart" DisplayName="Check for Unnecessary Sequence or Flowchart" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows should only contain sequences that are being used for a specific purpose. Empty sequences should not be used, since they only make the workflow cluttered. &#xA;In addition, sequences or workflows that contain only one internal activity (even if it is another sequence) can usually be removed without any impact on the functionality of the project. &#xA;For removing sequences, use the Remove Sequence option of the Context Menu in UiPath Studio (https://studio.uipath.com/docs/the-user-interface#section-the-context-menu).&#xA;&#xA;The steps to find unnecessary sequences or flowcharts are as follows:&#xA;1 - Get all sequence nodes that have less than two children (i.e., empty sequences or sequences with only one child)&#xA;2 - Get all flowchart nodes in which the child of the start node (Flowchart.StartNode) does not have a FlowStep.Next child, which means that it is the only activity in the flowchart" DisplayName="Check For Unnecessary Sequence Or Flowchart" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves sequence nodes that have less than two children or flowchart nodes in which the child of the start node does not have a FlowStep.Next child." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves sequence nodes or flowchart nodes in which the child of the start node does not have a FlowStep.Next child." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -119,7 +119,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="UnnecessaryNode" />
             </Sequence.Variables>
-            <Assign DisplayName="Initialize UnnecessaryNode" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign DisplayName="Assign: UnnecessaryNode (initialization)" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Boolean">[UnnecessaryNode]</OutArgument>
               </Assign.To>
@@ -133,10 +133,10 @@
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="ChildNode" />
                   </ActivityAction.Argument>
-                  <If sap2010:Annotation.AnnotationText="Node representing sequences can have children that do not represent activities, like sap:WorkflowViewStateService.ViewState and xaml:Sequence.Variables." Condition="[ChildNode.LocalName &lt;&gt; &quot;WorkflowViewStateService.ViewState&quot; AndAlso ChildNode.LocalName &lt;&gt; &quot;Sequence.Variables&quot;]" DisplayName="If child is an activity" sap2010:WorkflowViewState.IdRef="If_2">
+                  <If sap2010:Annotation.AnnotationText="Node representing sequences can have children that do not represent activities, like WorkflowViewStateService.ViewState and Sequence.Variables." Condition="[ChildNode.LocalName &lt;&gt; &quot;WorkflowViewStateService.ViewState&quot; AndAlso ChildNode.LocalName &lt;&gt; &quot;Sequence.Variables&quot;]" DisplayName="If child is an activity" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
                       <Sequence DisplayName="Child activity found" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                        <Assign DisplayName="Assign UnnecessaryNode (False)" sap2010:WorkflowViewState.IdRef="Assign_5">
+                        <Assign DisplayName="Assign: UnnecessaryNode (false)" sap2010:WorkflowViewState.IdRef="Assign_5">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Boolean">[UnnecessaryNode]</OutArgument>
                           </Assign.To>
@@ -166,7 +166,7 @@
                   </ui:InvokeWorkflowFile>
                   <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[Node.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_1">
                     <If.Then>
-                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_2">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -176,7 +176,7 @@
                       </Assign>
                     </If.Then>
                     <If.Else>
-                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_3">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -186,7 +186,7 @@
                       </Assign>
                     </If.Else>
                   </If>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -194,7 +194,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5uZWNlc3NhcnlTZXF1ZW5jZU9yRmxvd2NoYXJ0LnhhbWwnYwPGAQ4CAQFnBWe4CwIBMGgFbw4CASxwBcQBEgIBAmfBAWfaAQIBMW0wbXgCAS9qMWpCAgEtcJwBcOwBAgErdgvBARYCAQN6DYEBFgIBJ4IBDZkBGgIBHZoBDcABEgIBBH85fz0CASp8OnxLAgEoggGNAYIBoAECASaIAROWARgCAR6aAZACmgH1AgIBBZwBEb4BHAIBBogB3gGIAfECAgEfigEXlAEiAgEgoQETpgErAgEXpwETvAEYAgENvQETvQHaAQIBB4sBGZIBIgIBIpMBGZMBTwIBIaQBWKQBZgIBG6MBWKMBXgIBGaEByAKhAeUCAgEYpwF8pwGzAQIBDqkBF7ABIAIBE7MBF7oBIAIBD70BZ70BgAECAQu9AT69AVwCAQiQAUWQAUoCASWNAUaNAVcCASOuAUKuAVICARarAUOrAU8CARS4AUK4AWgCARK1AUO1AU8CARA=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5uZWNlc3NhcnlTZXF1ZW5jZU9yRmxvd2NoYXJ0LnhhbWwnYwPGAQ4CAQFnBWe1CwIBMGgFbw4CASxwBcQBEgIBAmfBAWfXAQIBMW0wbXgCAS9qMWpCAgEtcJwBcOwBAgErdgvBARYCAQN6DYEBFgIBJ4IBDZkBGgIBHZoBDcABEgIBBH85fz0CASp8OnxLAgEoggGNAYIBoAECASaIAROWARgCAR6aAZACmgH1AgIBBZwBEb4BHAIBBogB1QGIAegCAgEfigEXlAEiAgEgoQETpgErAgEXpwETvAEYAgENvQETvQHXAQIBB4sBGZIBIgIBIpMBGZMBTwIBIaQBWKQBZgIBG6MBWKMBXgIBGaEByAKhAeUCAgEYpwF8pwGzAQIBDqkBF7ABIAIBE7MBF7oBIAIBD70BZ70BfQIBC70BPr0BXAIBCJABRZABSgIBJY0BRo0BVwIBI64BQq4BUgIBFqsBQ6sBTwIBFLgBQrgBaAIBErUBQ7UBTwIBEA==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -205,7 +205,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="518,147">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="518,132">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -275,7 +275,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="518,1621" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="540,2280">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="540,2265">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -283,7 +283,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="580,2440" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="580,2345" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

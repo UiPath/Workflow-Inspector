@@ -13,12 +13,12 @@
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
-    <x:Property Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
-    <x:Property Name="in_WorkflowFilename" Type="InArgument(x:String)" />
-    <x:Property Name="in_ProjectPath" Type="InArgument(x:String)" />
-    <x:Property Name="out_dt_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Tree representation of the XAML file." Name="in_XMLTree" Type="InArgument(sx:XmlDocument)" />
+    <x:Property sap2010:Annotation.AnnotationText="Namespace manager associated with the constructed XML tree." Name="in_NamespaceManager" Type="InArgument(sx:XmlNamespaceManager)" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of project to be inspected." Name="in_ProjectPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary representation of the check's arguments." Name="in_CheckArguments" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Location of workflow to be inspected." Name="in_WorkflowPath" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Issues found at workflow level." Name="out_WorkflowIssues" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -98,21 +98,13 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The idx attribute is used to distinguish elements with the same selector based on their order in the interface hierarchy. &#xA;This order can change if the elements on the screen change, so the value for the idx attribute should be kept to a low value to avoid the selection of wrong elements. &#xA;This checks receives a threshold for the value of the idx attribute. &#xA;For more about selectors, refer to https://studio.uipath.com/docs/ui-automation#section-selectors&#xA;&#xA;The steps to find large idx values are as follows:&#xA;1 - Get nodes that have the Selector attribute, which in turn contains the idx attribute&#xA;2 - Verify whether the idx attribute value is greater than the specified threshold" DisplayName="Check for large idx attribute value in selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="The idx attribute is used to distinguish elements with the same selector based on their order in the interface hierarchy. &#xA;This order can change if the elements on the screen change, so the value for the idx attribute should be kept to a low value to avoid the selection of wrong elements. &#xA;For more about selectors, refer to https://studio.uipath.com/docs/ui-automation#section-selectors.&#xA;&#xA;This checks receives a threshold for the value of the idx attribute. &#xA;&#xA;The steps to find large idx values are as follows:&#xA;1 - Get nodes that have the Selector attribute, which in turn contains the idx attribute&#xA;2 - Verify whether the idx attribute value is greater than the specified threshold" DisplayName="Check For Large idx Attribute Value In Selector" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
       <Variable x:TypeArguments="x:String" Name="IdxValueThreshold" />
     </Sequence.Variables>
-    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_dt_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign DisplayName="Assign IdxValueThreshold" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[IdxValueThreshold]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[in_CheckArguments("Threshold")]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves nodes whose Selector attribute contains the string &quot;idx&quot;." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap2010:Annotation.AnnotationText="Retrieves nodes whose Selector attribute contains the string &quot;idx&quot;." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -120,7 +112,15 @@
         <InArgument x:TypeArguments="x:String">//*[contains(@Selector, 'idx')]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each XML Node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
+    <Assign DisplayName="Assign: IdxValueThreshold" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[IdxValueThreshold]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_CheckArguments("Threshold")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each node with the idx atttribute" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
@@ -132,7 +132,7 @@
               <Variable x:TypeArguments="x:String" Name="IdxValue" />
               <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="SelectorIdxMatches" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign Selector" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign DisplayName="Assign: Selector" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[Selector]</OutArgument>
               </Assign.To>
@@ -140,7 +140,7 @@
                 <InArgument x:TypeArguments="x:String">[NodeWithIdx.Attributes("Selector").Value]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:Matches sap2010:Annotation.AnnotationText="Looks for digits inside the idx attribute label: (?&lt;=idx=')(\d*)(?=')" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[Selector]" Pattern="(?&lt;=idx=')(\d*)(?=')" RegexOption="IgnoreCase, Compiled" Result="[SelectorIdxMatches]" />
+            <ui:Matches sap2010:Annotation.AnnotationText="Looks for digits inside the idx attribute label." sap2010:WorkflowViewState.IdRef="Matches_1" Input="[Selector]" Pattern="(?&lt;=idx=')(\d*)(?=')" RegexOption="IgnoreCase, Compiled" Result="[SelectorIdxMatches]" />
             <If sap2010:Annotation.AnnotationText="In the case of dynamic selectors (for example,  idx='&quot; + LoopCount.ToString + &quot;'), the value will not be extracted, so it's set to 0 in order to pass the check." Condition="[SelectorIdxMatches.Count() &gt; 0]" DisplayName="If the idx value was extracted" sap2010:WorkflowViewState.IdRef="If_3">
               <If.Then>
                 <Assign DisplayName="Assign: IdxValue" sap2010:WorkflowViewState.IdRef="Assign_5">
@@ -153,7 +153,7 @@
                 </Assign>
               </If.Then>
               <If.Else>
-                <Assign DisplayName="Assign: IdxValue (Default)" sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign DisplayName="Assign: IdxValue (default)" sap2010:WorkflowViewState.IdRef="Assign_6">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[IdxValue]</OutArgument>
                   </Assign.To>
@@ -163,16 +163,16 @@
                 </Assign>
               </If.Else>
             </If>
-            <If Condition="[CInt(IdxValue) &gt; CInt(IdxValueThreshold)]" DisplayName="If the idx value is greater than the specified threshold" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[Convert.ToInt32(IdxValue) &gt; Convert.ToInt32(IdxValueThreshold)]" DisplayName="If the idx value is greater than the specified threshold" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="InternalPath" />
                     <Variable x:TypeArguments="x:String" Name="TargetName" />
                   </Sequence.Variables>
-                  <If sap2010:Annotation.AnnotationText="In some activities, the selector is located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithIdx.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the selector was found in the Target node" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If sap2010:Annotation.AnnotationText="The selector can be located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithIdx.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the selector was found in the Target node" sap2010:WorkflowViewState.IdRef="If_4">
                     <If.Then>
-                      <Assign DisplayName="Assign NodeWithIdx" sap2010:WorkflowViewState.IdRef="Assign_7">
+                      <Assign DisplayName="Assign: NodeWithIdx" sap2010:WorkflowViewState.IdRef="Assign_7">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[NodeWithIdx]</OutArgument>
                         </Assign.To>
@@ -190,7 +190,7 @@
                   </ui:InvokeWorkflowFile>
                   <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[NodeWithIdx.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_5">
                     <If.Then>
-                      <Assign DisplayName="Assign: Target Name is Local Name" sap2010:WorkflowViewState.IdRef="Assign_8">
+                      <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_8">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -200,7 +200,7 @@
                       </Assign>
                     </If.Then>
                     <If.Else>
-                      <Assign DisplayName="Assign: Target Name is Display Name" sap2010:WorkflowViewState.IdRef="Assign_9">
+                      <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_9">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -210,7 +210,7 @@
                       </Assign>
                     </If.Else>
                   </If>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_dt_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{InternalPath, TargetName}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
                 </Sequence>
               </If.Then>
             </If>
@@ -218,27 +218,27 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTGFyZ2VJZHhJblNlbGVjdG9yLnhhbWwyZQPeAQ4CAQFqBWq4CwIBRGsFcg4CAT9zBXoOAgE7ewXcARICAQJqwQFq2gECAUVwMHBQAgFCbTFtRAIBQHgweE8CAT51MXVCAgE8e4MBe9MBAgE6gQEL2QEWAgEDhwENjgEWAgE2jwENjwGqAgIBMJABDaUBEgIBJqYBDdgBEgIBBIwBOIwBYgIBOYkBOYkBQwIBN48BuAGPAcQBAgE0jwGRAo8BpwICATKPAc0BjwHmAQIBMZAB6gGQAY8CAgEnkgERmQEaAgEsnAERowEaAgEopgEbpgFKAgEFqAER1gEcAgEIlwE8lwFeAgEvlAE9lAFHAgEtoQE8oQE9AgErngE9ngFHAgEprQETuAEYAgEfuQETvgErAgEZvwET1AEYAgEP1QET1QHgAQIBCa0BnAKtAdICAgEgrwEXtgEgAgEhvAFYvAFmAgEduwFYuwFlAgEbuQHIArkB5QICARq/AXy/AboBAgEQwQEXyAEgAgEVywEX0gEgAgER1QFn1QGAAQIBDdUBPtUBXAIBCrQBRLQBZwIBJLEBRbEBUgIBIsYBQsYBWQIBGMMBQ8MBTwIBFtABQtABbwIBFM0BQ80BTwIBEg==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcTGFyZ2VJZHhJblNlbGVjdG9yLnhhbWwyZQPeAQ4CAQFqBWq1CwIBQmsFcg4CAT5zBXoOAgE5ewXcARICAQJqwQFq1wECAUNwMHBPAgFBbTFtQgIBP3gweFACATx1MXVEAgE6e5cBe+cBAgE4gQEL2QEWAgEDhwENjgEWAgE0jwENjwGSAgIBLpABDaUBEgIBJKYBDdgBEgIBBIwBOIwBYgIBN4kBOYkBQwIBNY8BoAGPAawBAgEyjwH5AY8BjwICATCPAbUBjwHOAQIBL5AB6gGQAY8CAgElkgERmQEaAgEqnAERowEaAgEmpgEbpgFgAgEFqAER1gEcAgEGlwE8lwFeAgEtlAE9lAFHAgEroQE8oQE9AgEpngE9ngFHAgEnrQETuAEYAgEduQETvgErAgEXvwET1AEYAgEN1QET1QHdAQIBB60BjAKtAcICAgEerwEXtgEgAgEfvAFYvAFmAgEbuwFYuwFlAgEZuQHIArkB5QICARi/AXy/AboBAgEOwQEXyAEgAgETywEX0gEgAgEP1QFn1QF9AgEL1QE+1QFcAgEItAFEtAFnAgEisQFFsQFSAgEgxgFCxgFZAgEWwwFDwwFPAgEU0AFC0AFvAgESzQFDzQFPAgEQ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="649,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="649,60" />
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="649,102">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502,102">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="611,60" />
-      <sap2010:ViewStateData Id="Matches_1" sap:VirtualizedContainerService.HintSize="611,79">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="502,60" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Matches_1" sap:VirtualizedContainerService.HintSize="464,64">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -247,26 +247,26 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="611,250">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,153">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,280">
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="314,183">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="464,129">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,129">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -282,19 +282,19 @@
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="486,768">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,671">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="611,916">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,819">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -302,15 +302,15 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="633,1549">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,1340">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="649,1683" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="671,2352">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1474" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,2188">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -318,7 +318,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="711,2432">
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2268">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
