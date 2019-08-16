@@ -1,6 +1,6 @@
 {
   "name": "WorkflowInspector",
-  "description": "Based on the best practices for workflow development, inspects a select project, lists warnings and gives suggestions for improvement.",
+  "description": "Based on the best practices of workflow development, inspects a selected project, lists warnings and gives suggestions for improvement.",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.4.6884.25683]",
