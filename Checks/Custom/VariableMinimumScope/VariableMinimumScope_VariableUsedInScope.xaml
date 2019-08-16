@@ -81,7 +81,7 @@
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithAttributes" />
       <Variable x:TypeArguments="x:Int32" Name="UsagesCount" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Select all nodes that have values, except for Reference and DebugSymbol.Symbol." DisplayName="Assign: NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign sap2010:Annotation.AnnotationText="Select all nodes that have values, except for Reference and DebugSymbol.Symbol." DisplayName="Assign NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[NodesWithValue]</OutArgument>
       </Assign.To>
@@ -89,7 +89,7 @@
         <InArgument x:TypeArguments="sx:XmlNodeList">[in_Node.SelectNodes(".//*[not(local-name()='Reference') and not(local-name()='DebugSymbol.Symbol') and (string-length(text()) &gt; 0)]")]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="Select all nodes that have attributes, other than some specific attributes that is safe to ignore, like DisplayName." DisplayName="Assign: NodesWithAttributes" sap2010:WorkflowViewState.IdRef="Assign_4">
+    <Assign sap2010:Annotation.AnnotationText="Select all nodes that have attributes, other than some specific attributes that is safe to ignore, like DisplayName." DisplayName="Assign NodesWithAttributes" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[NodesWithAttributes]</OutArgument>
       </Assign.To>
@@ -97,7 +97,7 @@
         <InArgument x:TypeArguments="sx:XmlNodeList">[in_Node.SelectNodes(".//*[@*[not(name()='DisplayName') and not(name()='sap2010:Annotation.AnnotationText') and not(name()='x:TypeArguments') and not(name()='sap2010:WorkflowViewState.IdRef')]]")]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="Initializa the list of all nodes where the variable is used." DisplayName="Assign: NodesUsingVariable" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign sap2010:Annotation.AnnotationText="Initializa the list of all nodes where the variable is used." DisplayName="Assign NodesUsingVariable" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:List(sx:XmlNode)">[NodesUsingVariable]</OutArgument>
       </Assign.To>
@@ -179,7 +179,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <Assign DisplayName="Assign: out_UsageFound (false)" sap2010:WorkflowViewState.IdRef="Assign_13">
+    <Assign DisplayName="Assign out_UsageFound (false)" sap2010:WorkflowViewState.IdRef="Assign_13">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Boolean">[out_UsageFound]</OutArgument>
       </Assign.To>
@@ -187,7 +187,7 @@
         <InArgument x:TypeArguments="x:Boolean">False</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="The number of nodes where the variable is used." DisplayName="Assign: UsagesCount" sap2010:WorkflowViewState.IdRef="Assign_11">
+    <Assign sap2010:Annotation.AnnotationText="The number of nodes where the variable is used." DisplayName="Assign UsagesCount" sap2010:WorkflowViewState.IdRef="Assign_11">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[UsagesCount]</OutArgument>
       </Assign.To>
@@ -216,7 +216,7 @@
                 <FlowDecision x:Name="__ReferenceID5" sap2010:Annotation.AnnotationText="Save the container where the variable is first used." Condition="[FirstUsageContainer Is Nothing]" DisplayName="FirstUsage is Nothing" sap2010:WorkflowViewState.IdRef="FlowDecision_6">
                   <FlowDecision.True>
                     <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_10">
-                      <Assign DisplayName="Assign: FirstUsageContainer" sap2010:WorkflowViewState.IdRef="Assign_16">
+                      <Assign DisplayName="Assign FirstUsageContainer" sap2010:WorkflowViewState.IdRef="Assign_16">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[FirstUsageContainer]</OutArgument>
                         </Assign.To>
@@ -228,7 +228,7 @@
                         <FlowDecision x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="Usage found in root (CurrentUsageContainer is Nothing) or used in different container (CurrentUsageContainer is not FirstUsageContainer)" Condition="[CurrentUsageContainer Is Nothing OrElse CurrentUsageContainer IsNot FirstUsageContainer]" DisplayName="Usage found" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
                           <FlowDecision.True>
                             <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_8">
-                              <Assign sap2010:Annotation.AnnotationText="Variable is used! Assign output value and return." DisplayName="Assign: out_UsageFount (true)" sap2010:WorkflowViewState.IdRef="Assign_17">
+                              <Assign sap2010:Annotation.AnnotationText="Variable is used! Assign output value and return." DisplayName="Assign out_UsageFount (true)" sap2010:WorkflowViewState.IdRef="Assign_17">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="x:Boolean">[out_UsageFound]</OutArgument>
                                 </Assign.To>
@@ -240,7 +240,7 @@
                           </FlowDecision.True>
                           <FlowDecision.False>
                             <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_9">
-                              <Assign DisplayName="Assign: Index (increment)" sap2010:WorkflowViewState.IdRef="Assign_18">
+                              <Assign DisplayName="Assign Index (increment)" sap2010:WorkflowViewState.IdRef="Assign_18">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
                                 </Assign.To>

@@ -72,7 +72,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="CheckVariableUsageRegex" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Regular expression that checks whether a given variable name can be found in a string to represent an actual variable." DisplayName="Assign: CheckVariableUsageRegex" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Regular expression that checks whether a given variable name can be found in a string to represent an actual variable." DisplayName="Assign CheckVariableUsageRegex" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[CheckVariableUsageRegex]</OutArgument>
       </Assign.To>
@@ -91,7 +91,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Assign DisplayName="Assign: out_VariableUsed (false)" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign DisplayName="Assign out_VariableUsed (false)" sap2010:WorkflowViewState.IdRef="Assign_2">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Boolean">[out_VariableUsed]</OutArgument>
           </Assign.To>
@@ -151,7 +151,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="VariableMinimumScope_VariableUsedInValue_1" sap:VirtualizedContainerService.HintSize="551,1350" />
+      <sap2010:ViewStateData Id="VariableMinimumScope_VariableUsedInValue_1" sap:VirtualizedContainerService.HintSize="551,1230" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

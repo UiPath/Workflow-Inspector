@@ -76,7 +76,7 @@
       <Variable x:TypeArguments="sx:XmlNode" Name="CurrentNode" />
       <Variable x:TypeArguments="sx:XmlNode" Name="LastContainer" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Start from start node :)" DisplayName="Assign: CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign sap2010:Annotation.AnnotationText="Start from start node :)" DisplayName="Assign CurrentNode" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[CurrentNode]</OutArgument>
       </Assign.To>
@@ -88,7 +88,7 @@
       <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
         <If Condition="[{&quot;Sequence&quot;, &quot;Flowchart&quot;, &quot;StateMachine&quot;}.Contains(CurrentNode.Name)]" DisplayName="If current node is container" sap2010:WorkflowViewState.IdRef="If_1">
           <If.Then>
-            <Assign DisplayName="Assign: LastContainer (CurrentNode)" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign DisplayName="Assign LastContainer (CurrentNode)" sap2010:WorkflowViewState.IdRef="Assign_1">
               <Assign.To>
                 <OutArgument x:TypeArguments="sx:XmlNode">[LastContainer]</OutArgument>
               </Assign.To>
@@ -98,7 +98,7 @@
             </Assign>
           </If.Then>
         </If>
-        <Assign DisplayName="Assign: CurrentNode (parent)" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign DisplayName="Assign CurrentNode (parent)" sap2010:WorkflowViewState.IdRef="Assign_2">
           <Assign.To>
             <OutArgument x:TypeArguments="sx:XmlNode">[CurrentNode]</OutArgument>
           </Assign.To>
@@ -108,7 +108,7 @@
         </Assign>
       </Sequence>
     </While>
-    <Assign DisplayName="Assign: out_ContainerNode" sap2010:WorkflowViewState.IdRef="Assign_4">
+    <Assign DisplayName="Assign out_ContainerNode" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[out_ContainerNode]</OutArgument>
       </Assign.To>

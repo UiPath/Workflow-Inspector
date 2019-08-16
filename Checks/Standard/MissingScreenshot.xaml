@@ -100,7 +100,7 @@
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. This data table wil later be merged to the one containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_12">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all elements that have the InformativeScreenshot attribute." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_12">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -119,7 +119,7 @@
               <Variable x:TypeArguments="x:Boolean" Name="ScreenshotExists" />
               <Variable x:TypeArguments="x:String" Name="ScreenshotReference" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign: ScreenshotReference" sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign DisplayName="Assign ScreenshotReference" sap2010:WorkflowViewState.IdRef="Assign_11">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[ScreenshotReference]</OutArgument>
               </Assign.To>
@@ -137,7 +137,7 @@
                   </Sequence.Variables>
                   <If sap2010:Annotation.AnnotationText="The screenshot can be located in the Target node, which is the grandchild of the actual acitivity. &#xA;This step will retrieve the name of the actual activity, instead of the name of the Target node." Condition="[NodeWithScreenshot.LocalName.Contains(&quot;Target&quot;)]" DisplayName="If the screenshot was found in the Target node" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <Assign DisplayName="Assign: NodeWithScreenshot" sap2010:WorkflowViewState.IdRef="Assign_9">
+                      <Assign DisplayName="Assign NodeWithScreenshot" sap2010:WorkflowViewState.IdRef="Assign_9">
                         <Assign.To>
                           <OutArgument x:TypeArguments="sx:XmlNode">[NodeWithScreenshot]</OutArgument>
                         </Assign.To>
@@ -155,7 +155,7 @@
                   </ui:InvokeWorkflowFile>
                   <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[NodeWithScreenshot.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_3">
                     <If.Then>
-                      <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_13">
+                      <Assign DisplayName="Assign TargetName (local name)" sap2010:WorkflowViewState.IdRef="Assign_13">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>
@@ -165,7 +165,7 @@
                       </Assign>
                     </If.Then>
                     <If.Else>
-                      <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_14">
+                      <Assign DisplayName="Assign TargetName (display name)" sap2010:WorkflowViewState.IdRef="Assign_14">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                         </Assign.To>

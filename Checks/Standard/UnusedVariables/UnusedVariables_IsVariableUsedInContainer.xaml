@@ -74,7 +74,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithTextValue" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Initially assumes that the variable is not used in the container." DisplayName="Assign: out_VariableUsed (initialization)" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign sap2010:Annotation.AnnotationText="Initially assumes that the variable is not used in the container." DisplayName="Assign out_VariableUsed (initialization)" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Boolean">[out_VariableUsed]</OutArgument>
       </Assign.To>
@@ -82,7 +82,7 @@
         <InArgument x:TypeArguments="x:Boolean">False</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes in the container that have text values, except Reference and DebugSymbol.Symbol, since they cannot use variables." DisplayName="Assign: NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes in the container that have text values, except Reference and DebugSymbol.Symbol, since they cannot use variables." DisplayName="Assign NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[NodesWithTextValue]</OutArgument>
       </Assign.To>
@@ -119,7 +119,7 @@
           <Sequence.Variables>
             <Variable x:TypeArguments="sx:XmlNodeList" Name="AttributeNodes" />
           </Sequence.Variables>
-          <Assign sap2010:Annotation.AnnotationText="Retrieves all attributes from nodes in container." DisplayName="Assign: NodesWithAttribute" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign sap2010:Annotation.AnnotationText="Retrieves all attributes from nodes in container." DisplayName="Assign NodesWithAttribute" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="sx:XmlNodeList">[AttributeNodes]</OutArgument>
             </Assign.To>
@@ -246,7 +246,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="UnusedVariables_IsVariableUsedInContainer_1" sap:VirtualizedContainerService.HintSize="561,2284" />
+      <sap2010:ViewStateData Id="UnusedVariables_IsVariableUsedInContainer_1" sap:VirtualizedContainerService.HintSize="561,2084" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -122,7 +122,7 @@
         </ui:ForEach.Body>
       </ui:ForEach>
     </Sequence>
-    <Assign sap2010:Annotation.AnnotationText="Get all the Variable nodes from the document." DisplayName="Assign: VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
+    <Assign sap2010:Annotation.AnnotationText="Get all the Variable nodes from the document." DisplayName="Assign VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[VariableNodes]</OutArgument>
       </Assign.To>
@@ -140,7 +140,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="VariableName" />
             </Sequence.Variables>
-            <Assign DisplayName="Assign: VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign DisplayName="Assign VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[VariableName]</OutArgument>
               </Assign.To>

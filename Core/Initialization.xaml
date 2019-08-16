@@ -101,7 +101,7 @@
         <Variable x:TypeArguments="x:String" Name="WorkflowChecksSheetName" />
         <Variable x:TypeArguments="x:String" Name="SystemCulture" />
       </Sequence.Variables>
-      <Assign sap2010:Annotation.AnnotationText="Retrieves the system's culture to decide what checklist to use." DisplayName="Assign: SystemCulture" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign sap2010:Annotation.AnnotationText="Retrieves the system's culture to decide what checklist to use." DisplayName="Assign SystemCulture" sap2010:WorkflowViewState.IdRef="Assign_6">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[SystemCulture]</OutArgument>
         </Assign.To>
@@ -112,7 +112,7 @@
       <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the appropriate filenames and sheet names based on the system's culture." DisplayName="Switch (based on the system's culture)" Expression="[SystemCulture]" sap2010:WorkflowViewState.IdRef="Switch`1_2">
         <Switch.Default>
           <Sequence DisplayName="Use English files and names" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <Assign DisplayName="Assign: ChecklistFilename (English)" sap2010:WorkflowViewState.IdRef="Assign_7">
+            <Assign DisplayName="Assign ChecklistFilename (English)" sap2010:WorkflowViewState.IdRef="Assign_7">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
               </Assign.To>
@@ -120,7 +120,7 @@
                 <InArgument x:TypeArguments="x:String">Config\EN\Checklist.xlsx</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign: ProjectChecksSheetName (English)" sap2010:WorkflowViewState.IdRef="Assign_8">
+            <Assign DisplayName="Assign ProjectChecksSheetName (English)" sap2010:WorkflowViewState.IdRef="Assign_8">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
               </Assign.To>
@@ -128,7 +128,7 @@
                 <InArgument x:TypeArguments="x:String">Project</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign: WorkflowChecksSheetName (English)" sap2010:WorkflowViewState.IdRef="Assign_9">
+            <Assign DisplayName="Assign WorkflowChecksSheetName (English)" sap2010:WorkflowViewState.IdRef="Assign_9">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
               </Assign.To>
@@ -136,7 +136,7 @@
                 <InArgument x:TypeArguments="x:String">Workflow</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign: out_ReportTemplatePath" sap2010:WorkflowViewState.IdRef="Assign_10">
+            <Assign DisplayName="Assign out_ReportTemplatePath" sap2010:WorkflowViewState.IdRef="Assign_10">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[out_ReportTemplatePath]</OutArgument>
               </Assign.To>
@@ -147,7 +147,7 @@
           </Sequence>
         </Switch.Default>
         <Sequence x:Key="日本語 (日本)" DisplayName="Use Japanese files and names" sap2010:WorkflowViewState.IdRef="Sequence_4">
-          <Assign DisplayName="Assign: ChecklistFilename (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_11">
+          <Assign DisplayName="Assign ChecklistFilename (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_11">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
             </Assign.To>
@@ -155,7 +155,7 @@
               <InArgument x:TypeArguments="x:String">Config\JP\Checklist.xlsx</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: ProjectChecksSheetName (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_12">
+          <Assign DisplayName="Assign ProjectChecksSheetName (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_12">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
             </Assign.To>
@@ -163,7 +163,7 @@
               <InArgument x:TypeArguments="x:String">プロジェクト</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: WorkflowChecksSheetName (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_13">
+          <Assign DisplayName="Assign WorkflowChecksSheetName (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_13">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
             </Assign.To>
@@ -171,7 +171,7 @@
               <InArgument x:TypeArguments="x:String">ワークフロー</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: out_ReportTemplatePath (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_14">
+          <Assign DisplayName="Assign out_ReportTemplatePath (Japanese)" sap2010:WorkflowViewState.IdRef="Assign_14">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_ReportTemplatePath]</OutArgument>
             </Assign.To>
@@ -181,7 +181,7 @@
           </Assign>
         </Sequence>
         <Sequence x:Key="한국어(대한민국)" DisplayName="Use Korean files and names" sap2010:WorkflowViewState.IdRef="Sequence_6">
-          <Assign DisplayName="Assign: ChecklistFilename (Korean)" sap2010:WorkflowViewState.IdRef="Assign_15">
+          <Assign DisplayName="Assign ChecklistFilename (Korean)" sap2010:WorkflowViewState.IdRef="Assign_15">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ChecklistFilename]</OutArgument>
             </Assign.To>
@@ -189,7 +189,7 @@
               <InArgument x:TypeArguments="x:String">Config\KO\Checklist.xlsx</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: ProjectChecksSheetName (Korean)" sap2010:WorkflowViewState.IdRef="Assign_16">
+          <Assign DisplayName="Assign ProjectChecksSheetName (Korean)" sap2010:WorkflowViewState.IdRef="Assign_16">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ProjectChecksSheetName]</OutArgument>
             </Assign.To>
@@ -197,7 +197,7 @@
               <InArgument x:TypeArguments="x:String">프로젝트</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: WorkflowChecksSheetName (Korean)" sap2010:WorkflowViewState.IdRef="Assign_17">
+          <Assign DisplayName="Assign WorkflowChecksSheetName (Korean)" sap2010:WorkflowViewState.IdRef="Assign_17">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[WorkflowChecksSheetName]</OutArgument>
             </Assign.To>
@@ -205,7 +205,7 @@
               <InArgument x:TypeArguments="x:String">워크플로우</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: out_ReportTemplatePath (Korean)" sap2010:WorkflowViewState.IdRef="Assign_18">
+          <Assign DisplayName="Assign out_ReportTemplatePath (Korean)" sap2010:WorkflowViewState.IdRef="Assign_18">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_ReportTemplatePath]</OutArgument>
             </Assign.To>
@@ -317,7 +317,7 @@
       <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,484">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,481">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -328,14 +328,14 @@
       <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_18" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="264,484">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="264,481">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477,717">
+      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477,187">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -372,7 +372,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,1585">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,1055">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -381,7 +381,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,2258">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,1728">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -390,7 +390,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,2578" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,1808" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -107,7 +107,7 @@
               <AddToCollection x:TypeArguments="x:String" Collection="[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]" DisplayName="Add path of workflow with repeated name" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[WorkflowFilepath]" />
             </If.Then>
             <If.Else>
-              <Assign DisplayName="Assign: WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath)) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign DisplayName="Assign WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath)) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_6">
                 <Assign.To>
                   <OutArgument x:TypeArguments="scg:List(x:String)">[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]</OutArgument>
                 </Assign.To>
@@ -174,7 +174,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1430" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="545,1270" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

@@ -76,7 +76,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:String)" Default="[New List(Of String)]" Name="InternalPath" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Skips the activity that generated the issue, since it'll be reported as the target of the issue and doesn't need to be included in the path." DisplayName="Assign: in_ActivityNode (Initialize path)" sap2010:WorkflowViewState.IdRef="Assign_5">
+    <Assign sap2010:Annotation.AnnotationText="Skips the activity that generated the issue, since it'll be reported as the target of the issue and doesn't need to be included in the path." DisplayName="Assign in_ActivityNode (initialization)" sap2010:WorkflowViewState.IdRef="Assign_5">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNode">[in_ActivityNode]</OutArgument>
       </Assign.To>
@@ -84,7 +84,7 @@
         <InArgument x:TypeArguments="sx:XmlNode">[in_ActivityNode.ParentNode]</InArgument>
       </Assign.Value>
     </Assign>
-    <While sap2010:WorkflowViewState.IdRef="While_2" Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;Activity&quot;]">
+    <While DisplayName="While it does not reach the root node" sap2010:WorkflowViewState.IdRef="While_2" Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;Activity&quot;]">
       <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_12">
         <If sap2010:Annotation.AnnotationText="Ignores FlowStep nodes and nodes without IdRef because they are not visible on UiPath Studio." Condition="[in_ActivityNode.LocalName &lt;&gt; &quot;FlowStep&quot; AndAlso in_ActivityNode.Attributes(&quot;sap2010:WorkflowViewState.IdRef&quot;) IsNot Nothing]" DisplayName="If node is not a FlowStep" sap2010:WorkflowViewState.IdRef="If_1">
           <If.Then>
@@ -98,7 +98,7 @@
             </If>
           </If.Then>
         </If>
-        <Assign sap2010:Annotation.AnnotationText="Goes up the node hierachy." DisplayName="Assign: in_ActivityNode" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign sap2010:Annotation.AnnotationText="Goes up the node hierachy." DisplayName="Assign in_ActivityNode" sap2010:WorkflowViewState.IdRef="Assign_4">
           <Assign.To>
             <OutArgument x:TypeArguments="sx:XmlNode">[in_ActivityNode]</OutArgument>
           </Assign.To>
@@ -110,7 +110,7 @@
     </While>
     <If Condition="[InternalPath.Count &gt; 0]" DisplayName="If there is internal path" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
-        <Assign sap2010:Annotation.AnnotationText="Formats internal path string." DisplayName="Assign: out_InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign sap2010:Annotation.AnnotationText="Formats internal path string." DisplayName="Assign out_InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
           <Assign.To>
             <OutArgument x:TypeArguments="x:String">[out_InternalPath]</OutArgument>
           </Assign.To>
@@ -120,7 +120,7 @@
         </Assign>
       </If.Then>
       <If.Else>
-        <Assign sap2010:Annotation.AnnotationText="The activity is located in the top level of the hierarchy of activities, so there is no internal path." DisplayName="Assign: out_InternalPath (empty path)" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign sap2010:Annotation.AnnotationText="The activity is located in the top level of the hierarchy of activities, so there is no internal path." DisplayName="Assign out_InternalPath (empty path)" sap2010:WorkflowViewState.IdRef="Assign_6">
           <Assign.To>
             <OutArgument x:TypeArguments="x:String">[out_InternalPath]</OutArgument>
           </Assign.To>
@@ -130,7 +130,7 @@
         </Assign>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwdSwOGAQ4CAQFNPk1VAgECTwVWDgIBIlcFbg0CAQ5vBYQBCgIBA1QyVE4CASVRM1FEAgEjWAdtEgIBEFdAV3sCAQ9vE28wAgEEcQl4EgIBCnsJggESAgEGWQlkDgIBFmUJbBICARF2NHZwAgENczVzRwIBC4ABNIABNQIBCX01fUcCAQdZmQFZsgICARdbDWISAgEYajZqUgIBFGc3Z0gCARJbG1tdAgEZXRFd2QECAR5gEWD7AQIBGl1IXVgCASBduQFd1gECAR9gSGBYAgEcYLsBYPgBAgEb</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwdSwOGAQ4CAQFNPk1VAgECTwVWDgIBIlcFbg0CAQ5vBYQBCgIBA1QyVE4CASVRM1FEAgEjWAdtEgIBEFd0V68BAgEPbxNvMAIBBHEJeBICAQp7CYIBEgIBBlkJZA4CARZlCWwSAgERdjR2cAIBDXM1c0cCAQuAATSAATUCAQl9NX1HAgEHWZkBWbICAgEXWw1iEgIBGGo2alICARRnN2dIAgESWxtbXQIBGV0RXdkBAgEeYBFg+wECARpdSF1YAgEgXbkBXdYBAgEfYEhgWAIBHGC7AWD4AQIBGw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -182,8 +182,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="637,264" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="659,1434">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="637,265" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="659,1435">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -191,7 +191,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="699,1554" />
+      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="699,1515" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

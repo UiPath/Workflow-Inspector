@@ -101,7 +101,7 @@
       <Variable x:TypeArguments="sx:XmlNodeList" Name="VariableNodes" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap2010:Annotation.AnnotationText="Gets all the Variable nodes from the document." DisplayName="Assign: VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
+    <Assign sap2010:Annotation.AnnotationText="Gets all the Variable nodes from the document." DisplayName="Assign VariableNodes" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[VariableNodes]</OutArgument>
       </Assign.To>
@@ -121,7 +121,7 @@
               <Variable x:TypeArguments="sx:XmlNodeList" Name="DescendantVariables" />
               <Variable x:TypeArguments="sx:XmlNode" Name="ContainerNode" />
             </Sequence.Variables>
-            <Assign sap2010:Annotation.AnnotationText="Get the name of the variable." DisplayName="Assign: VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign sap2010:Annotation.AnnotationText="Get the name of the variable." DisplayName="Assign VariableName" sap2010:WorkflowViewState.IdRef="Assign_5">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[VariableName]</OutArgument>
               </Assign.To>
@@ -129,7 +129,7 @@
                 <InArgument x:TypeArguments="x:String">[Node.Attributes("Name").Value]</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign sap2010:Annotation.AnnotationText="Container node where the current variable is defined." DisplayName="Assign: Container Node" sap2010:WorkflowViewState.IdRef="Assign_9">
+            <Assign sap2010:Annotation.AnnotationText="Container node where the current variable is defined." DisplayName="Assign Container Node" sap2010:WorkflowViewState.IdRef="Assign_9">
               <Assign.To>
                 <OutArgument x:TypeArguments="sx:XmlNode">[ContainerNode]</OutArgument>
               </Assign.To>
@@ -137,7 +137,7 @@
                 <InArgument x:TypeArguments="sx:XmlNode">[Node.ParentNode.ParentNode]</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign sap2010:Annotation.AnnotationText="Get all other variables defined in containers descending from current container node." DisplayName="Assign: Descendents" sap2010:WorkflowViewState.IdRef="Assign_10">
+            <Assign sap2010:Annotation.AnnotationText="Get all other variables defined in containers descending from current container node." DisplayName="Assign Descendants" sap2010:WorkflowViewState.IdRef="Assign_10">
               <Assign.To>
                 <OutArgument x:TypeArguments="sx:XmlNodeList">[DescendantVariables]</OutArgument>
               </Assign.To>
@@ -155,7 +155,7 @@
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:String" Name="DescendantName" />
                     </Sequence.Variables>
-                    <Assign DisplayName="Assign: DescendantName" sap2010:WorkflowViewState.IdRef="Assign_11">
+                    <Assign DisplayName="Assign DescendantName" sap2010:WorkflowViewState.IdRef="Assign_11">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[DescendantName]</OutArgument>
                       </Assign.To>
@@ -281,7 +281,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,2323" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,2283" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

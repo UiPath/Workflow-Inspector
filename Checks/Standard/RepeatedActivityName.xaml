@@ -105,7 +105,7 @@
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <If Condition="[in_CheckArguments.ContainsKey(&quot;Threshold&quot;)]" DisplayName="If repetition threshold was provided" sap2010:WorkflowViewState.IdRef="If_9">
       <If.Then>
-        <Assign DisplayName="Assign: RepetitionThreshold" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign DisplayName="Assign RepetitionThreshold" sap2010:WorkflowViewState.IdRef="Assign_7">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Int32">[RepetitionThreshold]</OutArgument>
           </Assign.To>
@@ -115,7 +115,7 @@
         </Assign>
       </If.Then>
       <If.Else>
-        <Assign DisplayName="Assign: RepetitionThreshold (default )" sap2010:WorkflowViewState.IdRef="Assign_14">
+        <Assign DisplayName="Assign RepetitionThreshold (default )" sap2010:WorkflowViewState.IdRef="Assign_14">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Int32">[RepetitionThreshold]</OutArgument>
           </Assign.To>
@@ -125,7 +125,7 @@
         </Assign>
       </If.Else>
     </If>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign)." DisplayName="Assign: XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
@@ -150,7 +150,7 @@
             </If>
             <If sap2010:Annotation.AnnotationText="Considers the DisplayName if exits; if not, uses the activity's LocalName." Condition="[ActivityNode.Attributes(&quot;DisplayName&quot;) IsNot Nothing]" DisplayName="If DisplayName attribute exists" sap2010:WorkflowViewState.IdRef="If_10">
               <If.Then>
-                <Assign DisplayName="Assign: DisplayName" sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign DisplayName="Assign DisplayName" sap2010:WorkflowViewState.IdRef="Assign_6">
                   <Assign.To>
                     <OutArgument x:TypeArguments="ui:GenericValue">[DisplayName]</OutArgument>
                   </Assign.To>
@@ -160,7 +160,7 @@
                 </Assign>
               </If.Then>
               <If.Else>
-                <Assign DisplayName="Assign: DisplayName as LocalName" sap2010:WorkflowViewState.IdRef="Assign_15">
+                <Assign DisplayName="Assign DisplayName as LocalName" sap2010:WorkflowViewState.IdRef="Assign_15">
                   <Assign.To>
                     <OutArgument x:TypeArguments="ui:GenericValue">[DisplayName]</OutArgument>
                   </Assign.To>
@@ -175,7 +175,7 @@
                 <AddToCollection x:TypeArguments="sx:XmlNode" Collection="[ActivityDisplayNameIndex(DisplayName)]" DisplayName="Add node to activities with the same DisplayName" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[ActivityNode]" />
               </If.Then>
               <If.Else>
-                <Assign sap2010:Annotation.AnnotationText="Initializes list of activities with current DisplayName" DisplayName="Assign: ActivityDisplayNameIndex(DisplayName) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_11">
+                <Assign sap2010:Annotation.AnnotationText="Initializes list of activities with current DisplayName" DisplayName="Assign ActivityDisplayNameIndex(DisplayName) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_11">
                   <Assign.To>
                     <OutArgument x:TypeArguments="scg:List(sx:XmlNode)">[ActivityDisplayNameIndex(DisplayName)]</OutArgument>
                   </Assign.To>
@@ -216,7 +216,7 @@
                       </ui:InvokeWorkflowFile>
                       <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[NodeWithRepeatedDisplayName.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_11">
                         <If.Then>
-                          <Assign DisplayName="Assign: Target Name (local name)" sap2010:WorkflowViewState.IdRef="Assign_16">
+                          <Assign DisplayName="Assign TargetName (local name)" sap2010:WorkflowViewState.IdRef="Assign_16">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                             </Assign.To>
@@ -226,7 +226,7 @@
                           </Assign>
                         </If.Then>
                         <If.Else>
-                          <Assign DisplayName="Assign: Target Name (display name)" sap2010:WorkflowViewState.IdRef="Assign_17">
+                          <Assign DisplayName="Assign TargetName (display name)" sap2010:WorkflowViewState.IdRef="Assign_17">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                             </Assign.To>
