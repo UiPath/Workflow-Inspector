@@ -138,7 +138,7 @@
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="WorkflowIssue" />
                           </ActivityAction.Argument>
-                          <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about an issue." ArrayRow="[{WorkflowPath, WorkflowIssue(&quot;InternalPath&quot;), WorkflowIssue(&quot;NodeName&quot;), WorkflowCheck(0).ToString, WorkflowCheck(3).ToString, WorkflowCheck(5).ToString}]" DataTable="[io_Issues]" DisplayName="Add issues to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                          <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="Add information about an issue." ArrayRow="[{WorkflowPath.Replace(in_ProjectPath+&quot;\&quot;, &quot;&quot;), WorkflowIssue(&quot;InternalPath&quot;), WorkflowIssue(&quot;NodeName&quot;), WorkflowCheck(0).ToString, WorkflowCheck(3).ToString, WorkflowCheck(5).ToString}]" DataTable="[io_Issues]" DisplayName="Add issues to overall issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
                         </ActivityAction>
                       </ui:ForEachRow.Body>
                     </ui:ForEachRow>
@@ -150,7 +150,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwiVgOaAQ4CAQFXBZgBEgIBAlf/AVfWAgIBMV0LlQEWAgEDYw1jqQECASxkDWolAgEkaw2UAR0CAQRjZWN1AgEvYyZjOgIBLWdTZ1wCASpoZGh2AgEoZlBmYgIBJmSzAWTKAQIBJWuhAWu5AQIBInETkQEeAgEFdhV7LQIBHXwVfIkCAgEbfRWGAS0CAQ2HARWQASUCAQZ4X3h6AgEheXZ5hgECAR92uQJ21QICAR58mAF8hgICARyBAXSBAYQBAgEZf1l/YgIBF4ABaoABfAIBFYQBV4QBZwIBE4MBWIMBZgIBEYIBYIIBcAIBD33QA33tAwIBDocBkwGHAaUBAgELjQEbjQG2AwIBB40BxgKNAdMCAgEJjQGKAY0BuwICAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwiVgOaAQ4CAQFXBZgBEgIBAlf/AVfWAgIBMV0LlQEWAgEDYw1jqQECASxkDWolAgEkaw2UAR0CAQRjZWN1AgEvYyZjOgIBLWdTZ1wCASpoZGh2AgEoZlBmYgIBJmSzAWTKAQIBJWuhAWu5AQIBInETkQEeAgEFdhV7LQIBHXwVfIkCAgEbfRWGAS0CAQ2HARWQASUCAQZ4X3h6AgEheXZ5hgECAR92uQJ21QICAR58mAF8hgICARyBAXSBAYQBAgEZf1l/YgIBF4ABaoABfAIBFYQBV4QBZwIBE4MBWIMBZgIBEYIBYIIBcAIBD33QA33tAwIBDocBkwGHAaUBAgELjQEbjQHqAwIBB40B+gKNAYcDAgEJjQGKAY0B7wICAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -225,7 +225,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,1974" />
+      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,1854" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
