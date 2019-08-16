@@ -115,27 +115,31 @@
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="UnreachableNode" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
-            <If sap2010:Annotation.AnnotationText="An unreachable activity in a flowchart is a child of the unreachable FlowStep that does not have the attribute x:Name, so the path to the child should be retrieved, instead of the path to the FlowStep itself.&#xD;&#xA;&#xD;&#xA;In older versions of UiPath Studio, such an activity would be the first child of FlowStep.&#xD;&#xA;However, in newer versions, the first child of FlowStep is usually a WorkflowViewStateService.ViewState node, and the activity becomes the second child." Condition="[UnreachableNode.ChildNodes(0).LocalName = &quot;WorkflowViewStateService.ViewState&quot;]" DisplayName="If FlowStep's child is WorkflowViewStateService.ViewState" sap2010:WorkflowViewState.IdRef="If_2">
+            <If sap2010:Annotation.AnnotationText="An unreachable activity in a flowchart is a child of the unreachable FlowStep that does not have the attribute x:Name, so the path to the child should be retrieved, instead of the path to the FlowStep itself.&#xD;&#xA;In the case of CommentOut activities, there is no need to change the target node." Condition="[UnreachableNode.LocalName = &quot;FlowStep&quot;]" DisplayName="If node is FlowStep" sap2010:WorkflowViewState.IdRef="If_4">
               <If.Then>
-                <Assign DisplayName="Assign: UnreachableNode (skip first child)" sap2010:WorkflowViewState.IdRef="Assign_2">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="sx:XmlNode">[UnreachableNode]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="sx:XmlNode">[UnreachableNode.ChildNodes(1)]</InArgument>
-                  </Assign.Value>
-                </Assign>
+                <If sap2010:Annotation.AnnotationText="In older versions of UiPath Studio, such an activity would be the first child of FlowStep.&#xD;&#xA;However, in newer versions, the first child of FlowStep is usually a WorkflowViewStateService.ViewState node, and the activity becomes the second child." Condition="[UnreachableNode.ChildNodes(0).LocalName = &quot;WorkflowViewStateService.ViewState&quot;]" DisplayName="If FlowStep's child is WorkflowViewStateService.ViewState" sap2010:WorkflowViewState.IdRef="If_2">
+                  <If.Then>
+                    <Assign DisplayName="Assign: UnreachableNode (skip first child)" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="sx:XmlNode">[UnreachableNode]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="sx:XmlNode">[UnreachableNode.ChildNodes(1)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Then>
+                  <If.Else>
+                    <Assign DisplayName="Assign: UnreachableNode" sap2010:WorkflowViewState.IdRef="Assign_5">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="sx:XmlNode">[UnreachableNode]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="sx:XmlNode">[UnreachableNode.ChildNodes(0)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Else>
+                </If>
               </If.Then>
-              <If.Else>
-                <Assign DisplayName="Assign: UnreachableNode" sap2010:WorkflowViewState.IdRef="Assign_5">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="sx:XmlNode">[UnreachableNode]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="sx:XmlNode">[UnreachableNode.ChildNodes(0)]</InArgument>
-                  </Assign.Value>
-                </Assign>
-              </If.Else>
             </If>
             <If Condition="[UnreachableNode.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If unreachable node does not have an annotation" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
@@ -180,18 +184,18 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d29DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwjYgO4AQ4CAQFmBWa1CwIBLmcFbg4CASpvBbYBEgIBAmbBAWbXAQIBL2wwbHsCAS1pMWlCAgErb4sBb9sBAgEpdQuzARYCAQN2DYsBEgIBHYwBDbIBEgIBBHagBHb8BAIBHngRfxoCASSCARGJARoCAR+MARuMAXMCAQWOARGwARwCAQZ9Pn1dAgEnej96UAIBJYcBPocBXQIBIoQBP4QBUAIBIJMBE5gBKwIBF5kBE64BGAIBDa8BE68B3QECAQeWAViWAWYCARuVAViVAWkCARmTAcgCkwHlAgIBGJkBfJkBvgECAQ6bAReiASACAROlAResASACAQ+vAWevAX0CAQuvAT6vAVwCAQigAUKgAV0CARadAUOdAU8CARSqAUKqAXMCARKnAUOnAU8CARA=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d29DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5kb2N1bWVudGVkVW5yZWFjaGFibGVBY3Rpdml0aWVzLnhhbWwlYgO8AQ4CAQFmBWa1CwIBMGcFbg4CASxvBboBEgIBAmbBAWbXAQIBMWwwbHsCAS9pMWlCAgEtb4sBb9sBAgErdQu3ARYCAQN2DY8BEgIBHZABDbYBEgIBBHbrAnafAwIBHngRjQEWAgEfkAEbkAFzAgEFkgERtAEcAgEGeMACeJwDAgEgehWBAR4CASaEARWLAR4CASGXAROcASsCARedAROyARgCAQ2zAROzAd0BAgEHf0J/YQIBKXxDfFQCASeJAUKJAWECASSGAUOGAVQCASKaAViaAWYCARuZAViZAWkCARmXAcgClwHlAgIBGJ0BfJ0BvgECAQ6fARemASACAROpARewASACAQ+zAWezAX0CAQuzAT6zAVwCAQikAUKkAV0CARahAUOhAU8CARSuAUKuAXMCARKrAUOrAU8CARA=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="547,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="502,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="547,177">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="502,177">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -200,7 +204,16 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
       <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="509,325">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="200,198">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,433">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -235,16 +248,16 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="509,596" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="531,1085">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,596" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,1193">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="547,1219" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="569,1848">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="502,1327" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="524,1956">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -252,7 +265,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="609,1928" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,2116" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
