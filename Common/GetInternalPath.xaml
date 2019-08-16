@@ -69,6 +69,7 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Retrieves the path from the root activity in the workflow to the activity that is passed as parameter.&#xA;This is useful to localize the issue in workflows that have a large number of activities." DisplayName="Get Internal Path" sap2010:WorkflowViewState.IdRef="Sequence_9">
@@ -107,15 +108,29 @@
         </Assign>
       </Sequence>
     </While>
-    <Assign sap2010:Annotation.AnnotationText="Formats internal path string." DisplayName="Assign: out_InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_InternalPath]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[String.Join(" &gt; ", InternalPath.AsEnumerable.Reverse())]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwYSgN3DgIBAUw+TFUCAQJOBVUOAgEbVgVtDQIBB24FdQ4CAQNTMlNOAgEeUDNQRAIBHFcHbBICAQlWQFZ7AgEIczBzbAIBBnAxcEMCAQRYCWMOAgEPZAlrEgIBCliZAViyAgIBEFoNYRICARFpNmlSAgENZjdmSAIBC1obWl0CARJcEVzZAQIBF18RX/sBAgETXEhcWAIBGVy5AVzWAQIBGF9IX1gCARVfuwFf+AECARQ=</sads:DebugSymbol.Symbol>
+    <If Condition="[InternalPath.Count &gt; 0]" DisplayName="If there is internal path" sap2010:WorkflowViewState.IdRef="If_3">
+      <If.Then>
+        <Assign sap2010:Annotation.AnnotationText="Formats internal path string." DisplayName="Assign: out_InternalPath" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[out_InternalPath]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[String.Join(" &gt; ", InternalPath.AsEnumerable.Reverse())]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Then>
+      <If.Else>
+        <Assign sap2010:Annotation.AnnotationText="The activity is located in the top level of the hierarchy of activities, so there is no internal path." DisplayName="Assign: out_InternalPath (empty path)" sap2010:WorkflowViewState.IdRef="Assign_6">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[out_InternalPath]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">-</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d1RDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb21tb25cR2V0SW50ZXJuYWxQYXRoLnhhbWwdSwOGAQ4CAQFNPk1VAgECTwVWDgIBIlcFbg0CAQ5vBYQBCgIBA1QyVE4CASVRM1FEAgEjWAdtEgIBEFdAV3sCAQ9vE28wAgEEcQl4EgIBCnsJggESAgEGWQlkDgIBFmUJbBICARF2NHZwAgENczVzRwIBC4ABNIABNQIBCX01fUcCAQdZmQFZsgICARdbDWISAgEYajZqUgIBFGc3Z0gCARJbG1tdAgEZXRFd2QECAR5gEWD7AQIBGl1IXVgCASBduQFd1gECAR9gSGBYAgEcYLsBYPgBAgEb</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -153,14 +168,22 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="While_2" sap:VirtualizedContainerService.HintSize="637,792" />
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="637,87">
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="659,1257">
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,117">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="637,264" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="659,1434">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -168,7 +191,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="699,1337" />
+      <sap2010:ViewStateData Id="GetActivityIndex_1" sap:VirtualizedContainerService.HintSize="699,1554" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
