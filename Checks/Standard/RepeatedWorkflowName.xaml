@@ -104,7 +104,7 @@
           </ActivityAction.Argument>
           <If sap2010:Annotation.AnnotationText="Creates an index of workflow name and its paths (if repeated).&#xA;It considers only the name of the file and its extension, not the path." Condition="[WorkflowsNamesIndex.ContainsKey(Path.GetFileName(WorkflowFilepath))]" DisplayName="If workflow name was previously found" sap2010:WorkflowViewState.IdRef="If_3">
             <If.Then>
-              <AddToCollection x:TypeArguments="x:String" Collection="[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]" DisplayName="Add path of workflow with repeated name" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[WorkflowFilepath]" />
+              <AddToCollection x:TypeArguments="x:String" Collection="[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]" DisplayName="Add path of workflow with repeated name" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[WorkflowFilePath.Replace(in_ProjectPath+&quot;\&quot;, &quot;&quot;)]" />
             </If.Then>
             <If.Else>
               <Assign DisplayName="Assign WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath)) (initialization)" sap2010:WorkflowViewState.IdRef="Assign_6">
@@ -112,7 +112,7 @@
                   <OutArgument x:TypeArguments="scg:List(x:String)">[WorkflowsNamesIndex(Path.GetFileName(WorkflowFilepath))]</OutArgument>
                 </Assign.To>
                 <Assign.Value>
-                  <InArgument x:TypeArguments="scg:List(x:String)">[New List(Of String) From {WorkflowFilepath}]</InArgument>
+                  <InArgument x:TypeArguments="scg:List(x:String)">[New List(Of String) From {WorkflowFilePath.Replace(in_ProjectPath+"\", "")}]</InArgument>
                 </Assign.Value>
               </Assign>
             </If.Else>
@@ -134,7 +134,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgViugsCARljBXoSAgEOewWIARICAQNiyAFi3QECARpjjAFj4wECARhpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rigICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH3AQIBB2tGa4EBAgEXa/MBa4cCAgEVc0RzcQIBE3BFcH4CARKDAZgBgwGtAQIBCoMBOoMBjQECAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRXb3JrZmxvd05hbWUueGFtbBVeA4oBDgIBAWBYYIYBAgECYgViugsCARpjBXoSAgEOewWIARICAQNiyAFi3QECARtjjAFj4wECARlpC3cQAgEPe8ACe9cCAgEMgQELhQEQAgEEacgBaY8CAgEQaw9rvgICARRuD3UYAgERgQEZgQFEAgEFgwEPgwH3AQIBB2tGa4EBAgEYa/MBa7sCAgEVc0RzkQECARNwRXB+AgESgwGYAYMBrQECAQqDATqDAY0BAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
