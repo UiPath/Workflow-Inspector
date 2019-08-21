@@ -83,7 +83,7 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Initializes the issues table and read data about checks from checklist (chosen according to the system's culture settings)." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Initializes the issues table and reads data about checks from checklist (chosen according to the system's culture settings)." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="ProjectFolderExists" />
     </Sequence.Variables>
