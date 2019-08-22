@@ -105,7 +105,7 @@
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">//xaml:If[not(xaml:If.Then)] | //xaml:FlowDecision[not(xaml:FlowDecision.True)]</InArgument>
+        <InArgument x:TypeArguments="x:String">["//xaml:If[not(xaml:If.Then)] | //xaml:FlowDecision[not(xaml:FlowDecision.True) and not(@True)]"]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each node without a True block or without a True branch" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
@@ -152,7 +152,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRW1wdHlUaGVuQmxvY2sueGFtbBhiA5wBDgIBAWYFZrULAgEfZwVuDgIBG28FmgESAgECZsEBZtcBAgEgbDBsfwIBHmkxaUICARxvrQFv/QECARp1C5cBFgIBA3oNfyUCARSAAQ2VARICAQqWAQ2WAdcBAgEEfVJ9YAIBGHxSfFgCARZ6wgJ63wICARWAAXaAAa0BAgELggERiQEaAgEQjAERkwEaAgEMlgFhlgF3AgEIlgE4lgFWAgEFhwE8hwFMAgEThAE9hAFJAgERkQE8kQFiAgEPjgE9jgFJAgEN</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRW1wdHlUaGVuQmxvY2sueGFtbBhiA5wBDgIBAWYFZrULAgEfZwVuDgIBG28FmgESAgECZsEBZtcBAgEgbDBskgECAR5pMWlCAgEcb60Bb/0BAgEadQuXARYCAQN6DX8lAgEUgAENlQESAgEKlgENlgHXAQIBBH1SfWACARh8UnxYAgEWesICet8CAgEVgAF2gAGtAQIBC4IBEYkBGgIBEIwBEZMBGgIBDJYBYZYBdwIBCJYBOJYBVgIBBYcBPIcBTAIBE4QBPYQBSQIBEZEBPJEBYgIBD44BPY4BSQIBDQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
