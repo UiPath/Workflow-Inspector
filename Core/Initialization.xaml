@@ -52,6 +52,7 @@
       <x:String>System.Windows.Markup</x:String>
       <x:String>System.Xml.Serialization</x:String>
       <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Globalization</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -84,32 +85,25 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Initializes the issues table and reads data about checks from checklist (chosen according to the system's culture settings)." DisplayName="Initialization" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="x:Boolean" Name="ProjectFolderExists" />
-    </Sequence.Variables>
-    <ui:PathExists DisplayName="Path exists (project folder)" Exists="[ProjectFolderExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[io_ProjectPath]" PathType="Folder" />
-    <If Condition="[Not ProjectFolderExists]" DisplayName="If project path doesn't exist" sap2010:WorkflowViewState.IdRef="If_1">
-      <If.Then>
-        <ui:SelectFolder sap2010:Annotation.AnnotationText="Prompts user for a project path." DisplayName="Select folder" sap2010:WorkflowViewState.IdRef="SelectFolder_2" SelectedFolder="[io_ProjectPath]" />
-      </If.Then>
-    </If>
+    <Sequence DisplayName="Initialization of project path" sap2010:WorkflowViewState.IdRef="Sequence_7">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="ProjectFolderExists" />
+      </Sequence.Variables>
+      <ui:PathExists DisplayName="Path exists (project folder)" Exists="[ProjectFolderExists]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[io_ProjectPath]" PathType="Folder" />
+      <If Condition="[Not ProjectFolderExists]" DisplayName="If project path doesn't exist" sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Then>
+          <ui:SelectFolder sap2010:Annotation.AnnotationText="Prompts user for a project path." DisplayName="Select folder" sap2010:WorkflowViewState.IdRef="SelectFolder_2" SelectedFolder="[io_ProjectPath]" />
+        </If.Then>
+      </If>
+    </Sequence>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes datatable to hold issues found." DataTable="[out_Issues]" DisplayName="Build data table (project issues)" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Workflow_x0020_File&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Internal_x0020_Path&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Activity_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Issue&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Severity&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Suggestion&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Sequence sap2010:Annotation.AnnotationText="Based on the system's culture settings, chooses the appropriate checklist file and initializes the tables containing data about project checks and about workflow checks." DisplayName="Initialize checklist" sap2010:WorkflowViewState.IdRef="Sequence_5">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="ChecklistFilename" />
         <Variable x:TypeArguments="x:String" Name="ProjectChecksSheetName" />
         <Variable x:TypeArguments="x:String" Name="WorkflowChecksSheetName" />
-        <Variable x:TypeArguments="x:String" Name="SystemCulture" />
       </Sequence.Variables>
-      <Assign sap2010:Annotation.AnnotationText="Retrieves the system's culture to decide what checklist to use." DisplayName="Assign SystemCulture" sap2010:WorkflowViewState.IdRef="Assign_6">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[SystemCulture]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[System.Globalization.CultureInfo.InstalledUICulture.NativeName]</InArgument>
-        </Assign.Value>
-      </Assign>
-      <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the appropriate filenames and sheet names based on the system's culture." DisplayName="Switch (based on the system's culture)" Expression="[SystemCulture]" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+      <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the appropriate filenames and sheet names based on the system's culture." DisplayName="Switch (based on the system's culture)" Expression="[System.Globalization.CultureInfo.InstalledUICulture.NativeName]" sap2010:WorkflowViewState.IdRef="Switch`1_2">
         <Switch.Default>
           <Sequence DisplayName="Use English files and names" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Assign DisplayName="Assign ChecklistFilename (English)" sap2010:WorkflowViewState.IdRef="Assign_7">
@@ -268,11 +262,11 @@
         </ui:FilterDataTable.SelectColumns>
       </ui:FilterDataTable>
     </Sequence>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWxNVgOQAg4CAQFaBVq5AQIBZlsFXwoCAWBgBWDODgIBXWEFjgIQAgECWkZaXQIBaVqSAVqkAQIBZ1sTWy4CAWFdCV3QAQIBY2ByYIABAgFeaAdvEAIBWXAH2QEQAgEj2gEH4AEWAgEb4QEH8wEcAgET9AEH+gEWAgEL+wEHjQIcAgEDXbsBXc0BAgFkbTJtcgIBXGozakICAVpw3gFw7wECASSVAQm2ARQCAUi3AQnYARQCATdyC5MBFgIBJtoBiwHaAaMBAgEh3QEN3QE8AgEg2gGGAtoBoAICAR7aAa4C2gHDAgIBHOYBN+YBOgIBGukBOOkBPgIBGeEBkgLhAaoCAgEX4QFs4QGEAQIBFfABM/ABNgIBFPQBgQH0AZoBAgER9wEN9wE8AgEQ9AH+AfQBmQICAQ70AacC9AG8AgIBDIACN4ACOgIBCoMCOIMCPgIBCfsBlAL7Aa0CAgEH+wFs+wGFAQIBBYoCM4oCNgIBBJYBC50BFAIBVZ4BC6UBFAIBUaYBC60BFAIBTa4BC7UBFAIBSbgBC78BFAIBRMABC8cBFAIBQMgBC88BFAIBPNABC9cBFAIBOHMNehYCATN7DYIBFgIBL4MBDYoBFgIBK4sBDZIBFgIBJ5sBNpsBTgIBWJgBN5gBSgIBVqMBNqMBPAIBVKABN6ABTwIBUqsBNqsBPAIBUKgBN6gBUAIBTrMBNrMBUwIBTLABN7ABTwIBSr0BNr0BTgIBR7oBN7oBSgIBRcUBNsUBOgIBQ8IBN8IBTwIBQc0BNs0BOwIBP8oBN8oBUAIBPdUBNtUBUwIBO9IBN9IBTwIBOXg4eFACATZ1OXVMAgE0gAE4gAE/AgEyfTl9UQIBMIgBOIgBQAIBLoUBOYUBUgIBLJABOJABVQIBKo0BOY0BUQIBKA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXEluaXRpYWxpemF0aW9uLnhhbWxLVwOKAg4CAQFYBWIQAgFbYwVjzg4CAVhkBYgCEAIBAlwHXLsBAgFiXQdhDAIBXGNyY4ABAgFZagfTARACASPUAQfaARYCARvbAQftARwCARPuAQf0ARYCAQv1AQeHAhwCAQNcSFxfAgFlXJQBXKYBAgFjXRVdMAIBXV8LX9IBAgFfat4BaqACAgEkjwEJsAEUAgFHsQEJ0gEUAgE2bAuNARYCASXUAYsB1AGjAQIBIdcBDdcBPAIBINQBhgLUAaACAgEe1AGuAtQBwwICARzgATfgAToCARrjATjjAT4CARnbAZIC2wGqAgIBF9sBbNsBhAECARXqATPqATYCARTuAYEB7gGaAQIBEfEBDfEBPAIBEO4B/gHuAZkCAgEO7gGnAu4BvAICAQz6ATf6AToCAQr9ATj9AT4CAQn1AZQC9QGtAgIBB/UBbPUBhQECAQWEAjOEAjYCAQRfvQFfzwECAWCQAQuXARQCAVSYAQufARQCAVCgAQunARQCAUyoAQuvARQCAUiyAQu5ARQCAUO6AQvBARQCAT/CAQvJARQCATvKAQvRARQCATdtDXQWAgEydQ18FgIBLn0NhAEWAgEqhQENjAEWAgEmlQE2lQFOAgFXkgE3kgFKAgFVnQE2nQE8AgFTmgE3mgFPAgFRpQE2pQE8AgFPogE3ogFQAgFNrQE2rQFTAgFLqgE3qgFPAgFJtwE2twFOAgFGtAE3tAFKAgFEvwE2vwE6AgFCvAE3vAFPAgFAxwE2xwE7AgE+xAE3xAFQAgE8zwE2zwFTAgE6zAE3zAFPAgE4cjhyUAIBNW85b0wCATN6OHo/AgExdzl3UQIBL4IBOIIBQAIBLX85f1ICASuKATiKAVUCASmHATmHAVECASc=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="499,89" />
+      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="464,89" />
       <sap2010:ViewStateData Id="SelectFolder_2" sap:VirtualizedContainerService.HintSize="200,64">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -280,7 +274,15 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="499,212">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,212">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="499,465">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -289,13 +291,6 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="499,86">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="477,102">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -372,7 +367,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,1055">
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="499,913">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -381,7 +376,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,1728">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="521,1710">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -390,7 +385,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,1808" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="561,1790" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

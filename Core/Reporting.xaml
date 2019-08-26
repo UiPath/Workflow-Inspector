@@ -120,7 +120,7 @@
             </Assign.Value>
           </Assign>
           <ui:CopyFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Makes a working copy of the report template." Destination="[ReportPath]" DisplayName="Copy file (report template)" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_ReportTemplatePath]" />
-          <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Outputs results to report file." DisplayName="Excel application scope (report)" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[ReportPath]">
+          <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Outputs results to report file." DisplayName="Excel application scope (report)" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[ReportPath]">
             <ui:ExcelApplicationScope.Body>
               <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                 <ActivityAction.Argument>
@@ -136,7 +136,7 @@
         <ui:LogMessage DisplayName="Log message (no issues found)" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="No issues found in the project." />
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sGVUDjAEOAgEBVgWKAQoCAQJWE1YyAgEDWAmFARQCAQaIAQmIAawBAgEEXAtxEAIBF3ILeRQCARN6C3qoAgIBDnsLhAEmAgEHiAGIAYgBqQECAQVce1ynAQIBGF4PZRgCAR9oD28YAgEadzZ3qwECARZ0N3RDAgEUepABep4BAgEReowCeqUCAgEPe/MBe4ECAgEMgQERgQGiAgIBCGM6Y0ECASJgO2BHAgEgbTptSQIBHWo7akcCARuBAa8BgQG8AQIBCoEBlwKBAZ8CAgEJ</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0xDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFJlcG9ydGluZy54YW1sGVUDjAEOAgEBVgWKAQoCAQJWE1YyAgEDWAmFARQCAQaIAQmIAawBAgEEXAtxEAIBF3ILeRQCARN6C3qoAgIBDnsLhAEmAgEHiAGIAYgBqQECAQVce1ynAQIBGF4PZRgCAR9oD28YAgEadzZ3qwECARZ0N3RDAgEUepABep4BAgEReowCeqUCAgEPe4MCe5ECAgEMgQERgQGiAgIBCGM6Y0ECASJgO2BHAgEgbTptSQIBHWo7akcCARuBAa8BgQG8AQIBCoEBlwKBAZ8CAgEJ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
