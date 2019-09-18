@@ -95,7 +95,7 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Using the Parallel activity can make the workflow harder to understand and might lead to unexpected results when combined with UI interactions. If it is necessary to use the Parallel activity, include an annotation to explain the situation.&#xD;&#xA;For more about the Parallel activity, please refer to https://docs.microsoft.com/en-us/dotnet/api/system.activities.statements.parallel?view=netframework-4.8&#xA;&#xA;The steps to find undocumented usage of the Parallel activity are as follows:&#xA;1 - Retrieve nodes representing the Parallel activity&#xA;2 - Verify whether the node has an annotation" DisplayName="Check For Undocumented Parallel Activity" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Using the Parallel activity can make the workflow harder to understand and might lead to unexpected results when combined with UI interactions. If it is necessary to use the Parallel activity, include an annotation to explain the situation.&#xA;For more about the Parallel activity, please refer to https://docs.microsoft.com/en-us/dotnet/api/system.activities.statements.parallel?view=netframework-4.8&#xA;&#xA;The steps to find undocumented usage of the Parallel activity are as follows:&#xA;1 - Retrieve nodes representing the Parallel activity&#xA;2 - Verify whether the node has an annotation" DisplayName="Check For Undocumented Parallel Activity" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
     </Sequence.Variables>
@@ -114,7 +114,7 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="ParallelActivityNode" />
           </ActivityAction.Argument>
-          <If Condition="[ParallelActivityNode.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If check fails" sap2010:WorkflowViewState.IdRef="If_6">
+          <If Condition="[ParallelActivityNode.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If activity does not have an annotation" sap2010:WorkflowViewState.IdRef="If_6">
             <If.Then>
               <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_8">
                 <Sequence.Variables>
@@ -212,7 +212,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1659" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1379" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
