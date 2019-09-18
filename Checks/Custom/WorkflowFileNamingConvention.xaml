@@ -96,19 +96,18 @@
       <AssemblyReference>UiPath.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows in a project should be named according to the project's naming conventions.  &#xD;&#xA;&#xD;&#xA;This check receives a regular expression that dictates the naming convention for workflow files. " DisplayName="Check For Workflow File Naming Convention" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows in a project should be named according to the project's naming conventions.  &#xA;&#xA;This check receives a regular expression that dictates the naming convention for workflow files. " DisplayName="Check For Workflow File Naming Convention" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="XPathExpression" />
-      <Variable x:TypeArguments="ui:GenericValue" Name="WorkflowFileNamingPattern" />
+      <Variable x:TypeArguments="x:String" Name="WorkflowFileNamingPattern" />
       <Variable x:TypeArguments="x:Boolean" Name="WorkflowFileFollowsNamingConvention" />
     </Sequence.Variables>
     <ui:BuildDataTable sap2010:Annotation.AnnotationText="Initializes a data table to hold the workflow's issues. It'll be merged to the table containing all issues in the project." DataTable="[out_WorkflowIssues]" DisplayName="Build data table with workflow issues" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;InternalPath&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;NodeName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign DisplayName="Assign WorkflowFileNamingPattern" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
-        <OutArgument x:TypeArguments="ui:GenericValue">[WorkflowFileNamingPattern]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[WorkflowFileNamingPattern]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="ui:GenericValue">[in_CheckArguments("NamingPattern")]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_CheckArguments("NamingPattern")]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:IsMatch sap2010:Annotation.AnnotationText="Verifies whether the workflow name matches the pattern specified in the checklist." DisplayName="Is match" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[Path.GetFileNameWithoutExtension(in_WorkflowPath)]" Pattern="[WorkflowFileNamingPattern]" RegexOption="Compiled" Result="[WorkflowFileFollowsNamingConvention]" />
@@ -117,7 +116,7 @@
         <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;-&quot;, &quot;Workflow&quot;}]" DataTable="[out_WorkflowIssues]" DisplayName="Add issue to local issues table" sap2010:WorkflowViewState.IdRef="AddDataRow_5" />
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d2hDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFdvcmtmbG93RmlsZU5hbWluZ0NvbnZlbnRpb24ueGFtbA9jA3kOAgEBaQVptQsCARNqBXEOAgEOcgVy9QICAQlzBXcKAgECacEBadcBAgEUbzdvWwIBEWw4bFMCAQ9y0QFyhgICAQ1yywJy8gICAQtyjwJyrAICAQpzE3M+AgEDdQl13gECAQV1aHV+AgEHdTR1XQIBBg==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2hDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFdvcmtmbG93RmlsZU5hbWluZ0NvbnZlbnRpb24ueGFtbA9jA3gOAgEBaAVotQsCARRpBXAOAgEPcQVx9QICAQlyBXYKAgECaMEBaNcBAgEVbjBuVAIBEmsxa0wCARBx0QFxhgICAQ5xywJx8gICAQxxjwJxrAICAQpyE3I+AgEDdAl03gECAQV0aHR+AgEHdDR0XQIBBg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -146,7 +145,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,914" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="526,874" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
