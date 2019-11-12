@@ -114,7 +114,7 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithClick" />
           </ActivityAction.Argument>
-          <If sap2010:Annotation.AnnotationText="Checks whether both the attributes SimulateClick and SendWindowMessages are false, and whether the activity has no annotation." Condition="[NodeWithClick.Attributes(&quot;SimulateClick&quot;).Value = &quot;False&quot; And NodeWithClick.Attributes(&quot;SendWindowMessages&quot;).Value = &quot;False&quot; And NodeWithClick.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If default click is being used" sap2010:WorkflowViewState.IdRef="If_3">
+          <If sap2010:Annotation.AnnotationText="Checks whether both the attributes SimulateClick and SendWindowMessages are false, and whether the activity has no annotation." Condition="[NodeWithClick.Attributes(&quot;SimulateClick&quot;).Value = &quot;False&quot; AndAlso NodeWithClick.Attributes(&quot;SendWindowMessages&quot;) IsNot Nothing AndAlso NodeWithClick.Attributes(&quot;SendWindowMessages&quot;).Value = &quot;False&quot; AndAlso NodeWithClick.Attributes(&quot;sap2010:Annotation.AnnotationText&quot;) Is Nothing]" DisplayName="If default click is being used" sap2010:WorkflowViewState.IdRef="If_3">
             <If.Then>
               <Sequence DisplayName="Add issue" sap2010:WorkflowViewState.IdRef="Sequence_10">
                 <Sequence.Variables>
@@ -156,7 +156,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5kb2N1bWVudGVkRGVmYXVsdENsaWNrLnhhbWwaYgOgAQ4CAQFmBWa1CwIBIWcFbg4CAR1vBZ4BEgIBAmbBAWbXAQIBImwwbEMCASBpMWlCAgEeb5MBb+MBAgEcdQubARACAQN1vAF1uwMCAQR3D5kBGgIBBXwRgQEpAgEWggERlwEWAgEMmAERmAHbAQIBBn9Wf2QCARp+Vn5lAgEYfMYCfOMCAgEXggF6ggG6AQIBDYQBFYsBHgIBEo4BFZUBHgIBDpgBZZgBewIBCpgBPJgBWgIBB4kBQIkBWQIBFYYBQYYBTQIBE5MBQJMBbwIBEZABQZABTQIBDw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVW5kb2N1bWVudGVkRGVmYXVsdENsaWNrLnhhbWwaYgOgAQ4CAQFmBWa1CwIBIWcFbg4CAR1vBZ4BEgIBAmbBAWbXAQIBImwwbEMCASBpMWlCAgEeb5MBb+MBAgEcdQubARACAQN1vAF1kgQCAQR3D5kBGgIBBXwRgQEpAgEWggERlwEWAgEMmAERmAHbAQIBBn9Wf2QCARp+Vn5lAgEYfMYCfOMCAgEXggF6ggG6AQIBDYQBFYsBHgIBEo4BFZUBHgIBDpgBZZgBewIBCpgBPJgBWgIBB4kBQIkBWQIBFYYBQYYBTQIBE5MBQJMBbwIBEZABQZABTQIBDw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
