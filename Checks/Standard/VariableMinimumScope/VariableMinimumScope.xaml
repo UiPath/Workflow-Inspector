@@ -135,7 +135,7 @@
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:Boolean" Name="UsageFound" />
                     </Sequence.Variables>
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the scope of the container." DisplayName="Variable Used By Element" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\Custom\VariableMinimumScope\VariableMinimumScope_VariableUsedInScope.xaml">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Check if the variable is used in the scope of the container." DisplayName="Variable Used By Element" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Checks\Standard\VariableMinimumScope\VariableMinimumScope_VariableUsedInScope.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_Node">[ContainerNode]</InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[VariableNode.Value]</InArgument>
@@ -166,18 +166,18 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d3VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlTWluaW11bVNjb3BlXFZhcmlhYmxlTWluaW11bVNjb3BlLnhhbWweYQOqAQ4CAQFlBWW1CwIBJ2YFbQ4CASNuBagBEgIBAmXBAWXXAQIBKGswa48BAgEmaDFoQgIBJG6JAW7ZAQIBInQLpQEWAgEDeA1/FgIBHIABDaQBGgIBBH0+fYkBAgEfej96TgIBHYAB7AGAAf0BAgEbhgEToQEeAgEFigEVkAEtAgEUkQEVoAEaAgEGjgFZjgFlAgEZjAFSjAFhAgEXjQFYjQFsAgEWigGmAooB+AICARWRAagBkQG6AQIBB5MBGZ4BJAIBCZcBG5wBMwIBDp0BG50B7QECAQqaAWCaAW4CARKZAWCZAW8CARCXAdAClwHtAgIBD50Bd50BjQECAQydAUadAWwCAQs=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVmFyaWFibGVNaW5pbXVtU2NvcGVcVmFyaWFibGVNaW5pbXVtU2NvcGUueGFtbB5hA6oBDgIBAWUFZbULAgEnZgVtDgIBI24FqAESAgECZcEBZdcBAgEoazBrjwECASZoMWhCAgEkbokBbtkBAgEidAulARYCAQN4DX8WAgEcgAENpAEaAgEEfT59iQECAR96P3pOAgEdgAHsAYAB/QECARuGAROhAR4CAQWKARWQAS0CARSRARWgARoCAQaOAVmOAWUCARmMAVKMAWECAReNAViNAWwCARaKAaYCigH6AgIBFZEBqAGRAboBAgEHkwEZngEkAgEJlwEbnAEzAgEOnQEbnQHtAQIBCpoBYJoBbgIBEpkBYJkBbwIBEJcB0AKXAe0CAgEPnQF3nQGNAQIBDJ0BRp0BbAIBCw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="540,59">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="540,116">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="540,60">
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="540,117">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -251,7 +251,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="562,1784">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="562,1898">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -259,7 +259,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,1864" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="602,2018" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
