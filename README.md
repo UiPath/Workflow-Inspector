@@ -9,3 +9,4 @@ Before making a pull request, please make sure of the following:
 - Workflows that implement new checks should pass the existing checks
 - Add a clear explanation of the check in the Checklist file
 - If a check is not universally applicable to all RPA projects, it should be added as a Custom check and be set by default to OFF in the Checklist file
+- Add your name as the author of the check as well as a form of contact (like your GitHub profile page)
