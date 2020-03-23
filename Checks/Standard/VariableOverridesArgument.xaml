@@ -111,7 +111,7 @@
           <InArgument x:TypeArguments="scg:List(x:String)">[new List(of String)]</InArgument>
         </Assign.Value>
       </Assign>
-      <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[in_XMLTree.DocumentElement.SelectNodes(&quot;//*/x:Property/@Name&quot;, in_NamespaceManager )]">
+      <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[in_XMLTree.DocumentElement.SelectNodes(&quot;/xaml:Activity/x:Members/x:Property/@Name&quot;, in_NamespaceManager )]">
         <ui:ForEach.Body>
           <ActivityAction x:TypeArguments="sx:XmlNode">
             <ActivityAction.Argument>
@@ -127,7 +127,7 @@
         <OutArgument x:TypeArguments="sx:XmlNodeList">[VariableNodes]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="sx:XmlNodeList">[in_XMLTree.DocumentElement.SelectNodes("//*/xaml:Variable", in_NamespaceManager)]</InArgument>
+        <InArgument x:TypeArguments="sx:XmlNodeList">[in_XMLTree.DocumentElement.SelectNodes("//xaml:Variable", in_NamespaceManager)]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="All &quot;Variable&quot; nodes defined in the workflow." DisplayName="For each variable node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[VariableNodes]">
@@ -168,7 +168,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlT3ZlcnJpZGVzQXJndW1lbnQueGFtbB9jA6wBDgIBAWgFaLULAgEpaQV8EAIBHn0FhAEOAgEYhQEFqgESAgECaMEBaNcBAgEqagdxEAIBJXIHexQCAR+CATaCAYgBAgEbfzd/RgIBGYUB5AGFAfUBAgEXiwELpwEWAgEDbzxvUQIBKGw9bE0CASZyfHLeAQIBJHgNeMMBAgEgjwENlgEWAgETlwENpgESAgEEeER4VgIBIniyAXjAAQIBIZQBOJQBWwIBFpEBOZEBRwIBFJcBqwGXAfYBAgEFmQERpAEcAgEGnQETogErAgENowETowHfAQIBB6ABWKABZgIBEZ8BWJ8BYgIBD50ByAKdAeUCAgEOowFpowF/AgELowE+owFeAgEI</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVmFyaWFibGVPdmVycmlkZXNBcmd1bWVudC54YW1sH2MDrAEOAgEBaAVotQsCASlpBXwQAgEefQWEAQ4CARiFAQWqARICAQJowQFo1wECASpqB3EQAgElcgd7FAIBH4IBNoIBhgECARt/N39GAgEZhQHkAYUB9QECAReLAQunARYCAQNvPG9RAgEobD1sTQIBJnJ8cvMBAgEkeA14wwECASCPAQ2WARYCAROXAQ2mARICAQR4RHhWAgEieLIBeMABAgEhlAE4lAFbAgEWkQE5kQFHAgEUlwGrAZcB9gECAQWZARGkARwCAQadAROiASsCAQ2jAROjAd8BAgEHoAFYoAFmAgERnwFYnwFiAgEPnQHIAp0B5QICAQ6jAWmjAX8CAQujAT6jAV4CAQg=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

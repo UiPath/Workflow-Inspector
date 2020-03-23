@@ -93,6 +93,7 @@
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Exceptions should be caught with a purpose, not only to prevent error messages. For this reason, it is recommended to insert log messages in the Catch block of a Try Catch activity, in addition to the exception handling itself. For more about error handling, refer to https://studio.uipath.com/docs/project-organization#section-error-handling&#xA;&#xA;The steps to find empty Catch blocks are as follows:&#xA;1 - Retrieve Try Catch activity nodes&#xA;2 - Check whether there are any activities inside the node representing the Catch block. All Catch blocks have at least one node inside it (i.e., the node specifying the exception), and more if there are activities." DisplayName="Check For Empty Catch Block" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -118,21 +119,30 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="InternalPath" />
               <Variable x:TypeArguments="x:String" Name="TargetName" />
+              <Variable x:TypeArguments="sx:XmlNode" Name="IssueTryCatchNode" />
             </Sequence.Variables>
+            <Assign sap2010:Annotation.AnnotationText="For a more informative result, sets the issue's target to be the TryCatch activity instead of the Catch block itself, since all Catch blocks have the same name that cannot be changed." DisplayName="Assign IssueTryCatch" sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="sx:XmlNode">[IssueTryCatchNode]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="sx:XmlNode">[EmptyCatchNode.ParentNode.ParentNode]</InArgument>
+              </Assign.Value>
+            </Assign>
             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Retrieves the path to the activity, considering the hierarchy of activities in the workflow." DisplayName="Get activity's internal path" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\GetInternalPath.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[EmptyCatchNode]</InArgument>
+                <InArgument x:TypeArguments="sx:XmlNode" x:Key="in_ActivityNode">[IssueTryCatchNode]</InArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_InternalPath">[InternalPath]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[EmptyCatchNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="Retrieves the target's display name, if it is defined." Condition="[IssueTryCatchNode.Attributes(&quot;DisplayName&quot;) Is Nothing]" DisplayName="If activity has DisplayName" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Assign DisplayName="Assign TargetName (local name)" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[EmptyCatchNode.LocalName]</InArgument>
+                    <InArgument x:TypeArguments="x:String">[IssueTryCatchNode.LocalName]</InArgument>
                   </Assign.Value>
                 </Assign>
               </If.Then>
@@ -142,7 +152,7 @@
                     <OutArgument x:TypeArguments="x:String">[TargetName]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[EmptyCatchNode.Attributes("DisplayName").Value]</InArgument>
+                    <InArgument x:TypeArguments="x:String">[IssueTryCatchNode.Attributes("DisplayName").Value]</InArgument>
                   </Assign.Value>
                 </Assign>
               </If.Else>
@@ -152,25 +162,32 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRW1wdHlDYXRjaEJsb2NrLnhhbWwYYgOcAQ4CAQFmBWa1CwIBH2cFbg4CARtvBZoBEgIBAmbBAWbXAQIBIGwwbFwCAR5pMWlCAgEcb5MBb+MBAgEadQuXARYCAQN6DX8lAgEUgAENlQESAgEKlgENlgHXAQIBBH1SfWACARh8UnxiAgEWesICet8CAgEVgAF2gAG3AQIBC4IBEYkBGgIBEIwBEZMBGgIBDJYBYZYBdwIBCJYBOJYBVgIBBYcBPIcBVgIBE4QBPYQBSQIBEZEBPJEBbAIBD44BPY4BSQIBDQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcRW1wdHlDYXRjaEJsb2NrLnhhbWwbYwOmAQ4CAQFnBWe1CwIBJGgFbw4CASBwBaQBEgIBAmfBAWfXAQIBJW0wbVwCASNqMWpCAgEhcJMBcOMBAgEfdguhARYCAQN8DYMBFgIBGoQBDYkBJQIBFIoBDZ8BEgIBCqABDaAB1wECAQSBATqBAWACAR1+O35OAgEbhwFShwFgAgEYhgFShgFlAgEWhAHCAoQB3wICARWKAXaKAboBAgELjAERkwEaAgEQlgERnQEaAgEMoAFhoAF3AgEIoAE4oAFWAgEFkQE8kQFZAgETjgE9jgFJAgERmwE8mwFvAgEPmAE9mAFJAgEN</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="352,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="352,120.666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="352,147">
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="352,156">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,129">
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="314,156">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,132">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -179,9 +196,9 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="314,93">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60.6666666666667" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="314,98">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -191,15 +208,15 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,448">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,652">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="352,582" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="374,1256">
+      <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="352,788.666666666667" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="374,1498">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -207,7 +224,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="414,1336" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="414,1778" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

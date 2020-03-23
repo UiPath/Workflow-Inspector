@@ -107,7 +107,7 @@
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">//x:Property</InArgument>
+        <InArgument x:TypeArguments="x:String">/xaml:Activity/x:Members/x:Property</InArgument>
       </Assign.Value>
     </Assign>
     <Assign DisplayName="Assign ArgumentNamingPattern" sap2010:WorkflowViewState.IdRef="Assign_3">
@@ -147,7 +147,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcQXJndW1lbnROYW1pbmdDb252ZW50aW9uLnhhbWwYYwOXAQ4CAQFoBWi1CwIBH2kFcA4CARtxBXgOAgEWeQWVARICAQJowQFo1wECASBuMG48AgEeazFrQgIBHHYwdlQCARlzMXNIAgEXeYgBedgBAgEVfwuSARYCAQOEAQ2EAfYCAgEPhQENjAEWAgELjQENkQESAgEEhAHiAYQBlQICARSEAdYChAHzAgIBEoQBngKEAbcCAgEQigE4igE5AgEOhwE5hwFHAgEMjQEbjQE8AgEFjwERjwGAAgIBB48BigGPAaABAgEJjwE8jwF/AgEI</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2ZDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcQXJndW1lbnROYW1pbmdDb252ZW50aW9uLnhhbWwYYwOXAQ4CAQFoBWi1CwIBH2kFcA4CARtxBXgOAgEWeQWVARICAQJowQFo1wECASBuMG5TAgEeazFrQgIBHHYwdlQCARlzMXNIAgEXeYgBedgBAgEVfwuSARYCAQOEAQ2EAfYCAgEPhQENjAEWAgELjQENkQESAgEEhAHiAYQBlQICARSEAdYChAHzAgIBEoQBngKEAbcCAgEQigE4igE5AgEOhwE5hwFHAgEMjQEbjQE8AgEFjwERjwGAAgIBB48BigGPAaABAgEJjwE8jwF/AgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -192,7 +192,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1449" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="564,1689" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
