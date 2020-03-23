@@ -16,7 +16,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Data about checks to be performed at project level." Name="out_ProjectChecklist" Type="OutArgument(sd:DataTable)" />
     <x:Property sap2010:Annotation.AnnotationText="Data about checks to be performed at workflow level." Name="out_WorkflowChecklist" Type="OutArgument(sd:DataTable)" />
     <x:Property sap2010:Annotation.AnnotationText="Path to report template to be used. This depends on the system's culture settings." Name="out_ReportTemplatePath" Type="OutArgument(x:String)" />
-    <x:Property sap2010:Annotation.AnnotationText="Language to be used by Workflow Inspector when generating reports." Name="in_Language" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Two-letter ISO 639 code of the language to be used by Workflow Inspector when generating reports." Name="in_Language" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -420,7 +420,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="592.666666666667,2273.33333333333" />
+      <sap2010:ViewStateData Id="Initialization_1" sap:VirtualizedContainerService.HintSize="592.666666666667,2073.33333333333" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
