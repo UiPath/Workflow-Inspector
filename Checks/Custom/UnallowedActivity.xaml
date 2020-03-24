@@ -98,7 +98,7 @@
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflows should contain only activities allowed by the Centre of Excellence (COE). If an activity is present in the blacklist or is not present in the whitelist, it should not be used. &#xD;&#xA;&#xD;&#xA;The whitelist and the blacklist are passed as arguments to this check, and they contain names of activities as specified by the last part of their class name (for example, &quot;Sequence&quot; instead of &quot;System.Activities.Statements.Sequence&quot; and &quot;SetCredential&quot; instead of &quot;UiPath.Core.Activities.SetCredential&quot;). &#xD;&#xA;&#xD;&#xA;The class name of an activity can be found at the top of the Properties panel in UiPath Studio.&#xD;&#xA;&#xA;The steps to find unallowed activities are as follows:&#xA;1 - Get all activities in the workflow&#xA;2 - Verify whether the activity's local name is in the white list and whether it is not in the blacklist" DisplayName="Check For Unallowed Activity" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="Workflows should contain only activities allowed by the Centre of Excellence (COE). If an activity is present in the blacklist or is not present in the whitelist, it should not be used. &#xA;&#xA;The whitelist and the blacklist are passed as arguments to this check, and they contain names of activities as specified by the last part of their class name (for example, &quot;Sequence&quot; instead of &quot;System.Activities.Statements.Sequence&quot; and &quot;SetCredential&quot; instead of &quot;UiPath.Core.Activities.SetCredential&quot;). &#xA;&#xA;The class name of an activity can be found at the top of the Properties panel in UiPath Studio.&#xA;&#xA;The steps to find unallowed activities are as follows:&#xA;1 - Get all activities in the workflow&#xA;2 - Verify whether the activity's local name is not in the white list and whether it is in the blacklist" DisplayName="Check For Unallowed Activity" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="XPathExpression" />
       <Variable x:TypeArguments="scg1:HashSet(x:String)" Name="ActivitiesWhitelist" />
@@ -179,11 +179,11 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFVuYWxsb3dlZEFjdGl2aXR5LnhhbWwhZQO3AQ4CAQFrBWu1CwIBKmwFcw4CASZ0BYUBEAIBHYYBBbUBEgIBAmvBAWvXAQIBK3EwcXcCASluMW5CAgEndQd8EAIBIn0HhAEQAgEehgGYAYYB6AECARyMAQuyARACAQN6QHq4AQIBJXdBd1YCASOCAUCCAbgBAgEhf0F/VgIBH4wBGYwB7wECAQSOAQ+wARoCAQWTARGYASkCARaZARGuARYCAQyvARGvAdsBAgEGlgFWlgFkAgEalQFWlQFkAgEYkwHGApMB4wICAReZAXqZAbkBAgENmwEVogEeAgESpQEVrAEeAgEOrwFlrwF7AgEKrwE8rwFaAgEHoAFAoAFYAgEVnQFBnQFNAgETqgFAqgFuAgERpwFBpwFNAgEP</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d11DOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFVuYWxsb3dlZEFjdGl2aXR5LnhhbWwhZQO3AQ4CAQFrBWu1CwIBKmwFcw4CASZ0BYUBEAIBHYYBBbUBEgIBAmvBAWvXAQIBK3EwcXcCASluMW5CAgEndQd8EAIBIn0HhAEQAgEehgGYAYYB6AECARyMAQuyARACAQN6QHq4AQIBJXdBd1YCASOCAUCCAbgBAgEhf0F/VgIBH4wBGYwB7wECAQSOAQ+wARoCAQWTARGYASkCARaZARGuARYCAQyvARGvAdsBAgEGlgFWlgFkAgEalQFWlQFkAgEYkwHGApMB4wICAReZAXqZAbkBAgENmwEVogEeAgESpQEVrAEeAgEOrwFlrwF7AgEKrwE8rwFaAgEHoAFAoAFYAgEVnQFBnQFNAgETqgFAqgFuAgERpwFBpwFNAgEP</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="480,116">
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="480,120.666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -245,7 +245,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEach`1_5" sap:VirtualizedContainerService.HintSize="480,730" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1875">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="502,1906.66666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -253,7 +253,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1955" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="542,1986.66666666667" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
