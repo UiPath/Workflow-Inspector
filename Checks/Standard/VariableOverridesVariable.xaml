@@ -106,7 +106,7 @@
         <OutArgument x:TypeArguments="sx:XmlNodeList">[VariableNodes]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="sx:XmlNodeList">[in_XMLTree.DocumentElement.SelectNodes("//*/xaml:Variable", in_NamespaceManager)]</InArgument>
+        <InArgument x:TypeArguments="sx:XmlNodeList">[in_XMLTree.DocumentElement.SelectNodes("//xaml:Variable", in_NamespaceManager)]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="All &quot;Variable&quot; nodes defined in the workflow." DisplayName="For each variable node" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[VariableNodes]">
@@ -187,7 +187,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2VDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcQ3VzdG9tXFZhcmlhYmxlT3ZlcnJpZGVzVmFyaWFibGUueGFtbCJjA78BDgIBAWcFZ7ULAgEwaAVvDgIBKnAFvQESAgECZ8EBZ9cBAgExbTZtiAECAS1qN2pGAgErcOQBcPUBAgEpdgu6ARYCAQN8DYMBFgIBJYQBDYsBFgIBIIwBDZMBFgIBGpQBDbkBGgIBBIEBOIEBVwIBKH45fkcCASaJATqJAVYCASOGATuGAUoCASGRAT6RAYYBAgEdjgE/jgFUAgEblAGNAZQBpAECARmaARO2AR4CAQWeARWlAR4CARWmARW1ARoCAQajAUCjAWkCARigAUGgAVECARamAaMBpgHuAQIBB6gBGbMBJAIBCKwBG7EBMwIBD7IBG7IB6QECAQmvAWCvAW4CAROuAWCuAXACARGsAdACrAHtAgIBELIBc7IBiQECAQ2yAUayAWgCAQo=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2dDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcVmFyaWFibGVPdmVycmlkZXNWYXJpYWJsZS54YW1sImMDvwEOAgEBZwVntQsCATBoBW8OAgEqcAW9ARICAQJnwQFn1wECATFtNm2GAQIBLWo3akYCAStw5AFw9QECASl2C7oBFgIBA3wNgwEWAgElhAENiwEWAgEgjAENkwEWAgEalAENuQEaAgEEgQE4gQFXAgEofjl+RwIBJokBOokBVgIBI4YBO4YBSgIBIZEBPpEBhgECAR2OAT+OAVQCARuUAY0BlAGkAQIBGZoBE7YBHgIBBZ4BFaUBHgIBFaYBFbUBGgIBBqMBQKMBaQIBGKABQaABUQIBFqYBowGmAe4BAgEHqAEZswEkAgEIrAEbsQEzAgEPsgEbsgHpAQIBCa8BYK8BbgIBE64BYK4BcAIBEawB0AKsAe0CAgEQsgFzsgGJAQIBDbIBRrIBaAIBCg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

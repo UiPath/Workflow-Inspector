@@ -2,6 +2,7 @@
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
@@ -81,10 +82,31 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Performs the workflow checks and adds eventual issues to the Issues table." DisplayName="Workflow Checks" sap2010:WorkflowViewState.IdRef="Sequence_8">
-    <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Parses and checks each workflow file  (.xaml file) in the project." DisplayName="For each workflow file in project folder" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(in_ProjectPath, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" Name="ProjectWorkflows" />
+      <Variable x:TypeArguments="x:Int32" Name="ProgressCounter" />
+    </Sequence.Variables>
+    <Assign DisplayName="Assign ProjectWorkflows" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[ProjectWorkflows]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_ProjectPath, "*.xaml", SearchOption.AllDirectories)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign ProgressCounter (initialize)" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[ProgressCounter]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">1</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEach x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Parses and checks each workflow file  (.xaml file) in the project." DisplayName="For each workflow file in project folder" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[ProjectWorkflows]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
@@ -121,7 +143,7 @@
                         <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_CheckArguments">[CheckArguments]</OutArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
-                    <ui:LogMessage DisplayName="Log message (workflow and check)" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;Checking workflow {0} for {1}&quot;, Path.GetFileName(WorkflowPath), WorkflowCheck(0))]" />
+                    <ui:LogMessage DisplayName="Log message (workflow and check)" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;Workflow check {0} of {1}: Checking {2} for {3}.&quot;, ProgressCounter.ToString, (ProjectWorkflows.Length * in_WorkflowChecklist.Rows.Count).ToString, Path.GetFileName(WorkflowPath), WorkflowCheck(0))]" />
                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic filename that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check's path." DisplayName="Workflow Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="[WorkflowCheck(1).ToString]">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="sx:XmlDocument" x:Key="in_XMLTree">[XMLTree]</InArgument>
@@ -142,6 +164,14 @@
                         </ActivityAction>
                       </ui:ForEachRow.Body>
                     </ui:ForEachRow>
+                    <Assign DisplayName="Assign ProgressCounter (increment)" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[ProgressCounter]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[ProgressCounter + 1]</InArgument>
+                      </Assign.Value>
+                    </Assign>
                   </Sequence>
                 </ActivityAction>
               </ui:ForEachRow.Body>
@@ -150,10 +180,12 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwiVgOaAQ4CAQFXBZgBEgIBAlf/AVfWAgIBMV0LlQEWAgEDYw1jqQECASxkDWolAgEkaw2UAR0CAQRjZWN1AgEvYyZjOgIBLWdTZ1wCASpoZGh2AgEoZlBmYgIBJmSzAWTKAQIBJWuhAWu5AQIBInETkQEeAgEFdhV7LQIBHXwVfIkCAgEbfRWGAS0CAQ2HARWQASUCAQZ4X3h6AgEheXZ5hgECAR92uQJ21QICAR58mAF8hgICARyBAXSBAYQBAgEZf1l/YgIBF4ABaoABfAIBFYQBV4QBZwIBE4MBWIMBZgIBEYIBYIIBcAIBD33QA33tAwIBDocBkwGHAaUBAgELjQEbjQHqAwIBB40B+gKNAYcDAgEJjQGKAY0B7wICAQg=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFdvcmtmbG93Q2hlY2tzLnhhbWwrWAO4AQ4CAQFdBWQOAgE8ZQVsDgIBOG0FtgESAgECYjJifQIBP18zX0UCAT1qL2owAgE7ZzBnQQIBOW3/AW2TAgIBNnMLswEWAgEDeQ15qQECATF6DYABJQIBKYEBDbIBHQIBBHlleXUCATR5Jnk6AgEyfVN9XAIBL35kfnYCAS18UHxiAgErerMBesoBAgEqgQGhAYEBuQECASeHAROvAR4CAQWMARWRAS0CASKSARWSAfwCAgEgkwEVnAEtAgESnQEVpgElAgELpwEVrgEeAgEGjgFfjgF6AgEmjwF2jwGGAQIBJIwBuQKMAdUCAgEjkgGYAZIB+QICASGXAXSXAYQBAgEelQFZlQFiAgEclgFqlgF8AgEamgFXmgFnAgEYmQFYmQFmAgEWmAFgmAFwAgEUkwHQA5MB7QMCAROdAZMBnQGlAQIBEKMBG6MB6gMCAQysAT+sAVQCAQmpAUCpAVECAQejAfoCowGHAwIBDqMBigGjAe8CAgEN</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="404,60" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="404,60" />
       <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="366,59" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="366,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,129">
@@ -185,7 +217,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="336,907">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="336,1007">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -193,7 +226,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="366,1097">
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="366,1197">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -202,7 +235,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="388,1447">
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="388,1547">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -210,14 +243,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="404,1608">
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="404,1708">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="426,1774">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="426,2074">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -225,7 +258,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,1854" />
+      <sap2010:ViewStateData Id="WorkflowChecks_1" sap:VirtualizedContainerService.HintSize="466,2154" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
