@@ -2,6 +2,7 @@
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
@@ -85,14 +86,13 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="ProgressCounter" />
     </Sequence.Variables>
-    <Assign DisplayName="Assign ProgressCounter (initialize)">
+    <Assign DisplayName="Assign ProgressCounter (initialize)" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[ProgressCounter]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:Int32">1</InArgument>
       </Assign.Value>
-      <sap2010:WorkflowViewState.IdRef>Assign_2</sap2010:WorkflowViewState.IdRef>
     </Assign>
     <ui:ForEachRow DataTable="[in_ProjectChecklist]" DisplayName="For each project check" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
       <ui:ForEachRow.Body>
@@ -102,23 +102,41 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Name="ProjectIssues" />
-              <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="CheckArguments" />
+              <Variable x:TypeArguments="sd:DataTable" Default="[New DataTable]" Name="ProjectIssues" />
             </Sequence.Variables>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Converts the JSON representation of arguments into a dictionary for easier manipulation." DisplayName="Parse Arguments" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\ParseArguments.xaml">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_ArgumentsJSONString">[ProjectCheck(2).ToString]</InArgument>
-                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_CheckArguments">[CheckArguments]</OutArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
-            <ui:LogMessage DisplayName="Log message (check)" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[String.Format(&quot;Project check {0} of {1}: {2}.&quot;, ProgressCounter.ToString, in_ProjectChecklist.Rows.Count.ToString, ProjectCheck(0))]" />
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic path that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Project Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="[ProjectCheck(1).ToString]">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_CheckArguments">[CheckArguments]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
-                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ProjectIssues">[ProjectIssues]</OutArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
+            <TryCatch sap2010:Annotation.AnnotationText="Catches exceptions thrown by a check so that it doesn't interfer with other checks." DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+              <TryCatch.Try>
+                <Sequence DisplayName="Parse arguments and perform check" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="CheckArguments" />
+                  </Sequence.Variables>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Converts the JSON representation of arguments into a dictionary for easier manipulation." DisplayName="Parse Arguments" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\ParseArguments.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ArgumentsJSONString">[ProjectCheck(2).ToString]</InArgument>
+                      <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_CheckArguments">[CheckArguments]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <ui:LogMessage DisplayName="Log message (check)" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[String.Format(&quot;Project check {0} of {1}: {2}.&quot;, ProgressCounter.ToString, in_ProjectChecklist.Rows.Count.ToString, ProjectCheck(0))]" />
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invokes a check workflow using a dynamic path that is obtained from the list of checks.&#xA;The expression uses the index instead of the name of the column for easier localization.&#xA;The column index 1 corresponds to the check filename." DisplayName="Project Check" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="[ProjectCheck(1).ToString]">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_CheckArguments">[CheckArguments]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ProjectPath">[in_ProjectPath]</InArgument>
+                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ProjectIssues">[ProjectIssues]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="Exception" />
+                    </ActivityAction.Argument>
+                    <ui:LogMessage DisplayName="Log message (check failed)" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[String.Format(&quot;Failed to execute check {0}: {1} on {2}&quot;, ProjectCheck(0), Exception.Message, Exception.Source)]" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
             <ui:ForEachRow sap2010:Annotation.AnnotationText="Add a particular project's issues to the overall issues table." DataTable="[ProjectIssues]" DisplayName="For each project issue found" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
@@ -141,49 +159,72 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xNYXRldXMgQ3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbBpUA5EBDgIBAVgFYA4CASFhBY8BFQIBAl0vXTACASRaMFpBAgEiYR5hNQIBH2cLjAEWAgEDbA1xJQIBGnINcpcCAgEYcw15JQIBEHoNgwEdAgEJhAENiwEWAgEEblducQIBHm9ub34CARxssQJszQICARtygwFylAICARl1bHV8AgEWd1d3ZgIBFHZPdl8CARJzxQNz4QMCARF6iQF6mgECAQ6AAROAAb4DAgEKiQE3iQFMAgEHhgE4hgFJAgEFgAHHAoAB1AICAQyAAYkBgAG8AgIBCw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDb3JlXFByb2plY3RDaGVja3MueGFtbB9VA6MBDgIBAVkFYA4CASZhBaEBFQIBAl4vXjACASlbMFtBAgEnYR5hNQIBJGcLngEWAgEDaUBpUQIBBGsNiwEYAgERjAENlQEdAgEKlgENnQEWAgEFbRF/HAIBFIcBFYcBkQICARKMAYkBjAGaAQIBD5IBE5IBvgMCAQubATebAUwCAQiYATiYAUkCAQZxE3YrAgEfdxN3nQICAR14E34rAgEVhwGSAYcBjgICAROSAccCkgHUAgIBDZIBiQGSAbwCAgEMc11zdwIBI3R0dIQBAgEhcbcCcdMCAgEgd4kBd5oCAgEeenJ6ggECARt8XXxsAgEZe1V7ZQIBF3jLA3jnAwIBFg==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="366,60" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="314,129">
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="470,60.6666666666667" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="314,132">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,189">
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,94.6666666666667" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,198.666666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="200,64">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_4" sap:VirtualizedContainerService.HintSize="314,254">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,60" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,1007">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,629.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_3" sap:VirtualizedContainerService.HintSize="366,1155">
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,94.6666666666667" />
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="400,165.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,1054.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="200,67.3333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_4" sap:VirtualizedContainerService.HintSize="418,263.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="418,60.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="440,1582.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_3" sap:VirtualizedContainerService.HintSize="470,1733.33333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -191,7 +232,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="388,1421">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="492,1986.66666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -199,7 +240,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="428,1501" />
+      <sap2010:ViewStateData Id="ProjectChecks_1" sap:VirtualizedContainerService.HintSize="532,2146.66666666667" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
