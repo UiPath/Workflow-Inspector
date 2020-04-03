@@ -126,12 +126,12 @@
         </Assign>
       </If.Else>
     </If>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign).&#xD;&#xA;&#xD;&#xA;Skips the following nodes:&#xD;&#xA;- FlowStep nodes, since they aren't explicitly shown in UiPath Studio.&#xA;- Catch blocks and AssignOperation nodes, since they don't have a DisplayName attribute. Note that not all nodes without DisplayName should be skipped because some of them can have DisplayName added by UiPath Studio when the activity is modified (e.g., Assign activity).&#xA;- Sequence activities are not considered due to the fact that error messages are thrown by activities inside sequences, not by sequences themselves, so it is not a problem if their names are repeated (like it happens when they are named Body or Do)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all activities that have the sap2010:WorkflowViewState.IdRef attribute.&#xA;Although names of activities shown in Studio are usually specified by the DisplayName attribute, some activities don't have this attribute by default (e.g., Assign).&#xA;&#xA;Skips the following nodes:&#xA;- FlowStep nodes, since they aren't explicitly shown in UiPath Studio.&#xA;- Catch blocks and AssignOperation nodes, since they don't have a DisplayName attribute. Note that not all nodes without DisplayName should be skipped because some of them can have DisplayName added by UiPath Studio when the activity is modified (e.g., Assign activity).&#xA;- Sequence activities are not considered due to the fact that error messages are thrown by activities inside sequences, not by sequences themselves, so it is not a problem if their names are repeated (like it happens when they are named Body or Do)." DisplayName="Assign XPathExpression" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[XPathExpression]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">["//*[@sap2010:WorkflowViewState.IdRef and not(local-name()='FlowStep') and not(local-name()='Catch') and not(local-name()='AssignOperation') and not(local-name()='Sequence') ]"]</InArgument>
+        <InArgument x:TypeArguments="x:String">["//*[@sap2010:WorkflowViewState.IdRef and not(local-name()='FlowStep') and not(local-name()='Catch') and not(local-name()='AssignOperation') and not(local-name()='Sequence') and not(local-name()='Property')]"]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each node representing an activity" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_XMLTree.DocumentElement.SelectNodes(XPathExpression, in_NamespaceManager)]">
@@ -242,7 +242,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRBY3Rpdml0eU5hbWUueGFtbDhkA/YBDgIBAWhaaIkBAgECagVqtQsCAUVrBYABCgIBOoEBBYgBDgIBNokBBbsBEgIBILwBBfQBEgIBA2rBAWrXAQIBRmsTa0sCATttCXQSAgFBdwl+EgIBPYYBMIYB4gECATmDATGDAUICATeJAZgBiQHoAQIBNY8BC7gBFgIBIbwBrAG8AcgBAgEfwgEL8QEQAgEEcjNyZAIBRG80b0kCAUJ8M3w0AgFAeTR5SQIBPpMBDagBEgIBK6kBDbcBEgIBIsIBGcIBWAIBBcQBD+8BHAIBBpMBigGTAckBAgEslQERnAEaAgExnwERpgEaAgEtqQFjqQGYAQIBI6sBEasBgQICASeuARG1ARoCASTEAawBxAHMAQIBHsoBFewBIAIBB5oBQ5oBWwIBNJcBRJcBUQIBMqQBQ6QBcQIBMKEBRKEBUQIBLqsBSqsBcwIBKqsB7gGrAf4BAgEoswFIswFyAgEmsAFJsAFwAgElzwEX1AEvAgEY1QEX6gEcAgEO6wEX6wHhAQIBCNIBXNIBagIBHNEBXNEBeQIBGs8BzALPAekCAgEZ1QGAAdUBzgECAQ/XARveASQCARThARvoASQCARDrAWvrAYEBAgEM6wFC6wFgAgEJ3AFG3AFtAgEX2QFH2QFTAgEV5gFG5gGDAQIBE+MBR+MBUwIBEQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2JDOlxVc2Vyc1xtYXRldXMuY3J1elxEb2N1bWVudHNcR2l0SHViXFdvcmtmbG93LUluc3BlY3RvclxDaGVja3NcU3RhbmRhcmRcUmVwZWF0ZWRBY3Rpdml0eU5hbWUueGFtbDhkA/YBDgIBAWhaaIkBAgECagVqtQsCAUVrBYABCgIBOoEBBYgBDgIBNokBBbsBEgIBILwBBfQBEgIBA2rBAWrXAQIBRmsTa0sCATttCXQSAgFBdwl+EgIBPYYBMIYBggICATmDATGDAUICATeJAZgBiQHoAQIBNY8BC7gBFgIBIbwBrAG8AcgBAgEfwgEL8QEQAgEEcjNyZAIBRG80b0kCAUJ8M3w0AgFAeTR5SQIBPpMBDagBEgIBK6kBDbcBEgIBIsIBGcIBWAIBBcQBD+8BHAIBBpMBigGTAckBAgEslQERnAEaAgExnwERpgEaAgEtqQFjqQGYAQIBI6sBEasBgQICASeuARG1ARoCASTEAawBxAHMAQIBHsoBFewBIAIBB5oBQ5oBWwIBNJcBRJcBUQIBMqQBQ6QBcQIBMKEBRKEBUQIBLqsBSqsBcwIBKqsB7gGrAf4BAgEoswFIswFyAgEmsAFJsAFwAgElzwEX1AEvAgEY1QEX6gEcAgEO6wEX6wHhAQIBCNIBXNIBagIBHNEBXNEBeQIBGs8BzALPAekCAgEZ1QGAAdUBzgECAQ/XARveASQCARThARvoASQCARDrAWvrAYEBAgEM6wFC6wFgAgEJ3AFG3AFtAgEX2QFH2QFTAgEV5gFG5gGDAQIBE+MBR+MBUwIBEQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -367,7 +367,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="608.666666666667,3552" />
+      <sap2010:ViewStateData Id="CheckMissingScreenshots_1" sap:VirtualizedContainerService.HintSize="608.666666666667,3032" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
