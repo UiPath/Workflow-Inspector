@@ -1,15 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UnusedVariables_IsVariableUsedInContainer"
- xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
- xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
- xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
- xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
- xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
- xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
- xmlns:ui="http://schemas.uipath.com/workflow/activities"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="UnusedVariables_IsVariableUsedInContainer" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Name of variable to be checked." Name="in_VariableName" Type="InArgument(x:String)" />
     <x:Property sap2010:Annotation.AnnotationText="Node which contains the specified variable." Name="in_ContainerNode" Type="InArgument(sx:XmlNode)" />
@@ -18,9 +7,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>868.666666666667,2746.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>UnusedVariables_IsVariableUsedInContainer_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="x:String">
+    <scg:List x:TypeArguments="x:String" Capacity="23">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -43,10 +33,11 @@
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
       <x:String>System.Xml.XPath</x:String>
-    </sco:Collection>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <sco:Collection x:TypeArguments="AssemblyReference">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="21">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -56,8 +47,6 @@
       <AssemblyReference>System.Core</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>UiPath.Core</AssemblyReference>
-      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
       <AssemblyReference>PresentationFramework</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
@@ -67,83 +56,183 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
-    </sco:Collection>
+    </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Verifies whether a variable is used in a container (i.e., sequence, flowchart or state machine).&#xA;Variables can be used in activity nodes in two cases:&#xA;- As text value of a node, as it happens in the Assign activity. In this case, it is also necessary to check whether the variable is used in a string (e.g., &quot;The value of 'Name' is: &quot;).&#xA;- As attribute of a node, as it happens in the Type Into activity." DisplayName="Is Variable Used In Container" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="Verifies whether a variable is used in a container (i.e., sequence, flowchart or state machine).&#xA;Variables can be used in activity nodes in two cases:&#xA;- As text value of a node, as it happens in the Assign activity. In this case, it is also necessary to check whether the variable is used in a string (e.g., &quot;The value of 'Name' is: &quot;).&#xA;- As attribute of a node, as it happens in the Type Into activity." DisplayName="Is Variable Used In Container" sap:VirtualizedContainerService.HintSize="878.666666666667,2682" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="sx:XmlNodeList" Name="NodesWithTextValue" />
     </Sequence.Variables>
-    <Assign sap2010:Annotation.AnnotationText="Initially assumes that the variable is not used in the container." DisplayName="Assign out_VariableUsed (initialization)" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap2010:Annotation.AnnotationText="Initially assumes that the variable is not used in the container." DisplayName="Assign out_VariableUsed (initialization)" sap:VirtualizedContainerService.HintSize="836.666666666667,107.333333333333" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Boolean">[out_VariableUsed]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:Boolean">False</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes in the container that have the variable name in their values, except Reference and DebugSymbol.Symbol, since they cannot use variables." DisplayName="Assign NodesWithValue" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="Retrieves all nodes in the container that have the variable name in their values, except Reference and DebugSymbol.Symbol, since they cannot use variables." DisplayName="Assign NodesWithValue" sap:VirtualizedContainerService.HintSize="836.666666666667,157.333333333333" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="sx:XmlNodeList">[NodesWithTextValue]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="sx:XmlNodeList">[in_ContainerNode.SelectNodes(".//*[text()[contains(., '"+in_VariableName+"')] and not(local-name()='Reference') and not(local-name()='DebugSymbol.Symbol')]")]</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="Looks for variable usage in text values." DisplayName="For each node with text value" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[NodesWithTextValue]">
+    <ui:ForEach x:TypeArguments="sx:XmlNode" sap2010:Annotation.AnnotationText="Looks for variable usage in text values." DisplayName="For each node with text value" sap:VirtualizedContainerService.HintSize="836.666666666667,632.666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[NodesWithTextValue]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sx:XmlNode">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="NodeWithTextValue" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_10">
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Is Variable Used In String Value (text value)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="526,463.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Is Variable Used In String Value (text value)" sap:VirtualizedContainerService.HintSize="484,86.6666666666667" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[in_VariableName]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="in_StringValue">[NodeWithTextValue.InnerText]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableUsed">[out_VariableUsed]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <If sap2010:Annotation.AnnotationText="Interrupts the loop if an usage of the variable is found." Condition="[out_VariableUsed]" DisplayName="If variable is used in text value" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="Interrupts the loop if an usage of the variable is found." Condition="[out_VariableUsed]" DisplayName="If variable is used in text value" sap:VirtualizedContainerService.HintSize="484,244.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <ui:Break DisplayName="Break search for variable usage in text values" sap2010:WorkflowViewState.IdRef="Break_1" />
+                <ui:Break DisplayName="Break search for variable usage in text values" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Break_1" />
               </If.Then>
             </If>
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <If sap2010:Annotation.AnnotationText="Looks for variable usage in attributes." Condition="[Not out_VariableUsed]" DisplayName="If variable usage was not found in text values" sap2010:WorkflowViewState.IdRef="If_6">
+    <If sap2010:Annotation.AnnotationText="Looks for variable usage in attributes." Condition="[Not out_VariableUsed]" DisplayName="If variable usage was not found in text values" sap:VirtualizedContainerService.HintSize="836.666666666667,1477.33333333333" sap2010:WorkflowViewState.IdRef="If_6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_15">
+        <Sequence sap:VirtualizedContainerService.HintSize="690.666666666667,1292.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_15">
           <Sequence.Variables>
             <Variable x:TypeArguments="sx:XmlNodeList" Name="AttributeNodes" />
           </Sequence.Variables>
-          <Assign sap2010:Annotation.AnnotationText="Retrieves all attributes from nodes in container that have the name of the variable in their value." DisplayName="Assign NodesWithAttribute" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap2010:Annotation.AnnotationText="Retrieves all attributes from nodes in container that have the name of the variable in their value." DisplayName="Assign NodesWithAttribute" sap:VirtualizedContainerService.HintSize="648.666666666667,124" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="sx:XmlNodeList">[AttributeNodes]</OutArgument>
             </Assign.To>
             <Assign.Value>
               <InArgument x:TypeArguments="sx:XmlNodeList">[in_ContainerNode.SelectNodes(".//@*[contains(., '"+in_VariableName+"') and not(name()='DisplayName') and not(name()='sap2010:Annotation.AnnotationText') and not(name()='x:TypeArguments') and not(name()='sap2010:WorkflowViewState.IdRef')]")]</InArgument>
             </Assign.Value>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
           </Assign>
-          <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each attribute" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[AttributeNodes]">
+          <ui:ForEach x:TypeArguments="sx:XmlNode" DisplayName="For each attribute" sap:VirtualizedContainerService.HintSize="648.666666666667,1036.66666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[AttributeNodes]">
             <ui:ForEach.Body>
               <ActivityAction x:TypeArguments="sx:XmlNode">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="sx:XmlNode" Name="Attribute" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_14">
-                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Is Variable Used In String Value (attribute value)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="612,898" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="TemporaryAttributeValue" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If sap2010:Annotation.AnnotationText="From UiPath Studio 2020.4, there are changes in the way the Invoke Workflow File activity is represented in the XAML file: Instead of having variables used in arguments as text values of InArgument/OutArgument/InOutArgument nodes, variables are written as values of ExpressionText attributes of mva:VisualBasicValue nodes, which are children of InArgument/OutArgument/InOutArgument nodes.&#xD;&#xA;In addition, expressions in ExpressionText attributes are not enclosed in squared brackets, as it happens with expressions in other attributes.&#xD;&#xA;In order not to break the compatibility of the &quot;IsVariableUsedInStringValue.xaml&quot; workflow, a special handling of ExpressionText attributes is done in this workflow by enclosing their values in squared brackets before passing them to the &quot;IsVariableUsedInStringValue.xaml&quot; workflow." Condition="[Attribute.Name = &quot;ExpressionText&quot;]" DisplayName="If ExpressionText attribute" sap:VirtualizedContainerService.HintSize="570,394.666666666667" sap2010:WorkflowViewState.IdRef="If_7">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Assign DisplayName="Assign Attribute.Value (ExpressionText attribute)" sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TemporaryAttributeValue]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[String.Format("[{0}]", Attribute.Value)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Assign DisplayName="Assign Attribute.Value (Not ExpressionText attribute)" sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_7">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[TemporaryAttributeValue]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[Attribute.Value]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Else>
+                  </If>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Is Variable Used In String Value (attribute value)" sap:VirtualizedContainerService.HintSize="570,86.6666666666667" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Common\IsVariableUsedInStringValue.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">[in_VariableName]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_StringValue">[Attribute.Value]</InArgument>
-                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableUsed">[out_VariableUsed]</OutArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_VariableName">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_VariableName" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_StringValue">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="TemporaryAttributeValue" />
+                      </InArgument>
+                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_VariableUsed">
+                        <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="out_VariableUsed" />
+                      </OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <If sap2010:Annotation.AnnotationText="Interrupts the loop if an usage of the variable is found." Condition="[out_VariableUsed]" DisplayName="If variable is used in an attribute" sap2010:WorkflowViewState.IdRef="If_5">
+                  <If sap2010:Annotation.AnnotationText="Interrupts the loop if an usage of the variable is found." Condition="[out_VariableUsed]" DisplayName="If variable is used in an attribute" sap:VirtualizedContainerService.HintSize="570,244.666666666667" sap2010:WorkflowViewState.IdRef="If_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <ui:Break DisplayName="Break search for variable usage in attributes" sap2010:WorkflowViewState.IdRef="Break_4" />
+                      <ui:Break DisplayName="Break search for variable usage in attributes" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Break_4" />
                     </If.Then>
                   </If>
                 </Sequence>
@@ -153,100 +242,5 @@
         </Sequence>
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d4cBQzpcVXNlcnNcbWF0ZXVzLmNydXpcRG9jdW1lbnRzXEdpdEh1YlxXb3JrZmxvdy1JbnNwZWN0b3JcQ2hlY2tzXFN0YW5kYXJkXFVudXNlZFZhcmlhYmxlc1xVbnVzZWRWYXJpYWJsZXNfSXNWYXJpYWJsZVVzZWRJbkNvbnRhaW5lci54YW1sI0kDnQEOAgEBTQVUDgIBLlUFXA4CAShdBXMSAgEadAWbAQoCAQJSMVI2AgExTzJPRAIBL1o2WtUBAgErVzdXSwIBKV3cAV3yAQIBJ2MLcBYCARt0X3R3AgEDdgmZARQCAQVkDWolAgEgaw1vEgIBHHoLgQEUAgEUggELmAEYAgEGaFNoZQIBJWdPZ2wCASRmUGZhAgEiZNIBZPsBAgEha3lrjQECAR1tEW2EAQIBH388f60CAgEXfD18TQIBFYIBigGCAZwBAgETiAERlQEcAgEHiQETjwErAgEMkAETlAEYAgEIjQFZjQFrAgERjAFVjAFmAgEQiwFWiwFnAgEOiQHdAYkBhgICAQ2QAX+QAZMBAgEJkgEXkgGJAQIBCw==</sads:DebugSymbol.Symbol>
   </Sequence>
-  <sap2010:WorkflowViewState.ViewStateManager>
-    <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="649.333333333333,106">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="649.333333333333,156">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="464,86.6666666666667" />
-      <sap2010:ViewStateData Id="Break_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,240.666666666667">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="486,491.333333333333">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="649.333333333333,656.666666666667">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="502,122.666666666667">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="464,86.6666666666667" />
-      <sap2010:ViewStateData Id="Break_4" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="464,240.666666666667">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="486,491.333333333333">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_8" sap:VirtualizedContainerService.HintSize="502,628" />
-      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="524,914.666666666667">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_6" sap:VirtualizedContainerService.HintSize="649.333333333333,1095.33333333333">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="671.333333333333,2353.33333333333">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="UnusedVariables_IsVariableUsedInContainer_1" sap:VirtualizedContainerService.HintSize="711.333333333333,2673.33333333333" />
-    </sap2010:ViewStateManager>
-  </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
